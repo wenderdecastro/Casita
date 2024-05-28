@@ -71,7 +71,7 @@ export default function AppInput({
                 onChangeText={handleInputChange}
                 value={textValue}
                 secureTextEntry={newIsObscure}
-                keyboardType={keyboardType}wq
+                keyboardType={keyboardType}
             />
             <BoxShadow isTextArea={isTextArea} />
             <IconBox  label={label}>
