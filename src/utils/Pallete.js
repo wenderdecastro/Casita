@@ -1,4 +1,4 @@
-export const Colors = {
+export const AppColors = {
     //Primary colors
 	yellow: '#F8E32B',
 	green: '#2FC82D',
@@ -7,6 +7,8 @@ export const Colors = {
 
     //Secondary colors
     secondary: '#FFFDDA',
+	altBlack: '#25244B',
+	altGray: '#5A597B',
 
     //Neutral colors
 	black: '#000000',
