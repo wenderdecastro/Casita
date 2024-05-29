@@ -1,26 +1,9 @@
 import React from 'react'
 import styled from 'styled-components/native'
 import { AppColors } from '../utils/Pallete'
-import { H1, H2, H3 } from './AppFonts'
+import { H3 } from './AppFonts'
 import { ActivityIndicator } from 'react-native'
 
-
-
-export const LinkTouchableOpacity = styled.TouchableOpacity`
-        align-self: ${({ alignSelf = 'auto' }) => alignSelf};
-        justify-self: ${({ justifySelf = 'auto' }) => justifySelf};;
-`
-
-export function LinkButton({ text, color, size, alignSelf, onTap, textDecoration, justifySelf }) {
-    return (
-        <LinkTouchableOpacity onPress={onTap} alignSelf={alignSelf} justifySelf={justifySelf}>
-            <Link color={color} size={size} textDecoration={textDecoration} >
-                {text}
-            </Link>
-        </LinkTouchableOpacity>
-
-    );
-}
 
 export const Button = styled.TouchableOpacity`
     width: 100%;
@@ -43,8 +26,8 @@ const BoxShadow = styled.View`
     height: 40px;
     border-radius: 9999px;
     position: absolute;
-    bottom: -4px;
-    left: 1.25%;
+    bottom: -2px;
+    left: 1%;
 `
 
 const ButtonBox = styled.View`
@@ -52,10 +35,10 @@ const ButtonBox = styled.View`
 `
 
 export default function AppButton({
-    textButton,
+    label,
     isDisabled = false,
     isLoading = false,
-    SvgIcon,
+    AppSvgIcon,
     onTap,
     flex,
     mainColor = AppColors.yellow,
@@ -74,10 +57,10 @@ export default function AppButton({
             {isLoading ? <ActivityIndicator color={isOutlined ? AppColors.secondary : AppColors.white} /> :
 
                 <>
-                    {SvgIcon ? SvgIcon : null}
+                    {AppSvgIcon ? AppSvgIcon : null}
                     <H3
                         color={mainTextColor}
-                    >{textButton}</H3>
+                    >{label}</H3>
                 </>
 
             }

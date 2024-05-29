@@ -1,10 +1,11 @@
-import { View, Text } from 'react-native'
+import { Text } from 'react-native'
 import React from 'react'
+import { AppContainer } from '../../../components/AppContainers'
 
 export default function FinancialScreen() {
   return (
-    <View>
+    <AppContainer>
       <Text>FinancialScreen</Text>
-    </View>
+    </AppContainer>
   )
 }

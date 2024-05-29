@@ -1,10 +1,11 @@
 import { View, Text } from 'react-native'
 import React from 'react'
+import { AppContainer } from '../../../components/AppContainers'
 
 export default function ManagementScreen() {
   return (
-    <View>
-      <Text>index</Text>
-    </View>
+    <AppContainer>
+      <Text>ManagementScreen</Text>
+    </AppContainer>
   )
 }

@@ -32,7 +32,7 @@ const IconFamily = {
     zocial: Zocial
 };
 
-export const IconName = {
+export const AppIconName = {
     default : {
         name: 'disabled-by-default',
         family: IconFamily.materialIcons
@@ -44,12 +44,24 @@ export const IconName = {
     eyeOff: {
         name: 'eye-off',
         family: IconFamily.ionIcons
+    },
+    home: {
+        name: "home",
+        family: IconFamily.fontAwesome
+    },
+    checkTask : {
+        name: "checkbox",
+        family: IconFamily.foundation
+    },
+    financialGraph: {
+        name: "bar-graph",
+        family: IconFamily.entypo,
     }
 };
 
 
 
-export default function SvgIcon({ name = IconName.default, size = 24, color = "black" }) {
+export default function AppSvgIcon({ name = AppIconName.default, size = 24, color = "black" }) {
 
     const iconName = name.name;
     const IconComponent = name.family;

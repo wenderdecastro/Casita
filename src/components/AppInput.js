@@ -2,12 +2,12 @@ import React, { useState } from 'react'
 import styled from 'styled-components/native'
 import { FontFamily, H2 } from './AppFonts'
 import { AppColors } from '../utils/Pallete'
-import SvgIcon, { IconName } from '../../assets/Icons'
+import AppSvgIcon, { AppIconName } from '../../assets/Icons'
 import { Gap } from './AppSpecialComponents'
 import { TouchableOpacity } from 'react-native'
 import { KeyboardType } from '../utils/AppEnums'
 
-export const Input = styled.TextInput`
+const Input = styled.TextInput`
     height: ${({ isTextArea = false }) => isTextArea ? '120px' : '60px'};
     z-index: 9999;
     border-radius: 5px;
@@ -77,7 +77,7 @@ export default function AppInput({
             <IconBox  label={label}>
                 {isObscureText ?
                     <TouchableOpacity onPress={() => { setNewIsObscure(!newIsObscure) }}>
-                        <SvgIcon name={newIsObscure ? IconName.eye : IconName.eyeOff} color={AppColors.black} />
+                        <AppSvgIcon name={newIsObscure ? AppIconName.eye : AppIconName.eyeOff} color={AppColors.black} />
                     </TouchableOpacity> :
                     SuffixIcon ? SuffixIcon :
                         <Gap />}

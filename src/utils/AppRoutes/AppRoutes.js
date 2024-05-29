@@ -1,8 +1,8 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { AppRoutesKeys } from "./AppRoutesUtils";
-import Navigation from "../screens/Authentication/LandingPage";
-import LoginScreen from "../screens/Authentication/LoginPage";
-import AppTabNavigator from "../components/AppTabNavigator";
+import Navigation from "../../screens/Authentication/LandingPage";
+import LoginScreen from "../../screens/Authentication/LoginPage";
+import AppTabNavigator from "../../components/AppTabNavigator";
 
 const { createNativeStackNavigator } = require("@react-navigation/native-stack");
 
