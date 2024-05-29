@@ -15,23 +15,23 @@ import { AppAssets } from '../../assets/AppAssets';
 const Tab = createBottomTabNavigator();
 
 export const IconButton = styled.View`
-    background-color: ${({ isSelected }) => isSelected ? AppColors.green : AppColors.transparent};
-    padding: 9px 9px 9px 8px;
+    background-color: ${({ isSelected, color }) => isSelected ? color : AppColors.transparent};
+    padding: ${({ isSelected }) => isSelected ? '9px' : '0px'};
     border-radius: 9999px;
     border-color: ${({ isSelected }) => isSelected ? AppColors.black : AppColors.transparent};
     border-width: ${({ isSelected }) => isSelected ? '2.5px' : '0px'};
     align-items: center;
     justify-content: center;
     flex-direction: row;
-    gap: 5px;
+    gap: 3px;
 `
 
 const ProfileImage = styled.Image`
     width: 41px;
     height: 41px;
     border-radius: 9999px;
-    border-color: ${AppColors.altBlack};
-    border-width: 2px;
+    border-color: ${({ isSelected }) => isSelected ? AppColors.blue : AppColors.black};
+    border-width: ${({ isSelected }) => isSelected ? '3px': '2px'};
 `
 
 export default function AppTabNavigator() {
@@ -54,8 +54,8 @@ export default function AppTabNavigator() {
           borderLeftWidth: 2.5,
           borderBottomWidth: 4.5,
           marginBottom: 25,
-          marginStart: 15,
-          marginEnd: 15,
+          marginStart: 10,
+          marginEnd: 10,
           elevation: 0,
           backgroundColor: AppColors.white,
           position: 'absolute',
@@ -66,26 +66,26 @@ export default function AppTabNavigator() {
         tabBarShowLabel: false,
         tabBarActiveTintColor : "transparent",
         tabBarIcon: ({ focused, color, size }) => {
-
+  
 
           if (route.name == AppRoutesKeys.homeScreen) {
-            return <IconButton isSelected={focused}>
+            return <IconButton isSelected={focused} color={AppColors.red}>
               <AppSvgIcon name={AppIconName.home} />
               {focused ? <BodyMedium color={AppColors.black}>Casa</BodyMedium> : null}
             </IconButton>
           } else if (route.name == AppRoutesKeys.managementScreen) {
-            return <IconButton isSelected={focused}>
+            return <IconButton isSelected={focused} color={AppColors.yellow}>
 
-              <AppSvgIcon name={AppIconName.checkTask} />
+              <AppSvgIcon name={AppIconName.checkTask} color={AppColors.black} />
               {focused ? <BodyMedium color={AppColors.black}>Gestão</BodyMedium> : null}
             </IconButton>
           } else if (route.name == AppRoutesKeys.financialScreen) {
-            return <IconButton isSelected={focused}>
+            return <IconButton isSelected={focused} color={AppColors.green}>
               <AppSvgIcon name={AppIconName.financialGraph} size={16} />
-              {focused ? <BodyMedium color={AppColors.black} size={12}>Financeiro</BodyMedium> :null}
+              {focused ? <BodyMedium color={AppColors.black}>Finanças</BodyMedium> :null}
             </IconButton>
           } else {
-            return <ProfileImage source={AppAssets.placeholder}/>
+            return <ProfileImage isSelected={focused} source={AppAssets.placeholder}/>
           }
 
         }

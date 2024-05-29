@@ -1,11 +1,12 @@
-import { View, Text } from 'react-native'
 import React from 'react'
 import { AppContainer } from '../../../components/AppContainers'
+import { H1 } from '../../../components/AppFonts'
 
 export default function HomeScreen() {
+
   return (
     <AppContainer>
-      <Text>HomeScreen</Text>
+        <H1>HomeScreen</H1>
     </AppContainer>
   )
 }

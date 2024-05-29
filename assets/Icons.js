@@ -56,6 +56,10 @@ export const AppIconName = {
     financialGraph: {
         name: "bar-graph",
         family: IconFamily.entypo,
+    },
+    arrowDown : {
+        name: 'keyboard-arrow-down',
+        family: IconFamily.materialIcons
     }
 };
 
