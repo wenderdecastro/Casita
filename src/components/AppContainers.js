@@ -10,7 +10,7 @@ padding: ${({
     paddingLeft = 20 }) => `${paddingTop}px ${paddingRight}px ${paddingBottom}px ${paddingLeft}px `};
 align-items: ${({ alignItems = Flex.center }) => alignItems};
 justify-content: ${({ justifyContent = Flex.center }) => justifyContent};
-background-color: ${AppColors.yellow};
+background-color: ${AppColors.red};
 flex: ${({ flex = 1 }) => flex};
 width: 100%;
 `

@@ -6,7 +6,7 @@ export const AppColors = {
 	blue: '#4862EA',
 
     //Secondary colors
-    secondary: '#FFFDDA',
+    secondary: '#FFFDDF',
 	altBlack: '#25244B',
 	altGray: '#5A597B',
 
