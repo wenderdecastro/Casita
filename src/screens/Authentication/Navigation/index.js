@@ -17,6 +17,14 @@ export default function Navigation({ navigation }) {
           navigation.dispatch(pushAction);
         }}
       />
+      <Gap height={30} />
+      <AppButton
+        label={'Landing Page'}
+        onTap={() => {
+          const pushAction = StackActions.push(AppRoutesKeys.landingPage);
+          navigation.dispatch(pushAction);
+        }}
+      />
     </AppContainer>
   )
 }

@@ -1,8 +1,9 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { AppRoutesKeys } from "./AppRoutesUtils";
-import Navigation from "../../screens/Authentication/LandingPage";
 import LoginScreen from "../../screens/Authentication/LoginPage";
 import AppTabNavigator from "../../components/AppTabNavigator";
+import Navigation from "../../screens/Authentication/Navigation";
+import LandingPage from "../../screens/Authentication/LandingPage";
 
 const { createNativeStackNavigator } = require("@react-navigation/native-stack");
 
@@ -11,7 +12,9 @@ const Stack = createNativeStackNavigator();
 export default function AppRoutes() {
     return (
         <NavigationContainer>
-            <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Navigator
+            initialRouteName={AppRoutesKeys.navigator}
+             screenOptions={{ headerShown: false }}>
             <Stack.Screen
                     name={AppRoutesKeys.navigator}
                     component={Navigation} />
@@ -21,6 +24,9 @@ export default function AppRoutes() {
                 <Stack.Screen
                     name={AppRoutesKeys.tabNavigator}
                     component={AppTabNavigator} />
+                <Stack.Screen
+                    name={AppRoutesKeys.landingPage}
+                    component={LandingPage} />
             </Stack.Navigator>
         </NavigationContainer>
     )

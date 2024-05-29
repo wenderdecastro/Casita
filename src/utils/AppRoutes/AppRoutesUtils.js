@@ -1,4 +1,5 @@
 export const AppRoutesKeys ={
+    landingPage: "landingPage",
     loginScreen : "loginScreen",
     tabNavigator: "tabNavigator",
     navigator: "navigator",
