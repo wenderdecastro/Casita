@@ -17,6 +17,14 @@ export default function Navigation({ navigation }) {
           navigation.dispatch(pushAction);
         }}
       />
+      <Gap height={30} />
+      <AppButton
+        label={'CADASTRO'}
+        onTap={() => {
+          const pushAction = StackActions.push(AppRoutesKeys.registerScreen);
+          navigation.dispatch(pushAction);
+        }}
+      />
     </AppContainer>
   )
 }
