@@ -49,7 +49,7 @@ export default function AppInput({
     textValue,
     SuffixIcon,
     keyboardType = KeyboardType.default,
-    backgroundColor = AppColors.secondary,
+    backgroundColor = AppColors.background,
     borderRadius = 0
 }) {
     const handleInputChange = (value) => {

@@ -4,6 +4,7 @@ export const AppColors = {
 	green: '#2FC82D',
 	red: '#EE3C3C',
 	blue: '#4862EA',
+	background: '#FCFCCA',
 
     //Secondary colors
     secondary: '#FFFDDF',

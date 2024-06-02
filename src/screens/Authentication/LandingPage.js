@@ -37,7 +37,7 @@ left: 10%;
 
 export default function LandingPage() {
   return (
-    <AppContainer backgroundColor={AppColors.secondary}>
+    <AppContainer backgroundColor={AppColors.background}>
       <AppLogo source={AppAssets.casitaLogo} />
       <DotPattern source={AppAssets.dotPattern} />
       <CurvedLine  source={AppAssets.curvedLine} />

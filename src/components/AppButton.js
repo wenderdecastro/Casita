@@ -54,7 +54,7 @@ export default function AppButton({
             isDisabled={isLoading || isDisabled}
             mainColor={mainColor}
         >
-            {isLoading ? <ActivityIndicator color={isOutlined ? AppColors.secondary : AppColors.white} /> :
+            {isLoading ? <ActivityIndicator color={AppColors.white} /> :
 
                 <>
                     {AppSvgIcon ? AppSvgIcon : null}
