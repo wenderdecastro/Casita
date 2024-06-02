@@ -4,6 +4,9 @@ import LoginScreen from "../../screens/Authentication/LoginPage";
 import AppTabNavigator from "../../components/AppTabNavigator";
 import Navigation from "../../screens/Authentication/Navigation";
 import LandingPage from "../../screens/Authentication/LandingPage";
+import RecoveryPasswordInsertEmailScreen from "../../screens/Authentication/RecoveryPasswordInsertEmailScreen";
+import RecoveryPasswordInsertCodeScreen from "../../screens/Authentication/RecoveryPasswordInsertCodeScreen";
+import RecoveryPasswordInsertNewPasswordScreen from "../../screens/Authentication/RecoveryPasswordInsertNewPasswordScreen";
 
 const { createNativeStackNavigator } = require("@react-navigation/native-stack");
 
@@ -27,6 +30,15 @@ export default function AppRoutes() {
                 <Stack.Screen
                     name={AppRoutesKeys.landingPage}
                     component={LandingPage} />
+                <Stack.Screen
+                    name={AppRoutesKeys.recoveryPasswordInsertEmailEscreen}
+                    component={RecoveryPasswordInsertEmailScreen} />
+                <Stack.Screen
+                    name={AppRoutesKeys.recoveryPasswordInsertCodeEscreen}
+                    component={RecoveryPasswordInsertCodeScreen} />
+                <Stack.Screen
+                    name={AppRoutesKeys.recoveryPasswordInsertNewPasswordEscreen}
+                    component={RecoveryPasswordInsertNewPasswordScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     )

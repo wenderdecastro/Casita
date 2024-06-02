@@ -2,7 +2,7 @@ import React from 'react'
 import { AppContainer } from '../../../components/AppContainers'
 import AppButton from '../../../components/AppButton'
 import { Gap } from '../../../components/AppSpecialComponents'
-import { AppRoutesKeys } from '../../../utils/AppRoutes/AppRoutesUtils'
+import { AppNavigation, AppRoutesKeys } from '../../../utils/AppRoutes/AppRoutesUtils'
 import { StackActions } from '@react-navigation/native'
 
 export default function Navigation({ navigation }) {
@@ -23,6 +23,13 @@ export default function Navigation({ navigation }) {
         onTap={() => {
           const pushAction = StackActions.push(AppRoutesKeys.landingPage);
           navigation.dispatch(pushAction);
+        }}
+      />
+      <Gap height={30} />
+      <AppButton
+        label={'Recuperar senha'}
+        onTap={() => {
+          AppNavigation.push(navigation, AppRoutesKeys.recoveryPasswordInsertEmailEscreen)
         }}
       />
     </AppContainer>
