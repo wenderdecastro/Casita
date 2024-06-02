@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components/native'
-import { FontFamily, H2 } from './AppFonts'
+import { BodyLarge, FontFamily, H2 } from './AppFonts'
 import { AppColors } from '../utils/Pallete'
 import AppSvgIcon, { AppIconName } from '../../assets/Icons'
 import { Gap } from './AppSpecialComponents'
@@ -8,36 +8,35 @@ import { TouchableOpacity } from 'react-native'
 import { KeyboardType } from '../utils/AppEnums'
 
 const Input = styled.TextInput`
-    height: ${({ isTextArea = false }) => isTextArea ? '120px' : '60px'};
+    height: ${({ isTextArea = false }) => isTextArea ? '80px' : '40px'};
     z-index: 9999;
-    border-radius: 5px;
-    border-width: 2px;
-    padding: 16px;
+    border-radius: ${({ borderRadius }) => `${borderRadius}px`};;
+    border-width: 1px;
+    padding: 8px;
     font-family: ${FontFamily.archivoBold};
     border-color: ${({ borderColor = AppColors.black }) => borderColor};
-    background-color: ${({ isEditable = true }) => isEditable ? AppColors.white : AppColors.gray20};
+    background-color: ${({ isEditable = true, backgroundColor }) => isEditable ? backgroundColor : AppColors.gray20};
 `
 
 const InputBox = styled.View`
     width: 100%;
-    gap: 5px;
 `
 
 const BoxShadow = styled.View`
     background-color: ${AppColors.black};
     width: 100%;
-    height: ${({ isTextArea = false }) => isTextArea ? '120px' : '60px'};
-    border-radius: 5px;
+    height: ${({ isTextArea = false }) => isTextArea ? '80px' : '40px'};
+    border-radius: ${({ borderRadius }) => `${borderRadius}px`};;
     position: absolute;
-    bottom: -4px;
-    left: 1.25%;
+    bottom: -2px;
+    left: 0.6%;
 `
 
 const IconBox = styled.View`
     position: absolute;
     z-index: 10000;
     right: 5%;
-    top: ${({ label }) => label ? '55%' : '30%'};
+    top: ${({ label }) => label ? '50%' : '25%'};
 `
 
 export default function AppInput({
@@ -49,7 +48,9 @@ export default function AppInput({
     onChangeText = null,
     textValue,
     SuffixIcon,
-    keyboardType = KeyboardType.default
+    keyboardType = KeyboardType.default,
+    backgroundColor = AppColors.secondary,
+    borderRadius = 0
 }) {
     const handleInputChange = (value) => {
         onChangeText === null ? null : onChangeText(value);
@@ -58,7 +59,7 @@ export default function AppInput({
     const [newIsObscure, setNewIsObscure] = useState(isObscureText)
     return (
         <InputBox>
-            {label ? (<H2 size={16}>{label}</H2>) : null}
+            {label ? (<BodyLarge color={AppColors.black}>{label}</BodyLarge>) : null}
 
             <Input
             placeholder={placeholder}
@@ -72,8 +73,10 @@ export default function AppInput({
                 value={textValue}
                 secureTextEntry={newIsObscure}
                 keyboardType={keyboardType}
+                borderRadius={borderRadius}
+                backgroundColor={backgroundColor}
             />
-            <BoxShadow isTextArea={isTextArea} />
+            <BoxShadow isTextArea={isTextArea} borderRadius={borderRadius} />
             <IconBox  label={label}>
                 {isObscureText ?
                     <TouchableOpacity onPress={() => { setNewIsObscure(!newIsObscure) }}>
