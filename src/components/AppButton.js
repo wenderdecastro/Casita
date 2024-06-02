@@ -11,7 +11,7 @@ export const Button = styled.TouchableOpacity`
     z-index: 9999;
     background-color: ${({ isOutlined = false, isDisabled = false, mainColor }) => isDisabled ? AppColors.gray20 : isOutlined ? AppColors.white : mainColor};
     border-color: ${AppColors.black};
-    border-width: 2px ;
+    border-width: 1px ;
     border-radius: 9999px;
     align-items: center;
     justify-content: center;
@@ -26,8 +26,8 @@ const BoxShadow = styled.View`
     height: 45px;
     border-radius: 9999px;
     position: absolute;
-    bottom: -2px;
-    left: 1%;
+    bottom: -3px;
+    left: 0.6%;
 `
 
 const ButtonBox = styled.View`

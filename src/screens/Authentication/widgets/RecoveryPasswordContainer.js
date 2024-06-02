@@ -6,10 +6,10 @@ import { AppColors } from '../../../utils/Pallete'
 
 const Container = styled.SafeAreaView`
 padding: ${({
-    paddingTop = 20,
-    paddingRight = 20,
-    paddingBottom = 20,
-    paddingLeft = 20 }) => `${paddingTop}px ${paddingRight}px ${paddingBottom}px ${paddingLeft}px `};
+    paddingTop = 16,
+    paddingRight = 40,
+    paddingBottom = 0,
+    paddingLeft = 40 }) => `${paddingTop}px ${paddingRight}px ${paddingBottom}px ${paddingLeft}px `};
 align-items: ${({ alignItems = Flex.center }) => alignItems};
 justify-content: ${({ justifyContent = Flex.center }) => justifyContent};
 background-color: ${AppColors.secondary};

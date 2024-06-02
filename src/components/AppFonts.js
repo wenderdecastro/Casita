@@ -19,7 +19,7 @@ text-align: ${({ textAlign = 'auto' }) => textAlign};
 export const TitleBlack = styled.Text`
 font-family: ${FontFamily.archivoBlack};
 font-size: ${({ size = 16 }) => `${size}px`};
-color: ${({ color = AppColors.altBlack }) => color};
+color: ${({ color = AppColors.black }) => color};
 text-align: ${({ textAlign = 'auto' }) => textAlign};
 `
 
