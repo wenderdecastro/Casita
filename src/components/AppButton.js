@@ -1,13 +1,13 @@
 import React from 'react'
 import styled from 'styled-components/native'
 import { AppColors } from '../utils/Pallete'
-import { H3 } from './AppFonts'
+import { H3, TitleBlack } from './AppFonts'
 import { ActivityIndicator } from 'react-native'
 
 
 export const Button = styled.TouchableOpacity`
     width: 100%;
-    height: 40px;
+    height: 45px;
     z-index: 9999;
     background-color: ${({ isOutlined = false, isDisabled = false, mainColor }) => isDisabled ? AppColors.gray20 : isOutlined ? AppColors.white : mainColor};
     border-color: ${AppColors.black};
@@ -23,7 +23,7 @@ export const Button = styled.TouchableOpacity`
 const BoxShadow = styled.View`
     background-color: ${AppColors.black};
     width: 100%;
-    height: 40px;
+    height: 45px;
     border-radius: 9999px;
     position: absolute;
     bottom: -2px;
@@ -58,9 +58,9 @@ export default function AppButton({
 
                 <>
                     {AppSvgIcon ? AppSvgIcon : null}
-                    <H3
+                    <TitleBlack
                         color={mainTextColor}
-                    >{label}</H3>
+                    >{label}</TitleBlack>
                 </>
 
             }
