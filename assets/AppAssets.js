@@ -12,5 +12,7 @@ export const AppAssets = {
     eightPointGreenStarSmall:require(`${imagePath}/eight_point_green_star_small.png`),
     dolarSignGreen:require(`${imagePath}/dolar_sign_green.png`),
     arrowLeft: require(`${imagePath}/arrow_left.png`), 
-    dotStar: require(`${imagePath}/dot_star.png`)
+    dotStar: require(`${imagePath}/dot_star.png`),
+    plusGreen: require(`${imagePath}/plus_green.png`),
+    percentage: require(`${imagePath}/percentage_brutalism.png`),
 }

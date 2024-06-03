@@ -1,29 +1,30 @@
 import React from 'react'
-import { PositionedImage, AppContainer, Row } from '../../components/AppContainers'
+import { PositionedImage, AppContainer, Row, Column } from '../../components/AppContainers'
 import { AppAssets } from '../../../assets/AppAssets'
 import { AppColors } from '../../utils/Pallete'
 import AppSquare from '../../components/AppNativeShapes/AppSquare'
 import LeadingButtonWidget from './widgets/LeadingButtonWidget'
 import { LeadingBox } from './widgets/RecoveryPasswordContainer'
-import { TitleBlack } from '../../components/AppFonts'
+import { TitleBlack, TitleExtraLarge, BodyLarge, DualTextWithShadow } from '../../components/AppFonts'
 import { BodyMedium } from '../../components/AppFonts'
 import { Gap } from '../../components/AppSpecialComponents'
 import AppInput from '../../components/AppInput'
 import AppButton from '../../components/AppButton'
 
+
 export default function RegisterFinanceDataScreen() {
   return (
     <AppContainer backgroundColor={AppColors.background}>
       <PositionedImage position={'absolute'} left={0} top={81} source={AppAssets.dolarSignGreen} />
-      <PositionedImage position={'absolute'} left={8} source={AppAssets.dotPattern} />
-      <PositionedImage position={'absolute'} left={80} top={88} source={AppAssets.dotStar} />
+      <PositionedImage position={'absolute'} left={80} top={90} source={AppAssets.plusGreen} />
+      <PositionedImage position={'absolute'} left={80} top={3} source={AppAssets.dotStar} />
       <AppSquare
         width={88}
-        height={150}
-        backgroundColor={AppColors.blue}
-        rotate={22}
-        top={-3}
-        left={65}
+        height={260}
+        backgroundColor={AppColors.green}
+        rotate={105}
+        top={-15}
+        left={5}
       />
       <LeadingBox>
         <LeadingButtonWidget />
@@ -31,10 +32,54 @@ export default function RegisterFinanceDataScreen() {
 
       <Row width={"100%"} alignItems={'center'} >
         <PositionedImage source={AppAssets.eightPointGreenStarSmall} />
-        <TitleBlack style={{marginLeft: 20}} size={36}>FINANÇAS</TitleBlack>
+        <TitleBlack style={{ marginLeft: 20 }} size={36}>FINANÇAS</TitleBlack>
+      </Row>
+      <Gap height={20} />
+      <BodyMedium color={AppColors.black} size={18}>Qual a sua renda mensal?</BodyMedium>
+      <Gap height={15} />
+      <AppInput keyboardType='numeric' placeholder={'R$0,00'} isTextArea />
+      <Gap height={40} />
+      <TitleBlack size={18} textAlign={'start'} style={{ width: '100%' }}>DIVIDA SUA RENDA</TitleBlack>
+      <Gap height={20} />
+      <Row alignItems={'center'} width={'100%'} justifyContent={'space-around'}>
+        <Column>
+          <TitleExtraLarge size={20} color={AppColors.green}>CONTAS</TitleExtraLarge>
+          <BodyLarge color={AppColors.black}>Cartões, dividas, etc.</BodyLarge>
+        </Column>
+        <AppInput
+          inputWidth={'120px'}
+          SuffixIcon={
+          <DualTextWithShadow
+            primaryText="%"
+            secondaryText="%"
+            primaryTextStyle={{ fontSize: 30, color: AppColors.green }}
+            secondaryTextStyle={{ fontSize: 32, color: AppColors.black }}
+          />}
+        />
+      </Row>
+      <Gap height={10} />
+      <Row alignItems={'center'} width={'100%'} justifyContent={'space-around'}>
+        <Column>
+          <TitleExtraLarge size={20} color={AppColors.green}>DESEJOS</TitleExtraLarge>
+          <BodyLarge color={AppColors.black}>Seus gastos pessoais.</BodyLarge>
+        </Column>
+        <AppInput
+          inputWidth={'120px'}
+        />
+      </Row>
+      <Gap height={10} />
+      <Row alignItems={'center'} width={'100%'} justifyContent={'space-around'}>
+        <Column>
+          <TitleExtraLarge size={20} color={AppColors.green}>ECONOMIAS</TitleExtraLarge>
+          <BodyLarge color={AppColors.black}>Quanto deseja guardar.</BodyLarge>
+        </Column>
+        <AppInput
+          inputWidth={'120px'}
+        />
       </Row>
 
-      <AppButton mainColor={AppColors.white} label={'CADASTRAR'}/>
+      <Gap height={40} />
+      <AppButton mainColor={AppColors.white} label={'CADASTRAR'} />
     </AppContainer>
   )
 }
