@@ -14,5 +14,4 @@ export const AppAssets = {
     dolarSignGreen:require(`${imagePath}/dolar_sign_green.png`),
     arrowLeft: require(`${imagePath}/arrow_left.png`), 
     dotStar: require(`${imagePath}/dot_star.png`)
-
 }

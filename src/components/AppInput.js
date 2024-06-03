@@ -11,7 +11,7 @@ import { KeyboardType } from '../utils/AppEnums'
 const Input = styled.TextInput`
     height: ${({ isTextArea = false }) => isTextArea ? '80px' : '40px'};
     z-index: 9999;
-    border-radius: ${({ borderRadius }) => `${borderRadius}px`};;
+    border-radius: ${({ borderRadius }) => `${borderRadius}px`};
     border-width: 1px;
     padding: 8px;
     font-family: ${FontFamily.archivoBold};

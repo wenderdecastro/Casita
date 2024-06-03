@@ -4,7 +4,7 @@ import { Flex } from "../utils/AppEnums";
 
 export const AppContainer = styled.SafeAreaView`
 padding: ${({
-    paddingTop = 20,
+    paddingTop = 40,
     paddingRight = 20,
     paddingBottom = 20,
     paddingLeft = 20 }) => `${paddingTop}px ${paddingRight}px ${paddingBottom}px ${paddingLeft}px `};
