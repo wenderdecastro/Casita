@@ -19,6 +19,14 @@ export default function Navigation({ navigation }) {
       />
       <Gap height={30} />
       <AppButton
+        label={'CADASTRO'}
+        onTap={() => {
+          const pushAction = StackActions.push(AppRoutesKeys.registerPage);
+          navigation.dispatch(pushAction);
+        }}
+      />
+      <Gap height={30} />
+      <AppButton
         label={'Landing Page'}
         onTap={() => {
           const pushAction = StackActions.push(AppRoutesKeys.landingPage);

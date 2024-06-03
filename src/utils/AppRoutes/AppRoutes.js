@@ -1,5 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { AppRoutesKeys } from "./AppRoutesUtils";
+import RegisterScreen from "../../screens/Authentication/RegisterPage";
 import LoginScreen from "../../screens/Authentication/LoginPage";
 import AppTabNavigator from "../../components/AppTabNavigator";
 import Navigation from "../../screens/Authentication/Navigation";
@@ -39,6 +40,9 @@ export default function AppRoutes() {
                 <Stack.Screen
                     name={AppRoutesKeys.recoveryPasswordInsertNewPasswordEscreen}
                     component={RecoveryPasswordInsertNewPasswordScreen} />
+                                    <Stack.Screen
+                    name={AppRoutesKeys.registerPage}
+                    component={RegisterScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     )
