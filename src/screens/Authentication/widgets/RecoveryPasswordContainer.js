@@ -22,7 +22,7 @@ flex: ${({ flex = 1 }) => flex};
 width: 100%;
 `
 
-const LeadingBox = styled.View`
+export const LeadingBox = styled.View`
 position: absolute;
 top: 8%;
 left: 8%;

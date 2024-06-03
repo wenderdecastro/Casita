@@ -28,11 +28,18 @@ const BoxShadow = styled.View`
     left: 3%;
 `
 
-export default function AppSquare({ width = 94, height = 94, backgroundColor, rotate, top = 0, left= 0 }) {
+export default function AppSquare({
+    width = 94,
+    height = 94,
+    backgroundColor,
+    rotate,
+    top = 0,
+    left = 0,
+}) {
     return (
         <SquareBox rotate={rotate} top={top} left={left}>
             <Square width={width} height={height} backgroundColor={backgroundColor} />
             <BoxShadow width={width} height={height} />
         </SquareBox>
-    )
+    );
 }
