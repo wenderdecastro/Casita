@@ -1,4 +1,3 @@
-import { View, Text } from 'react-native'
 import React from 'react'
 import styled from 'styled-components'
 import { AppColors } from '../../utils/Pallete'
@@ -18,6 +17,7 @@ top: ${({ top }) => `${top}%`};
 left: ${({ left }) => `${left}%`};
 z-index: -99999;
 `
+
 const BoxShadow = styled.View`
     background-color: ${AppColors.black};
     width: ${({ width }) => `${width}px`};
