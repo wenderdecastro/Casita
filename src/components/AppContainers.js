@@ -10,7 +10,7 @@ padding: ${({
     paddingLeft = 20 }) => `${paddingTop}px ${paddingRight}px ${paddingBottom}px ${paddingLeft}px `};
 align-items: ${({ alignItems = Flex.center }) => alignItems};
 justify-content: ${({ justifyContent = Flex.center }) => justifyContent};
-background-color: ${({backgroundColor = AppColors.red}) => backgroundColor};
+background-color: ${({ backgroundColor = AppColors.red }) => backgroundColor};
 flex: ${({ flex = 1 }) => flex};
 width: 100%;
 `
@@ -31,5 +31,12 @@ export const Row = styled.View`
     align-items: ${({ alignItems }) => alignItems};
     justify-content: ${({ justifyContent }) => justifyContent};
     align-self: ${({ alignSelf }) => alignSelf};
-    gap: ${({ gap = 0 }) => `${gap}px`}
+    gap: ${({ gap = 0 }) => `${gap}px`};
+`
+
+export const PositionedImage = styled.Image`
+position: ${({position = 'absolute'}) => position};
+top: ${({ top = 0 }) => `${top}%`};
+left: ${({ left = 0 }) => `${left}%`};
+transform: ${({ rotate = 0 }) => `rotate(${rotate}deg)`};
 `

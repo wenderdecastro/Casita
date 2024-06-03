@@ -75,6 +75,7 @@ export default function AppInput({
                 keyboardType={keyboardType}
                 borderRadius={borderRadius}
                 backgroundColor={backgroundColor}
+                cursorColor={AppColors.black}
             />
             <BoxShadow isTextArea={isTextArea} borderRadius={borderRadius} />
             <IconBox  label={label}>

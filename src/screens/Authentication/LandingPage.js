@@ -1,48 +1,19 @@
 import React from 'react'
-import { AppContainer } from '../../components/AppContainers'
+import { AppContainer, PositionedImage } from '../../components/AppContainers'
 import { AppColors } from '../../utils/Pallete'
 import { TitleExtraLarge } from '../../components/AppFonts'
 import { Gap } from '../../components/AppSpecialComponents'
 import AppButton from '../../components/AppButton'
-import styled from 'styled-components/native'
 import { AppAssets } from '../../../assets/AppAssets'
-
-const AppLogo = styled.Image`
-  position: relative;
-  left: 25%;
-`
-
-const DotPattern = styled.Image`
-position: absolute;
-top: 38%;
-left: 1%;
-`
-
-const CurvedLine = styled.Image`
-position: absolute;
-top: 62%;
-left: 80%;
-`
-
-const Triangle = styled.Image`
-position: absolute;
-top: 81%;
-left: 3%;
-`
-const Star = styled.Image`
-position: absolute;
-top: 10%;
-left: 10%;
-`
 
 export default function LandingPage() {
   return (
     <AppContainer backgroundColor={AppColors.background}>
-      <AppLogo source={AppAssets.casitaLogo} />
-      <DotPattern source={AppAssets.dotPattern} />
-      <CurvedLine  source={AppAssets.curvedLine} />
-      <Triangle source={AppAssets.triangle}/>
-      <Star source={AppAssets.eightPointBlueStar}/>
+      <PositionedImage position={'relative'} left={25} source={AppAssets.casitaLogo} />
+      <PositionedImage position={'absolute'} left={1} top={38} source={AppAssets.dotPattern} />
+      <PositionedImage position={'absolute'} left={80} top={62}  source={AppAssets.curvedLine} />
+      <PositionedImage position={'absolute'} left={3} top={81} source={AppAssets.yellowTriangle}/>
+      <PositionedImage position={'absolute'} left={10} top={10} source={AppAssets.eightPointBlueStar}/>
 
       <Gap height={24} />
       <TitleExtraLarge>

@@ -8,9 +8,11 @@ import { Flex } from '../../utils/AppEnums'
 import AppInput from '../../components/AppInput'
 import AppButton from '../../components/AppButton'
 
-export default function RecoveryPasswordInsertEmailScreen() {
+
+
+export default function RecoveryPasswordInsertEmailScreen({navigation}) {
   return (
-    <RecoveryPasswordContainer alignItems={Flex.flexStart}>
+    <RecoveryPasswordContainer alignItems={Flex.flexStart} navigation={navigation}>
       <TitleBlack size={32}>RECUPERAÇÃO</TitleBlack>
       <Gap height={20}/>
       <BodyMedium color={AppColors.black}>Poxa, vamos ter que recuperar sua senha... Para isso, precisamos que você insira seu email aqui embaixo!</BodyMedium>

@@ -70,6 +70,6 @@ export default function AppSvgIcon({ name = AppIconName.default, size = 24, colo
     const iconName = name.name;
     const IconComponent = name.family;
 
-    return <IconComponent name={iconName} size={size} color={color} />;
+    return <IconComponent  name={iconName} size={size} color={color} />;
 
 }
