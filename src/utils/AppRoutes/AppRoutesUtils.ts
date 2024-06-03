@@ -6,6 +6,8 @@ import {
 } from "@react-navigation/native";
 
 export const AppRoutesKeys ={
+    registerUserDataPage: "registerUserDataPage",
+    registerFinanceDataPage: "registerFinanceDataPage",
     landingPage: "landingPage",
     loginScreen : "loginScreen",
     tabNavigator: "tabNavigator",
