@@ -21,7 +21,7 @@ export default function Navigation({ navigation }) {
       <AppButton
         label={'CADASTRO'}
         onTap={() => {
-          const pushAction = StackActions.push(AppRoutesKeys.registerPage);
+          const pushAction = StackActions.push(AppRoutesKeys.registerUserDataPage);
           navigation.dispatch(pushAction);
         }}
       />

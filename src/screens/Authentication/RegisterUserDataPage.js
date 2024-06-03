@@ -11,7 +11,10 @@ import { Gap } from '../../components/AppSpecialComponents'
 import AppInput from '../../components/AppInput'
 import AppButton from '../../components/AppButton'
 
-export default function RegisterScreen() {
+import { AppRoutesKeys } from '../../utils/AppRoutes/AppRoutesUtils'
+import { StackActions } from '@react-navigation/native'
+
+export default function RegisterUserDataScreen({navigation}) {
   return (
     <AppContainer backgroundColor={AppColors.background}>
       <PositionedImage position={'absolute'} left={-15} top={80} source={AppAssets.yellowTriangle} />
@@ -44,7 +47,14 @@ export default function RegisterScreen() {
       <Gap height={15}/>
       <AppInput label={'Confirmar Senha'}/>
       <Gap height={40}/>
-      <AppButton mainColor={AppColors.white} label={'CONTINUAR'}/>
+      <AppButton 
+        mainColor={AppColors.white} 
+        label={'CONTINUAR'}
+        onTap={() => {
+          const pushAction = StackActions.push(AppRoutesKeys.registerFinanceDataPage);
+          navigation.dispatch(pushAction);
+        }}
+      />
     </AppContainer>
   )
 }
