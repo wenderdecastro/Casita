@@ -35,7 +35,7 @@ export const Row = styled.View`
 `
 
 export const PositionedImage = styled.Image`
-position: ${({position = 'absolute'}) => position};
+position: ${({position}) => position};
 top: ${({ top = 0 }) => `${top}%`};
 left: ${({ left = 0 }) => `${left}%`};
 transform: ${({ rotate = 0 }) => `rotate(${rotate}deg)`};
