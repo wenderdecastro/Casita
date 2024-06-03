@@ -31,7 +31,7 @@ export default function RegisterScreen() {
 
       <Row width={"100%"} alignItems={'center'} >
         <PositionedImage source={AppAssets.eightPointBlueStarSmall} />
-        <TitleBlack style={{marginLeft: 20}} size={38}>CADASTRO</TitleBlack>
+        <TitleBlack style={{marginLeft: 20}} size={36}>CADASTRO</TitleBlack>
       </Row>
       <Gap height={20}/>
       <BodyMedium color={AppColors.black}>Que bom que você deseja usar o Casita! Insira seus dados para continuarmos com seu cadastro.</BodyMedium>
