@@ -16,10 +16,10 @@ const Input = styled.TextInput`
     border-color: ${({ borderColor = AppColors.black }) => borderColor};
     background-color: ${({ isEditable = true, backgroundColor }) => isEditable ? backgroundColor : AppColors.gray20};
     font-family: ${FontFamily.archivoBlack};
-    font-size: 45px;
+    font-size: ${({ fontSize }) => fontSize || '16px'};
     display: flex;
     align-items: center;
-    text-align: center;
+    text-align: ${({ textAlign }) => textAlign || 'start'};
 `
 
 const InputBox = styled.View`
@@ -56,6 +56,8 @@ export default function AppInput({
     backgroundColor = AppColors.background,
     borderRadius = 0,
     inputWidth,
+    fontSize,
+    textAlign,
 }) {
     const handleInputChange = (value) => {
         onChangeText === null ? null : onChangeText(value);
@@ -82,6 +84,8 @@ export default function AppInput({
                 backgroundColor={backgroundColor}
                 cursorColor={AppColors.black}
                 placeholderTextColor={AppColors.black}
+                fontSize={fontSize}
+                textAlign={textAlign}
             />
             <BoxShadow isTextArea={isTextArea} borderRadius={borderRadius} />
             <IconBox label={label}>

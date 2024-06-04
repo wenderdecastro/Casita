@@ -29,7 +29,7 @@ export default function RegisterUserDataScreen({navigation}) {
         left={65}
       />
       <LeadingBox>
-        <LeadingButtonWidget />
+        <LeadingButtonWidget navigation={navigation}/>
       </LeadingBox>
 
       <Row width={"100%"} alignItems={'center'} >

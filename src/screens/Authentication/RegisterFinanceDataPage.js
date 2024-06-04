@@ -11,7 +11,7 @@ import { Gap } from '../../components/AppSpecialComponents'
 import AppInput from '../../components/AppInput'
 import AppButton from '../../components/AppButton'
 
-export default function RegisterFinanceDataScreen() {
+export default function RegisterFinanceDataScreen({navigation}) {
   return (
     <AppContainer backgroundColor={AppColors.background}>
       {/* Componentes de fundo */}
@@ -27,7 +27,7 @@ export default function RegisterFinanceDataScreen() {
         left={5}
       />
       <LeadingBox>
-        <LeadingButtonWidget />
+        <LeadingButtonWidget navigation={navigation}/>
       </LeadingBox>
 
       {/* Titulo */}
@@ -40,7 +40,7 @@ export default function RegisterFinanceDataScreen() {
       <Gap height={20} />
       <BodyMedium color={AppColors.black} size={18}>Qual a sua renda mensal?</BodyMedium>
       <Gap height={15} />
-      <AppInput keyboardType='numeric' placeholder={'R$0,00'} isTextArea />
+      <AppInput keyboardType='numeric' placeholder={'R$0,00'} fontSize={'45px'} textAlign={'center'} isTextArea/>
 
 
       <Gap height={40} />

@@ -5,8 +5,10 @@ import { TitleExtraLarge } from '../../components/AppFonts'
 import { Gap } from '../../components/AppSpecialComponents'
 import AppButton from '../../components/AppButton'
 import { AppAssets } from '../../../assets/AppAssets'
+import { AppRoutesKeys } from '../../utils/AppRoutes/AppRoutesUtils'
+import { StackActions } from '@react-navigation/native'
 
-export default function LandingPage() {
+export default function LandingPage({navigation}) {
   return (
     <AppContainer backgroundColor={AppColors.background}>
       <PositionedImage position={'relative'} left={25} source={AppAssets.casitaLogo} />
@@ -33,8 +35,9 @@ export default function LandingPage() {
       mainColor={AppColors.white} 
       label={'CADASTRAR'} 
       onTap={() => {
-        //TODO: Levar para a tela de cadastro
-      }} 
+        const pushAction = StackActions.push(AppRoutesKeys.registerUserDataPage);
+        navigation.dispatch(pushAction);
+      }}
       />
     </AppContainer>
   )
