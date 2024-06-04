@@ -73,16 +73,52 @@ export const Link = styled.Text`
     font-size: ${({ size = 14 }) => `${size}px`};
 `
 
-export const DualTextWithShadow = ({ primaryText, secondaryText, primaryTextStyle = {}, secondaryTextStyle = {}, borderColor = '#000', borderWidth = 1,...props }) => {
+export const DualTextWithShadow = ({
+  primaryText,
+  secondaryText,
+  primaryTextStyle = {},
+  secondaryTextStyle = {},
+  borderColor = '#000',
+  borderWidth = 1,
+  rotate = 0, 
+  position = 'static', 
+  left = 0,
+  top = 0, 
+  zIndex = -1,
+ ...props
+}) => {
   return (
-    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', position: 'relative',bottom: 12 }}>
-      <View style={{ position: 'absolute', zIndex: 1, left: 1 }}>
+    <View
+      style={{
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: position, 
+        transform: [{ rotate: `${rotate}deg` }], 
+        left: left, 
+        top: top,
+        zIndex: 1,
+      }}
+      {...props}
+    >
+      <View
+        style={{
+          position: 'absolute',
+          zIndex: 1,
+          left: 1,
+        }}
+      >
         <TitleBlack {...props} style={[secondaryTextStyle]}>
           {secondaryText}
         </TitleBlack>
       </View>
 
-      <View style={{ position: 'relative', zIndex: 2 }}>
+      <View
+        style={{
+          position: 'relative',
+          zIndex: 2,
+        }}
+      >
         <TitleBlack {...props} style={[primaryTextStyle]}>
           {primaryText}
         </TitleBlack>

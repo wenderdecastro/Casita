@@ -18,7 +18,7 @@ export default function AppRoutes() {
     return (
         <NavigationContainer>
             <Stack.Navigator
-                initialRouteName={AppRoutesKeys.landingPage}
+                initialRouteName={AppRoutesKeys.navigator}
                 screenOptions={{ headerShown: false }}>
                 <Stack.Screen
                     name={AppRoutesKeys.navigator}
