@@ -24,7 +24,7 @@ export default function RecoveryPasswordInsertNewPasswordScreen({navigation}) {
       mainColor={AppColors.white} 
       label={'REDEFINIR SENHA'}
       onTap={() => {
-        AppNavigation.push(navigation, AppRoutesKeys.navigator)
+        AppNavigation.push(navigation, AppRoutesKeys.loginScreen)
       }}
       />
     </RecoveryPasswordContainer>

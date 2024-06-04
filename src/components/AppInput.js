@@ -11,17 +11,21 @@ import { KeyboardType } from '../utils/AppEnums'
 const Input = styled.TextInput`
     height: ${({ isTextArea = false }) => isTextArea ? '80px' : '40px'};
     z-index: 9999;
-    border-radius: ${({ borderRadius }) => `${borderRadius}px`};;
+    border-radius: ${({ borderRadius }) => `${borderRadius}px`};
     border-width: 1px;
     padding: 8px;
-    font-family: ${FontFamily.archivoBold};
     border-color: ${({ borderColor = AppColors.black }) => borderColor};
     background-color: ${({ isEditable = true, backgroundColor }) => isEditable ? backgroundColor : AppColors.gray20};
+    font-family: ${FontFamily.archivoBlack};
+    font-size: ${({ fontSize }) => fontSize || '16px'};
+    display: flex;
+    align-items: center;
+    text-align: ${({ textAlign }) => textAlign || 'start'};
 `
 
 const InputBox = styled.View`
-    width: 100%;
-`
+    width: ${({ inputWidth }) => inputWidth || '100%'};
+`;
 
 const BoxShadow = styled.View`
     background-color: ${AppColors.black};
@@ -51,7 +55,10 @@ export default function AppInput({
     SuffixIcon,
     keyboardType = KeyboardType.default,
     backgroundColor = AppColors.background,
-    borderRadius = 0
+    borderRadius = 0,
+    inputWidth,
+    fontSize,
+    textAlign,
 }) {
     const handleInputChange = (value) => {
         onChangeText === null ? null : onChangeText(value);
@@ -59,7 +66,7 @@ export default function AppInput({
 
     const [newIsObscure, setNewIsObscure] = useState(isObscureText)
     return (
-        <InputBox>
+        <InputBox inputWidth={inputWidth}>
             {label ? (<BodyLarge color={AppColors.black}>{label}</BodyLarge>) : null}
 
             <Input
@@ -77,6 +84,9 @@ export default function AppInput({
                 borderRadius={borderRadius}
                 backgroundColor={backgroundColor}
                 cursorColor={AppColors.black}
+                placeholderTextColor={AppColors.black}
+                fontSize={fontSize}
+                textAlign={textAlign}
             />
             <BoxShadow isTextArea={isTextArea} borderRadius={borderRadius} />
             <IconBox label={label}>

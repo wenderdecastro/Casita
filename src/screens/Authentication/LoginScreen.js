@@ -9,6 +9,8 @@ import AppInput from '../../components/AppInput'
 import { Flex } from '../../utils/AppEnums'
 import AppButton from '../../components/AppButton'
 import AppSquare from '../../components/AppNativeShapes/AppSquare'
+import { AppRoutesKeys } from '../../utils/AppRoutes/AppRoutesUtils'
+import { StackActions } from '@react-navigation/native'
 
 const LeadingBox = styled.View`
 position: absolute;
@@ -40,44 +42,53 @@ width: 100%;
 gap: 25px;
 `
 
-export default function LoginScreen({navigation}) {
+export default function LoginScreen({ navigation }) {
   return (
 
     <AppContainer backgroundColor={AppColors.background}>
-      <PositionedImage position={'absolute'} left={0} top={0}  source={AppAssets.greenTriangle}/>
-      <PositionedImage position={'absolute'} left={81} top={7}  source={AppAssets.dotPattern}/>
-      <PositionedImage position={'absolute'} left={81} top={82}  source={AppAssets.dotStar}/>
-      <AppSquare width={350} height={150} rotate={25} backgroundColor={AppColors.blue} top={85} left={-40}/>
+      <PositionedImage position={'absolute'} left={0} top={0} source={AppAssets.greenTriangle} />
+      <PositionedImage position={'absolute'} left={81} top={7} source={AppAssets.dotPattern} />
+      <PositionedImage position={'absolute'} left={81} top={82} source={AppAssets.dotStar} />
+      <AppSquare width={350} height={150} rotate={25} backgroundColor={AppColors.blue} top={85} left={-40} />
 
-        <LeadingBox>
-            <LeadingButtonWidget navigation={navigation}/>
-        </LeadingBox>
+      <LeadingBox>
+        <LeadingButtonWidget navigation={navigation} />
+      </LeadingBox>
 
-        <Row width={"100%"} alignItems={'center'} justifyContent={'center'}>
-          <PositionedImage source={AppAssets.eightPointYellowStarSmall} />
-          <BoxTitle>
-            <TitleBlack size={32}>LOGIN</TitleBlack>
-            <BodyMedium color={AppColors.black}>Já é dos nossos? Se loga aí!</BodyMedium>
-          </BoxTitle>
+      <Row width={"100%"} alignItems={'center'} justifyContent={'center'}>
+        <PositionedImage source={AppAssets.eightPointYellowStarSmall} />
+        <BoxTitle>
+          <TitleBlack size={32}>LOGIN</TitleBlack>
+          <BodyMedium color={AppColors.black}>Já é dos nossos? Se loga aí!</BodyMedium>
+        </BoxTitle>
+      </Row>
+
+      <BoxInput>
+        <AppInput label={'Email'}></AppInput>
+        <LinkBox>
+          <AppInput label={'Senha'}></AppInput>
+          <Link color={AppColors.blue}
+            onPress={() => {
+              const pushAction = StackActions.push(AppRoutesKeys.recoveryPasswordInsertEmailEscreen);
+              navigation.dispatch(pushAction);
+            }}>Vai falar que esqueceu?</Link>
+        </LinkBox>
+      </BoxInput>
+
+      <BoxButton>
+        <AppButton mainColor={AppColors.white} label={'LOGIN'} />
+        <Row justifyContent={'center'} gap={28}>
+          <BodyLarge color={AppColors.black}>Não tem conta?</BodyLarge>
+          <Link size={16} color={AppColors.blue}
+            onPress={() => {
+              const pushAction = StackActions.push(AppRoutesKeys.registerUserDataPage);
+              navigation.dispatch(pushAction);
+            }}
+          >Cadastre-se</Link>
         </Row>
+      </BoxButton>
 
-        <BoxInput>
-          <AppInput label={'Email'}></AppInput>
-          <LinkBox>
-            <AppInput label={'Senha'}></AppInput>
-            <Link color={AppColors.blue}>Vai falar que esqueceu?</Link>
-          </LinkBox>
-        </BoxInput>
 
-        <BoxButton>
-          <AppButton mainColor={AppColors.white} label={'LOGIN'}/>
-          <Row justifyContent={'center'} gap={28}>
-            <BodyLarge color={AppColors.black}>Não tem conta?</BodyLarge>
-            <Link size={16} color={AppColors.blue}>Cadastre-se</Link>
-          </Row>
-        </BoxButton>
-
-        
     </AppContainer>
   )
 }

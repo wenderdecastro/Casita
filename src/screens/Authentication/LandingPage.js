@@ -5,8 +5,10 @@ import { TitleExtraLarge } from '../../components/AppFonts'
 import { Gap } from '../../components/AppSpecialComponents'
 import AppButton from '../../components/AppButton'
 import { AppAssets } from '../../../assets/AppAssets'
+import { AppRoutesKeys } from '../../utils/AppRoutes/AppRoutesUtils'
+import { StackActions } from '@react-navigation/native'
 
-export default function LandingPage() {
+export default function LandingPage({navigation}) {
   return (
     <AppContainer backgroundColor={AppColors.background}>
       <PositionedImage position={'relative'} left={25} source={AppAssets.casitaLogo} />
@@ -16,7 +18,7 @@ export default function LandingPage() {
       <PositionedImage position={'absolute'} left={10} top={10} source={AppAssets.eightPointBlueStar}/>
 
       <Gap height={24} />
-      <TitleExtraLarge>
+      <TitleExtraLarge color={AppColors.black}>
         <TitleExtraLarge color={AppColors.blue}>Tarefas</TitleExtraLarge>, <TitleExtraLarge color={AppColors.green}>finanças</TitleExtraLarge> e <TitleExtraLarge color={AppColors.red}>organização</TitleExtraLarge>, tudo em um só lugar!
       </TitleExtraLarge>
       <Gap height={24} />
@@ -24,8 +26,9 @@ export default function LandingPage() {
       mainColor={AppColors.white} 
       label={'LOGIN'} 
       onTap={() => {
-        //TODO: Levar para a tela de login
-      }} 
+        const pushAction = StackActions.push(AppRoutesKeys.loginScreen);
+        navigation.dispatch(pushAction);
+      }}
 
       />
       <Gap height={40} />
@@ -33,8 +36,9 @@ export default function LandingPage() {
       mainColor={AppColors.white} 
       label={'CADASTRAR'} 
       onTap={() => {
-        //TODO: Levar para a tela de cadastro
-      }} 
+        const pushAction = StackActions.push(AppRoutesKeys.registerUserDataPage);
+        navigation.dispatch(pushAction);
+      }}
       />
     </AppContainer>
   )

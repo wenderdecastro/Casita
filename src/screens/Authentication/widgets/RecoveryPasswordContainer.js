@@ -28,7 +28,6 @@ top: 8%;
 left: 8%;
 `
 
-
 export default function RecoveryPasswordContainer({ 
     children, 
     paddingTop,
