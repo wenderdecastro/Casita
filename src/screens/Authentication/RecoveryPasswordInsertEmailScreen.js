@@ -7,7 +7,8 @@ import { AppColors } from '../../utils/Pallete'
 import { Flex } from '../../utils/AppEnums'
 import AppInput from '../../components/AppInput'
 import AppButton from '../../components/AppButton'
-
+import { AppRoutesKeys } from '../../utils/AppRoutes/AppRoutesUtils'
+import { StackActions } from '@react-navigation/native'
 
 
 export default function RecoveryPasswordInsertEmailScreen({navigation}) {
@@ -19,7 +20,14 @@ export default function RecoveryPasswordInsertEmailScreen({navigation}) {
       <Gap height={15}/>
       <AppInput label={'Email'} isObscureText/>
       <Gap height={40}/>
-      <AppButton mainColor={AppColors.white} label={'CONTINUAR'}/>
+      <AppButton 
+        mainColor={AppColors.white} 
+        label={'CONTINUAR'} 
+        onTap={() => {
+          const pushAction = StackActions.push(AppRoutesKeys.recoveryPasswordInsertCodeEscreen);
+          navigation.dispatch(pushAction);
+        }}  
+      />
     </RecoveryPasswordContainer>
   )
 }

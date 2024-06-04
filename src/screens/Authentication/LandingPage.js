@@ -26,8 +26,9 @@ export default function LandingPage({navigation}) {
       mainColor={AppColors.white} 
       label={'LOGIN'} 
       onTap={() => {
-        //TODO: Levar para a tela de login
-      }} 
+        const pushAction = StackActions.push(AppRoutesKeys.loginScreen);
+        navigation.dispatch(pushAction);
+      }}
 
       />
       <Gap height={40} />

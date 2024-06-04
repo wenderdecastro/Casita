@@ -65,6 +65,14 @@ font-size: ${({ size = 12 }) => `${size}px`};
 color: ${({ color = AppColors.gray30 }) => color};
 text-align: ${({ textAlign = 'auto' }) => textAlign};
 `
+
+export const Link = styled.Text`
+    font-family: ${FontFamily.archivoMedium};
+    text-decoration: ${({ textDecoration = TextDecoration.underline }) => textDecoration};
+    color: ${({ color = AppColors.blue }) => color};
+    font-size: ${({ size = 14 }) => `${size}px`};
+`
+
 export const DualTextWithShadow = ({ primaryText, secondaryText, primaryTextStyle = {}, secondaryTextStyle = {}, borderColor = '#000', borderWidth = 1,...props }) => {
   return (
     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', position: 'relative',bottom: 12 }}>

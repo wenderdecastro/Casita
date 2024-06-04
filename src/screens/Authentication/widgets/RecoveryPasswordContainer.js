@@ -42,9 +42,9 @@ export default function RecoveryPasswordContainer({ children, paddingTop, paddin
         <LeadingBox>
             <LeadingButtonWidget navigation={navigation}/>
         </LeadingBox>
-        <PositionedImage left={80} top={5} source={AppAssets.dotPattern}/>
-        <PositionedImage left={55} top={80} rotate={30} source={AppAssets.yellowTriangle}/>
-        <AppSquare top={75} rotate={30}/>
+        <PositionedImage left={80} top={5} position={'absolute'} source={AppAssets.dotPattern}/>
+        <PositionedImage left={55} top={80} position={'absolute'} otate={30} source={AppAssets.yellowTriangle}/>
+        <AppSquare position={'absolute'} top={75} rotate={30} />
             {children}
         </Container>
     )
