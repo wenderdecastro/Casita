@@ -2,6 +2,7 @@ import React from "react";
 import { View } from "react-native";
 import styled from "styled-components/native";
 import { AppColors } from "../utils/Pallete";
+import { TextDecoration } from "../utils/AppEnums";
 
 export const FontFamily = {
   archivoBold: 'Archivo_700Bold',

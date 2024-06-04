@@ -8,7 +8,12 @@ import { StackActions } from '@react-navigation/native'
 export default function Navigation({ navigation }) {
   return (
     <AppContainer>
-      <AppButton label={'LOGIN'} />
+      <AppButton 
+        label={'LOGIN'} 
+        onTap={() => {
+          AppNavigation.push(navigation, AppRoutesKeys.loginScreen);
+        }}
+      />
       <Gap height={30} />
       <AppButton
         label={'TAB NAVIGATOR'}
