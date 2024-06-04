@@ -85,7 +85,8 @@ export const DualTextWithShadow = ({
   left = 0,
   top = 0, 
   zIndex = -1,
- ...props
+  marginBottom = 10, // Adicionando propriedade para controle do marginBottom
+...props
 }) => {
   return (
     <View
@@ -98,6 +99,7 @@ export const DualTextWithShadow = ({
         left: left, 
         top: top,
         zIndex: 1,
+        marginBottom: marginBottom, // Aplicando o marginBottom definido
       }}
       {...props}
     >
