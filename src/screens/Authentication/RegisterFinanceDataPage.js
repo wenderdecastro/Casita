@@ -11,11 +11,20 @@ import { Gap } from '../../components/AppSpecialComponents'
 import AppInput from '../../components/AppInput'
 import AppButton from '../../components/AppButton'
 
-export default function RegisterFinanceDataScreen({navigation}) {
+export default function RegisterFinanceDataScreen({ navigation }) {
   return (
     <AppContainer backgroundColor={AppColors.background}>
       {/* Componentes de fundo */}
-      <PositionedImage position={'absolute'} left={0} top={81} source={AppAssets.dolarSignGreen} />
+      <DualTextWithShadow
+        primaryText="$"
+        secondaryText="$"
+        primaryTextStyle={{ fontSize: 300, color: AppColors.green }}
+        secondaryTextStyle={{ fontSize: 305, color: AppColors.black }}
+        position='absolute'
+        left={0}
+        top={615}
+        rotate={-20}
+      />
       <PositionedImage position={'absolute'} left={80} top={90} source={AppAssets.plusGreen} />
       <PositionedImage position={'absolute'} left={80} top={3} source={AppAssets.dotStar} />
       <AppSquare
@@ -27,7 +36,7 @@ export default function RegisterFinanceDataScreen({navigation}) {
         left={5}
       />
       <LeadingBox>
-        <LeadingButtonWidget navigation={navigation}/>
+        <LeadingButtonWidget navigation={navigation} />
       </LeadingBox>
 
       {/* Titulo */}
@@ -40,7 +49,7 @@ export default function RegisterFinanceDataScreen({navigation}) {
       <Gap height={20} />
       <BodyMedium color={AppColors.black} size={18}>Qual a sua renda mensal?</BodyMedium>
       <Gap height={15} />
-      <AppInput keyboardType='numeric' placeholder={'R$0,00'} fontSize={'45px'} textAlign={'center'} isTextArea/>
+      <AppInput keyboardType='numeric' placeholder={'R$0,00'} fontSize={'45px'} textAlign={'center'} isTextArea />
 
 
       <Gap height={40} />
@@ -62,7 +71,7 @@ export default function RegisterFinanceDataScreen({navigation}) {
               primaryTextStyle={{ fontSize: 30, color: AppColors.green }}
               secondaryTextStyle={{ fontSize: 32, color: AppColors.black }}
             />
-        }
+          }
         />
       </Row>
 
@@ -82,7 +91,7 @@ export default function RegisterFinanceDataScreen({navigation}) {
               primaryTextStyle={{ fontSize: 30, color: AppColors.green }}
               secondaryTextStyle={{ fontSize: 32, color: AppColors.black }}
             />
-        }
+          }
         />
       </Row>
 
@@ -102,7 +111,7 @@ export default function RegisterFinanceDataScreen({navigation}) {
               primaryTextStyle={{ fontSize: 30, color: AppColors.green }}
               secondaryTextStyle={{ fontSize: 32, color: AppColors.black }}
             />
-        }
+          }
         />
       </Row>
 
