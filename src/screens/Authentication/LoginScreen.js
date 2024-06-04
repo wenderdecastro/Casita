@@ -11,6 +11,8 @@ import AppButton from '../../components/AppButton'
 import AppSquare from '../../components/AppNativeShapes/AppSquare'
 import { AppRoutesKeys } from '../../utils/AppRoutes/AppRoutesUtils'
 import { StackActions } from '@react-navigation/native'
+import DualTextWithShadow2 from '../../components/AppFonts'
+import { Text } from 'react-native'
 
 const LeadingBox = styled.View`
 position: absolute;
@@ -88,7 +90,10 @@ export default function LoginScreen({ navigation }) {
         </Row>
       </BoxButton>
 
-
+      <DualTextWithShadow2>
+        <Text>Texto com sombra</Text>
+        <Text>Texto normal</Text>
+      </DualTextWithShadow2>
     </AppContainer>
   )
 }

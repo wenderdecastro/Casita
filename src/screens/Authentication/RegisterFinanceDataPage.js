@@ -117,6 +117,7 @@ export default function RegisterFinanceDataScreen({ navigation }) {
 
       <Gap height={40} />
       <AppButton mainColor={AppColors.white} label={'CADASTRAR'} />
+      
     </AppContainer>
   )
 }

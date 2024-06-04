@@ -3,6 +3,7 @@ import { View } from "react-native";
 import styled from "styled-components/native";
 import { AppColors } from "../utils/Pallete";
 import { TextDecoration } from "../utils/AppEnums";
+import TextStroke from "./AppTextShadow";
 
 export const FontFamily = {
   archivoBold: 'Archivo_700Bold',
@@ -78,8 +79,6 @@ export const DualTextWithShadow = ({
   secondaryText,
   primaryTextStyle = {},
   secondaryTextStyle = {},
-  borderColor = '#000',
-  borderWidth = 1,
   rotate = 0, 
   position = 'static', 
   left = 0,
@@ -107,7 +106,7 @@ export const DualTextWithShadow = ({
         style={{
           position: 'absolute',
           zIndex: 1,
-          left: 1,
+          left: 0,
         }}
       >
         <TitleBlack {...props} style={[secondaryTextStyle]}>
@@ -128,3 +127,65 @@ export const DualTextWithShadow = ({
     </View>
   );
 };
+
+export const DualTextWithShadowAndStroke = ({
+  primaryText,
+  secondaryText,
+  primaryTextStyle = {},
+  secondaryTextStyle = {},
+  rotate = 0,
+  position = 'static',
+  left = 0,
+  top = 0,
+  zIndex = -1,
+  marginBottom = 10,
+  color = "#000", // Cor padrão para a borda
+  stroke = 1, // Espessura padrão da borda
+ ...props
+}) => {
+  return (
+    <View
+      style={{
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'static',
+        transform: [{ rotate: `${rotate}deg` }],
+        left: left,
+        top: top,
+        zIndex: zIndex,
+        marginBottom: marginBottom,
+      }}
+      {...props}
+    >
+      <View
+        style={{
+          position: 'absolute',
+          zIndex: 1,
+          left: 5,
+          top: 3,
+        }}
+      >
+        <TitleBlack {...props} style={[secondaryTextStyle]}>
+          {secondaryText}
+        </TitleBlack>
+      </View>
+
+      {/* Aqui é onde aplicamos o TextStroke ao texto primário */}
+      <View
+        style={{
+          position: 'relative',
+          zIndex: 2,
+        }}
+      >
+        <TextStroke color={color} stroke={stroke}>
+          <TitleBlack {...props} style={[primaryTextStyle]} color={AppColors.green}>
+            {primaryText}
+          </TitleBlack>
+        </TextStroke>
+      </View>
+    </View>
+  );
+};
+
+
