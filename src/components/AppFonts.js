@@ -1,5 +1,6 @@
 import styled from "styled-components/native";
 import { AppColors } from "../utils/Pallete";
+import { TextDecoration } from "../utils/AppEnums";
 
 export const FontFamily = {
     archivoBold: 'Archivo_700Bold',
@@ -61,4 +62,11 @@ font-family: ${FontFamily.archivoMedium};
 font-size: ${({ size = 12 }) => `${size}px`};
 color: ${({ color = AppColors.gray30 }) => color};
 text-align: ${({ textAlign = 'auto' }) => textAlign};
+`
+
+export const Link = styled.Text`
+    font-family: ${FontFamily.archivoMedium};
+    text-decoration: ${({ textDecoration = TextDecoration.underline }) => textDecoration};
+    color: ${({ color = AppColors.blue }) => color};
+    font-size: ${({ size = 14 }) => `${size}px`};
 `
