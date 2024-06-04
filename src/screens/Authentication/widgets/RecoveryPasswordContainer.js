@@ -7,6 +7,7 @@ import LeadingButtonWidget from './LeadingButtonWidget'
 import AppSquare from '../../../components/AppNativeShapes/AppSquare'
 import { PositionedImage } from '../../../components/AppContainers'
 import { AppAssets } from '../../../../assets/AppAssets'
+import AppCircle from '../../../components/AppNativeShapes/AppCircle'
 
 const Container = styled.SafeAreaView`
 padding: ${({
@@ -27,8 +28,18 @@ top: 8%;
 left: 8%;
 `
 
-
-export default function RecoveryPasswordContainer({ children, paddingTop, paddingRight, paddingBottom, paddingLeft, alignItems, justifyContent, flex, navigation }) {
+export default function RecoveryPasswordContainer({ 
+    children, 
+    paddingTop,
+    triangleColor = AppColors.yellow,
+    isSquare = true, 
+    paddingRight, 
+    paddingBottom, 
+    paddingLeft, 
+    alignItems, 
+    justifyContent, 
+    flex, 
+    navigation }) {
     return (
         <Container
             paddingTop={paddingTop}
@@ -42,9 +53,10 @@ export default function RecoveryPasswordContainer({ children, paddingTop, paddin
         <LeadingBox>
             <LeadingButtonWidget navigation={navigation}/>
         </LeadingBox>
-        <PositionedImage left={80} top={5} position={'absolute'} source={AppAssets.dotPattern}/>
-        <PositionedImage left={55} top={80} position={'absolute'} otate={30} source={AppAssets.yellowTriangle}/>
-        <AppSquare position={'absolute'} top={75} rotate={30} />
+        <PositionedImage position={'absolute'} left={80} top={5} source={AppAssets.dotPattern}/>
+        <PositionedImage position={'absolute'} left={55} top={80} rotate={30} source={triangleColor == AppColors.yellow ? AppAssets.yellowTriangle : AppAssets.blueTriangle}/>
+        <PositionedImage position={'absolute'} left={90} top={70} source={AppAssets.dotStar}/>
+        {isSquare ? <AppSquare top={75} rotate={30}/> : <AppCircle circunference={94} top={75}/> }
             {children}
         </Container>
     )

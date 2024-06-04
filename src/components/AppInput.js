@@ -3,14 +3,15 @@ import styled from 'styled-components/native'
 import { BodyLarge, FontFamily, H2 } from './AppFonts'
 import { AppColors } from '../utils/Pallete'
 import AppSvgIcon, { AppIconName } from '../../assets/Icons'
+import { CodeField, Cursor, useBlurOnFulfill, useClearByFocusCell } from 'react-native-confirmation-code-field'
 import { Gap } from './AppSpecialComponents'
-import { TouchableOpacity } from 'react-native'
+import { TouchableOpacity, View } from 'react-native'
 import { KeyboardType } from '../utils/AppEnums'
 
 const Input = styled.TextInput`
     height: ${({ isTextArea = false }) => isTextArea ? '80px' : '40px'};
     z-index: 9999;
-    border-radius: ${({ borderRadius }) => `${borderRadius}px`};;
+    border-radius: ${({ borderRadius }) => `${borderRadius}px`};
     border-width: 1px;
     padding: 8px;
     border-color: ${({ borderColor = AppColors.black }) => borderColor};
@@ -100,4 +101,82 @@ export default function AppInput({
         </InputBox>
 
     )
+}
+
+const CELL_COUNT = 5;
+
+const Cell = styled.Text`
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+    border-width: 1px;
+    border-color: ${({ isFocused }) => isFocused ? AppColors.blue : AppColors.black};
+    text-align: center;
+    padding-top: 7px;
+    color: ${AppColors.black};
+    margin: 0 11px;
+    background-color: ${AppColors.background};
+    font-family: ${FontFamily.archivoBlack};
+`
+const CellShadow = styled.View`
+    background-color: ${({ isFocused }) => isFocused ? AppColors.blue : AppColors.black};
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    bottom: -2px;
+    left: 13px;
+    z-index: -99999;
+`
+
+const CodeBox = styled.View`
+    gap: 10px;
+    align-items: center;
+`
+
+export function AppCodeInput({ onValueChange = null, label }) {
+    const [value, setValue] = useState('');
+
+    const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
+    const [props, getCellOnLayoutHandler] = useClearByFocusCell({
+        value,
+        setValue,
+    });
+
+
+    const handleValueChange = (newValue) => {
+        setValue(newValue);
+        setTimeout(() => {
+            onValueChange(newValue);
+        }, 0);
+    };
+
+
+    return (
+        <CodeBox>
+            {label ? <BodyLarge color={AppColors.black}>{label}</BodyLarge> : null}
+            <CodeField
+                ref={ref}
+                value={value}
+                onChangeText={handleValueChange}
+                cellCount={CELL_COUNT}
+                keyboardType="number-pad"
+                textContentType="oneTimeCode"
+                renderCell={({ index, symbol, isFocused }) => {
+                    return (
+                        <View key={index}>
+                            <CellShadow isFocused={isFocused} />
+                            <Cell
+
+                                isFocused={isFocused}
+                                onLayout={getCellOnLayoutHandler(index)}
+                            >
+                                {symbol || (isFocused ? <Cursor /> : null)}
+                            </Cell>
+                        </View>
+                    );
+                }}
+            />
+        </CodeBox>
+
+    );
 }

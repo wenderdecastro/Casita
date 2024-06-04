@@ -18,7 +18,7 @@ export default function LandingPage({navigation}) {
       <PositionedImage position={'absolute'} left={10} top={10} source={AppAssets.eightPointBlueStar}/>
 
       <Gap height={24} />
-      <TitleExtraLarge>
+      <TitleExtraLarge color={AppColors.black}>
         <TitleExtraLarge color={AppColors.blue}>Tarefas</TitleExtraLarge>, <TitleExtraLarge color={AppColors.green}>finanças</TitleExtraLarge> e <TitleExtraLarge color={AppColors.red}>organização</TitleExtraLarge>, tudo em um só lugar!
       </TitleExtraLarge>
       <Gap height={24} />

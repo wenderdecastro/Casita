@@ -1,15 +1,15 @@
 import React from 'react'
 import { AppRoutesKeys } from '../utils/AppRoutes/AppRoutesUtils';
-import HomeScreen from '../screens/Main/Home';
-import ProfileScreen from '../screens/Main/Profile';
-import FinancialScreen from '../screens/Main/Financial';
-import ManagementScreen from '../screens/Main/Management';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import styled from 'styled-components/native';
 import AppSvgIcon, { AppIconName } from '../../assets/Icons';
 import { AppColors } from '../utils/Pallete';
 import { BodyMedium } from './AppFonts';
 import { AppAssets } from '../../assets/AppAssets';
+import HomeScreen from '../screens/Main/Home/HomeScreen';
+import ManagementScreen from '../screens/Main/Management/ManagementScreen';
+import FinancialScreen from '../screens/Main/Financial/FinancialScreen';
+import ProfileScreen from '../screens/Main/Profile/ProfileScreen';
 
 
 const Tab = createBottomTabNavigator();
