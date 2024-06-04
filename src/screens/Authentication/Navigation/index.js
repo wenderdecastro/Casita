@@ -45,6 +45,13 @@ export default function Navigation({ navigation }) {
           AppNavigation.push(navigation, AppRoutesKeys.recoveryPasswordInsertEmailEscreen)
         }}
       />
+      <Gap height={30} />
+      <AppButton
+        label={'Financeiro'}
+        onTap={() => {
+          AppNavigation.push(navigation, AppRoutesKeys.financialScreen)
+        }}
+      />
     </AppContainer>
   )
 }
