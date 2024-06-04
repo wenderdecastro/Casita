@@ -73,7 +73,7 @@ export const Link = styled.Text`
     font-size: ${({ size = 14 }) => `${size}px`};
 `
 
-export const DualTextWithShadow = ({ primaryText, secondaryText, primaryTextStyle = {}, secondaryTextStyle = {}, borderColor = '#000', borderWidth = 1,...props }) => {
+export const DualTextWithShadow = ({ primaryText, secondaryText, primaryTextStyle = {}, secondaryTextStyle = {}, borderColor = '#000', borderWidth = 1, ...props }) => {
   return (
     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', position: 'relative',bottom: 12 }}>
       <View style={{ position: 'absolute', zIndex: 1, left: 1 }}>
