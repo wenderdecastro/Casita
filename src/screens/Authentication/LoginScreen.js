@@ -8,6 +8,7 @@ import { BodyLarge, BodyMedium, Link, TitleBlack } from '../../components/AppFon
 import AppInput from '../../components/AppInput'
 import { Flex } from '../../utils/AppEnums'
 import AppButton from '../../components/AppButton'
+import AppSquare from '../../components/AppNativeShapes/AppSquare'
 
 const LeadingBox = styled.View`
 position: absolute;
@@ -33,10 +34,21 @@ width: 180px;
 border: black;
 `
 
+const BoxButton = styled.View`
+padding-top: 22px;
+width: 100%;
+gap: 25px;
+`
+
 export default function LoginScreen({navigation}) {
   return (
 
     <AppContainer backgroundColor={AppColors.background}>
+      <PositionedImage position={'absolute'} left={0} top={0}  source={AppAssets.greenTriangle}/>
+      <PositionedImage position={'absolute'} left={81} top={7}  source={AppAssets.dotPattern}/>
+      <PositionedImage position={'absolute'} left={81} top={82}  source={AppAssets.dotStar}/>
+      <AppSquare width={350} height={150} rotate={25} backgroundColor={AppColors.blue} top={85} left={-40}/>
+
         <LeadingBox>
             <LeadingButtonWidget navigation={navigation}/>
         </LeadingBox>
@@ -57,8 +69,13 @@ export default function LoginScreen({navigation}) {
           </LinkBox>
         </BoxInput>
 
-        <AppButton mainColor={AppColors.white}/>
-
+        <BoxButton>
+          <AppButton mainColor={AppColors.white} label={'LOGIN'}/>
+          <Row justifyContent={'center'} gap={28}>
+            <BodyLarge color={AppColors.black}>Não tem conta?</BodyLarge>
+            <Link size={16} color={AppColors.blue}>Cadastre-se</Link>
+          </Row>
+        </BoxButton>
 
         
     </AppContainer>
