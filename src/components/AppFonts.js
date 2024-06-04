@@ -4,11 +4,11 @@ import styled from "styled-components/native";
 import { AppColors } from "../utils/Pallete";
 
 export const FontFamily = {
-    archivoBold: 'Archivo_700Bold',
-    archivoMedium: 'Archivo_500Medium',
-    archivoRegular: 'Archivo_400Regular',
-    archivoExtraBold: 'Archivo_800ExtraBold',
-    archivoBlack: 'Archivo_900Black'
+  archivoBold: 'Archivo_700Bold',
+  archivoMedium: 'Archivo_500Medium',
+  archivoRegular: 'Archivo_400Regular',
+  archivoExtraBold: 'Archivo_800ExtraBold',
+  archivoBlack: 'Archivo_900Black'
 }
 
 export const TitleExtraLarge = styled.Text`
@@ -64,10 +64,10 @@ font-size: ${({ size = 12 }) => `${size}px`};
 color: ${({ color = AppColors.gray30 }) => color};
 text-align: ${({ textAlign = 'auto' }) => textAlign};
 `
-export const DualTextWithShadow = ({ primaryText, secondaryText, primaryTextStyle = 'TitleBlack', secondaryTextStyle = 'BodyLarge',...props }) => {
+export const DualTextWithShadow = ({ primaryText, secondaryText, primaryTextStyle = {}, secondaryTextStyle = {}, borderColor = '#000', borderWidth = 1,...props }) => {
   return (
-    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
-      <View style={{ position: 'absolute', zIndex: 1, left: 1}}>
+    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', position: 'relative',bottom: 12 }}>
+      <View style={{ position: 'absolute', zIndex: 1, left: 1 }}>
         <TitleBlack {...props} style={[secondaryTextStyle]}>
           {secondaryText}
         </TitleBlack>
