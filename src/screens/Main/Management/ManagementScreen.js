@@ -12,6 +12,7 @@ export default function ManagementScreen() {
       <MyDayWidget/>
       <Gap height={30}/>
       <MyListsWidget/>
+      <Gap height={15}/>
     </AppContainer>
   )
 }

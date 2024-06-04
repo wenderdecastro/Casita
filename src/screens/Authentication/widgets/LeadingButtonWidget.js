@@ -32,7 +32,11 @@ export default function LeadingButtonWidget({navigation}) {
     return (
         <View>
             <Button activeOpacity={1} onPress={() => {AppNavigation.pop(navigation)}}>
-                <Image source={AppAssets.arrowLeft} />
+                <Image style={{
+                    flex: 1,
+                    width: 22,
+                    resizeMode: 'contain'
+                }} source={AppAssets.arrowLeft} />
             </Button>
             <BoxShadow></BoxShadow>
         </View>
