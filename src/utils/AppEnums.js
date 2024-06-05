@@ -36,3 +36,18 @@ export const TextAlign = {
     initial: 'initial',
     inherit: 'inherit',
 };
+
+export const TasksButtons = [
+    {
+        text: 'Semanais',
+        type: 0
+    },
+    {
+        text: 'Mensais',
+        type: 1
+    },
+    {
+        text: 'Próximas',
+        type: 2
+    }
+]

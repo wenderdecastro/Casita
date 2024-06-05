@@ -5,11 +5,12 @@ import { Gap } from '../../../components/AppSpecialComponents'
 import { AppNavigation, AppRoutesKeys } from '../../../utils/AppRoutes/AppRoutesUtils'
 import { StackActions } from '@react-navigation/native'
 
+
 export default function Navigation({ navigation }) {
   return (
     <AppContainer>
-      <AppButton 
-        label={'LOGIN'} 
+      <AppButton
+        label={'LOGIN'}
         onTap={() => {
           AppNavigation.push(navigation, AppRoutesKeys.loginScreen);
         }}

@@ -60,6 +60,14 @@ export const AppIconName = {
     arrowDown : {
         name: 'keyboard-arrow-down',
         family: IconFamily.materialIcons
+    },
+    shoppingCart: {
+        name: 'shopping-cart',
+        family: IconFamily.entypo
+    },
+    asterisk: {
+        name: 'star-of-life',
+        family: IconFamily.fontAwesome5
     }
 };
 

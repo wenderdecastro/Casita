@@ -3,6 +3,7 @@ import { View } from "react-native";
 import styled from "styled-components/native";
 import { AppColors } from "../utils/Pallete";
 import { TextDecoration } from "../utils/AppEnums";
+import TextStroke from "./AppTextShadow";
 
 export const FontFamily = {
   archivoBold: 'Archivo_700Bold',
@@ -20,11 +21,11 @@ export const TitleExtraLarge = styled.Text`
 `;
 
 export const TitleBlack = styled.Text`
-font-family: ${FontFamily.archivoBlack};
-font-size: ${({ size = 16 }) => `${size}px`};
-color: ${({ color = AppColors.black }) => color};
-text-align: ${({ textAlign = 'auto' }) => textAlign};
-`
+  font-family: ${FontFamily.archivoBlack};
+  font-size: ${({ size = 16 }) => `${size}px`}; 
+  color: ${({ color = AppColors.black }) => color}; 
+  text-align: ${({ textAlign = 'auto' }) => textAlign};
+`;
 
 export const H1 = styled.Text`
 font-family: ${FontFamily.archivoBold};
@@ -73,20 +74,62 @@ export const Link = styled.Text`
     font-size: ${({ size = 14 }) => `${size}px`};
 `
 
-export const DualTextWithShadow = ({ primaryText, secondaryText, primaryTextStyle = {}, secondaryTextStyle = {}, borderColor = '#000', borderWidth = 1,...props }) => {
+const TextStrokeShadow = ({
+  text,
+  fontSize = 16,
+  primaryColor = "#000",
+  rotate = 0,
+  position = 'static',
+  left = 0,
+  top = 0,
+  zIndex = -1,
+  stroke = 1,
+  color="#000",
+  shadowLeft = 5,
+  shadowTop = 3,
+ ...props
+}) => {
   return (
-    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', position: 'relative',bottom: 12 }}>
-      <View style={{ position: 'absolute', zIndex: 1, left: 1 }}>
-        <TitleBlack {...props} style={[secondaryTextStyle]}>
-          {secondaryText}
+    <View
+      style={{
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'static',
+        transform: [{ rotate: `${rotate}deg` }],
+        left: left,
+        top: top,
+        zIndex: zIndex,
+      }}
+      {...props}
+    >
+      <View
+        style={{
+          position: 'absolute',
+          zIndex: 1,
+          left: shadowLeft,
+          top: shadowTop,
+        }}
+      >
+        <TitleBlack size={fontSize} color={AppColors.black}>
+          {text}
         </TitleBlack>
       </View>
 
-      <View style={{ position: 'relative', zIndex: 2 }}>
-        <TitleBlack {...props} style={[primaryTextStyle]}>
-          {primaryText}
-        </TitleBlack>
+      <View
+        style={{
+          position: 'relative',
+          zIndex: 2,
+        }}
+      >
+        <TextStroke color={color} stroke={stroke}>
+          <TitleBlack fontSize={fontSize} color={primaryColor}>
+            {text}
+          </TitleBlack>
+        </TextStroke>
       </View>
     </View>
   );
 };
+
+export default TextStrokeShadow;
