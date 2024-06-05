@@ -21,11 +21,11 @@ export const TitleExtraLarge = styled.Text`
 `;
 
 export const TitleBlack = styled.Text`
-font-family: ${FontFamily.archivoBlack};
-font-size: ${({ size = 16 }) => `${size}px`};
-color: ${({ color = AppColors.black }) => color};
-text-align: ${({ textAlign = 'auto' }) => textAlign};
-`
+  font-family: ${FontFamily.archivoBlack};
+  font-size: ${({ size = 16 }) => `${size}px`}; 
+  color: ${({ color = AppColors.black }) => color}; 
+  text-align: ${({ textAlign = 'auto' }) => textAlign};
+`;
 
 export const H1 = styled.Text`
 font-family: ${FontFamily.archivoBold};
@@ -74,73 +74,20 @@ export const Link = styled.Text`
     font-size: ${({ size = 14 }) => `${size}px`};
 `
 
-export const DualTextWithShadow = ({
+const TextStrokeShadow = ({
   primaryText,
   secondaryText,
-  primaryTextStyle = {},
-  secondaryTextStyle = {},
-  rotate = 0, 
-  position = 'static', 
-  left = 0,
-  top = 0, 
-  zIndex = -1,
-  marginBottom = 10, // Adicionando propriedade para controle do marginBottom
-...props
-}) => {
-  return (
-    <View
-      style={{
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        position: position, 
-        transform: [{ rotate: `${rotate}deg` }], 
-        left: left, 
-        top: top,
-        zIndex: 1,
-        marginBottom: marginBottom, // Aplicando o marginBottom definido
-      }}
-      {...props}
-    >
-      <View
-        style={{
-          position: 'absolute',
-          zIndex: 1,
-          left: 0,
-        }}
-      >
-        <TitleBlack {...props} style={[secondaryTextStyle]}>
-          {secondaryText}
-        </TitleBlack>
-      </View>
-
-      <View
-        style={{
-          position: 'relative',
-          zIndex: 2,
-        }}
-      >
-        <TitleBlack {...props} style={[primaryTextStyle]}>
-          {primaryText}
-        </TitleBlack>
-      </View>
-    </View>
-  );
-};
-
-export const DualTextWithShadowAndStroke = ({
-  primaryText,
-  secondaryText,
-  primaryTextStyle = {},
-  secondaryTextStyle = {},
+  primaryFontSize = 16, 
+  secondaryFontSize = 16,
+  primaryColor = "#000",
+  secondaryColor = "#000",
   rotate = 0,
   position = 'static',
   left = 0,
   top = 0,
   zIndex = -1,
-  marginBottom = 10,
-  color = "#000", // Cor padrão para a borda
-  stroke = 1, // Espessura padrão da borda
+  stroke = 1,
+  color="#000",
  ...props
 }) => {
   return (
@@ -154,7 +101,6 @@ export const DualTextWithShadowAndStroke = ({
         left: left,
         top: top,
         zIndex: zIndex,
-        marginBottom: marginBottom,
       }}
       {...props}
     >
@@ -166,12 +112,11 @@ export const DualTextWithShadowAndStroke = ({
           top: 3,
         }}
       >
-        <TitleBlack {...props} style={[secondaryTextStyle]}>
+        <TitleBlack size={secondaryFontSize} color={secondaryColor}>
           {secondaryText}
         </TitleBlack>
       </View>
 
-      {/* Aqui é onde aplicamos o TextStroke ao texto primário */}
       <View
         style={{
           position: 'relative',
@@ -179,7 +124,7 @@ export const DualTextWithShadowAndStroke = ({
         }}
       >
         <TextStroke color={color} stroke={stroke}>
-          <TitleBlack {...props} style={[primaryTextStyle]} color={AppColors.green}>
+          <TitleBlack fontSize={primaryFontSize} color={primaryColor}>
             {primaryText}
           </TitleBlack>
         </TextStroke>
@@ -188,4 +133,4 @@ export const DualTextWithShadowAndStroke = ({
   );
 };
 
-
+export default TextStrokeShadow;
