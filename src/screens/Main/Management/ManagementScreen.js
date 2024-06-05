@@ -5,6 +5,7 @@ import { Flex } from '../../../utils/AppEnums'
 import MyDayWidget from './widgets/MyDayWidget'
 import { Gap } from '../../../components/AppSpecialComponents'
 import MyListsWidget from './widgets/MyListsWidget'
+import TasksWidget from './widgets/TasksWidget'
 
 export default function ManagementScreen() {
   return (
@@ -12,6 +13,8 @@ export default function ManagementScreen() {
       <MyDayWidget/>
       <Gap height={30}/>
       <MyListsWidget/>
+      <Gap height={15}/>
+      <TasksWidget/>
     </AppContainer>
   )
 }

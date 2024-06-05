@@ -3,7 +3,6 @@ import { StyleSheet, Text, View } from 'react-native';
 import { useFonts, Archivo_700Bold, Archivo_500Medium, Archivo_400Regular , Archivo_800ExtraBold, Archivo_900Black} from '@expo-google-fonts/archivo';
 import AppRoutes from './src/utils/AppRoutes/AppRoutes';
 
-
 export default function App() {
 
   let [fontsLoaded, fontError] = useFonts({
