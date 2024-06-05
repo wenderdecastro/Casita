@@ -39,15 +39,93 @@ export const TextAlign = {
 
 export const TasksButtons = [
     {
-        text: 'Semanais',
+        text: 'Próximas',
         type: 0
     },
     {
-        text: 'Mensais',
+        text: 'Semanais',
         type: 1
     },
     {
-        text: 'Próximas',
+        text: 'Mensais',
         type: 2
-    }
+    },
 ]
+
+const getRandomInt = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+
+export const TasksListMock = [
+    {
+        name: "Tarefa 1",
+        priority: getRandomInt(1, 3),
+        date: '25-05-2024T13:00:00',
+        type: getRandomInt(0, 3),
+        isChecked: Math.random() < 0.5,
+    },
+    {
+        name: "Tarefa 2",
+        priority: getRandomInt(1, 3),
+        date: '25-05-2024T13:00:00',
+        type: getRandomInt(0, 3),
+        isChecked: Math.random() < 0.5,
+    },
+    {
+        name: "Tarefa 3",
+        priority: getRandomInt(1, 3),
+        date: '25-05-2024T13:00:00',
+        type: getRandomInt(0, 3),
+        isChecked: Math.random() < 0.5,
+    },
+    {
+        name: "Tarefa 4",
+        priority: getRandomInt(1, 3),
+        date: '25-05-2024T13:00:00',
+        type: getRandomInt(0, 3),
+        isChecked: Math.random() < 0.5,
+    },
+    {
+        name: "Tarefa 5",
+        priority: getRandomInt(1, 3),
+        date: '25-05-2024T13:00:00',
+        type: getRandomInt(0, 3),
+        isChecked: Math.random() < 0.5,
+    },
+    {
+        name: "Tarefa 6",
+        priority: getRandomInt(1, 3),
+        date: '25-05-2024T13:00:00',
+        type: getRandomInt(0, 3),
+        isChecked: Math.random() < 0.5,
+    },
+    {
+        name: "Tarefa 7",
+        priority: getRandomInt(1, 3),
+        date: '25-05-2024T13:00:00',
+        type: getRandomInt(0, 3),
+        isChecked: Math.random() < 0.5,
+    },
+    {
+        name: "Tarefa 8",
+        priority: getRandomInt(1, 3),
+        date: '25-05-2024T13:00:00',
+        type: getRandomInt(0, 3),
+        isChecked: Math.random() < 0.5,
+    },
+    {
+        name: "Tarefa 9",
+        priority: getRandomInt(1, 3),
+        date: '25-05-2024T13:00:00',
+        type: getRandomInt(0, 3),
+        isChecked: Math.random() < 0.5,
+    },
+    {
+        name: "Tarefa 10",
+        priority: getRandomInt(1, 3),
+        date: '25-05-2024T13:00:00',
+        type: getRandomInt(0, 3),
+        isChecked: Math.random() < 0.5,
+    }
+];

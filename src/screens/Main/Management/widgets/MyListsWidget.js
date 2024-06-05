@@ -7,8 +7,6 @@ import styled from 'styled-components'
 import { Row } from '../../../../components/AppContainers'
 import { AppIconName } from '../../../../../assets/Icons'
 import { AppColors } from '../../../../utils/Pallete'
-import AppTextShadow from '../../../../components/AppTextShadow'
-import TextStroke from '../../../../components/AppTextShadow'
 import { AppAssets } from '../../../../../assets/AppAssets'
 import { Flex } from '../../../../utils/AppEnums'
 import AppTextWithStroke from '../../../../components/AppTextWithStroke'
@@ -46,7 +44,10 @@ export default function MyListsWidget() {
             <TouchableOpacity activeOpacity={0.9}>
             <Row width={'100%'} justifyContent={Flex.flexEnd}>
                 <View>
-                    <AppTextWithStroke text={'Ver todas'} shadowTop={12} shadowLeft={5}  />
+                    <AppTextWithStroke 
+                    text={'Ver todas'} 
+                    shadowTop={10} 
+                    shadowLeft={5}  />
                 </View>
                 <View>
                     <Image  source={AppAssets.arrowRight} style={{
