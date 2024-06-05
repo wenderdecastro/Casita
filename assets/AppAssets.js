@@ -21,4 +21,5 @@ export const AppAssets = {
     arrowRight: require(`${imagePath}/arrow_right.png`), 
     greenArrowUp: require(`${imagePath}/green-arrow.png`),
     redArrowDown: require(`${imagePath}/red-arrow.png`),
+    fourPointGreenStar: require(`${imagePath}/four_point_star_small.png`)
 }

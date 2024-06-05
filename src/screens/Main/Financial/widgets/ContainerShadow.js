@@ -37,8 +37,8 @@ export default function ContainerShadow({
     marginTop,
 }) {
     return(
-    <BoxIncome width={width} height={height} backgroundColor={backgroundColor} marginTop={marginTop}>
-        <ViewIncome>
+    <BoxIncome width={width} height={height}  marginTop={marginTop}>
+        <ViewIncome backgroundColor={backgroundColor}>
             {Content}
         </ViewIncome>
         <BoxShadow/>
