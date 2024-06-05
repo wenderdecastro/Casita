@@ -1,6 +1,6 @@
 import { View, Text, Image, Touchable, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { DualTextWithShadow, H3, TitleBlack, TitleExtraLarge } from '../../../../components/AppFonts'
+import TextStrokeShadow, { DualTextWithShadow, H3, TitleBlack, TitleExtraLarge } from '../../../../components/AppFonts'
 import { Gap } from '../../../../components/AppSpecialComponents'
 import MyListCardWidget from './MyListCardWidget'
 import styled from 'styled-components'
@@ -11,6 +11,7 @@ import AppTextShadow from '../../../../components/AppTextShadow'
 import TextStroke from '../../../../components/AppTextShadow'
 import { AppAssets } from '../../../../../assets/AppAssets'
 import { Flex } from '../../../../utils/AppEnums'
+import AppTextWithStroke from '../../../../components/AppTextWithStroke'
 
 const ListBox = styled.View`
     width: 100%;
@@ -45,9 +46,7 @@ export default function MyListsWidget() {
             <TouchableOpacity activeOpacity={0.9}>
             <Row width={'100%'} justifyContent={Flex.flexEnd}>
                 <View>
-                    <TextStroke stroke={1} color={'#000000'}>
-                        <H3 color={AppColors.white}> Ver todas </H3>
-                    </TextStroke>
+                    <AppTextWithStroke text={'Ver todas'} shadowTop={12} shadowLeft={5}  />
                 </View>
                 <View>
                     <Image  source={AppAssets.arrowRight} style={{

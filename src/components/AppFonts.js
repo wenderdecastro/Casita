@@ -75,12 +75,9 @@ export const Link = styled.Text`
 `
 
 const TextStrokeShadow = ({
-  primaryText,
-  secondaryText,
-  primaryFontSize = 16, 
-  secondaryFontSize = 16,
+  text,
+  fontSize = 16,
   primaryColor = "#000",
-  secondaryColor = "#000",
   rotate = 0,
   position = 'static',
   left = 0,
@@ -88,6 +85,8 @@ const TextStrokeShadow = ({
   zIndex = -1,
   stroke = 1,
   color="#000",
+  shadowLeft = 5,
+  shadowTop = 3,
  ...props
 }) => {
   return (
@@ -108,12 +107,12 @@ const TextStrokeShadow = ({
         style={{
           position: 'absolute',
           zIndex: 1,
-          left: 5,
-          top: 3,
+          left: shadowLeft,
+          top: shadowTop,
         }}
       >
-        <TitleBlack size={secondaryFontSize} color={secondaryColor}>
-          {secondaryText}
+        <TitleBlack size={fontSize} color={AppColors.black}>
+          {text}
         </TitleBlack>
       </View>
 
@@ -124,8 +123,8 @@ const TextStrokeShadow = ({
         }}
       >
         <TextStroke color={color} stroke={stroke}>
-          <TitleBlack fontSize={primaryFontSize} color={primaryColor}>
-            {primaryText}
+          <TitleBlack fontSize={fontSize} color={primaryColor}>
+            {text}
           </TitleBlack>
         </TextStroke>
       </View>
