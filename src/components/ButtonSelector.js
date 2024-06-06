@@ -3,12 +3,12 @@ import { Flex } from '../utils/AppEnums';
 import { Gap } from './AppSpecialComponents';
 import styled from 'styled-components/native';
 import { Row } from './AppContainers';
-import { BodyLarge, BodyMedium, H1 } from './AppFonts';
+import { BodyMedium, H1 } from './AppFonts';
 import { AppColors } from '../utils/Pallete';
 
 const ButtonSelecter = styled.TouchableOpacity`
     background-color: ${({ backgroundColor, isSelected = false }) => !isSelected ? AppColors.yellow : backgroundColor};
-    padding: 9px 20px 9px 20px;
+    padding: ${({isCompact}) => isCompact ? '3px' : '9px 20px 9px 20px'};
     border-width: 1px;
     border-color: ${AppColors.black};
     align-items: center;
@@ -18,7 +18,7 @@ const ButtonBox = styled.View`
     flex: 1;
 `
 const ButtonShadow = styled.View`
-    padding: 9px 20px 9px 20px;
+    padding: ${({isCompact}) => isCompact ? '3px' : '9px 20px 9px 20px'};
     width: 100%;
     background-color: ${AppColors.black};
     position: absolute;
@@ -27,14 +27,14 @@ const ButtonShadow = styled.View`
     z-index: -9999;
 `
 
-function Button({ isSelected, color, textColor, textButton, flex, onTap }) {
+function Button({ isSelected, color, textColor, textButton, flex, onTap, isCompact }) {
     return (
         <ButtonBox>
-            <ButtonSelecter activeOpacity={1} isSelected={isSelected} onPress={onTap} backgroundColor={color}>
-                <H1 size={14} color={textColor}>{textButton}</H1>
+            <ButtonSelecter isCompact={isCompact} activeOpacity={1} isSelected={isSelected} onPress={onTap} backgroundColor={color}>
+                {isCompact ? <BodyMedium size={14} color={textColor}>{textButton}</BodyMedium> : <H1 size={14} color={textColor}>{textButton}</H1>}
             </ButtonSelecter>
-            <ButtonShadow>
-                <H1 size={14} color={textColor}>{textButton}</H1>
+            <ButtonShadow isCompact={isCompact}>
+                {isCompact ? <BodyMedium size={14} color={textColor}>{textButton}</BodyMedium> : <H1 size={14} color={textColor}>{textButton}</H1>}
             </ButtonShadow>
         </ButtonBox>
     )
@@ -46,7 +46,8 @@ export default function ButtonSelector({
     mainColor = AppColors.black,
     mainTextColor,
     buttonList = [],
-    spacing = 10
+    spacing = 10,
+    isCompact = false,
 }) {
     return (
         <>
@@ -56,7 +57,7 @@ export default function ButtonSelector({
                     return <Fragment key={index}>
 
                         <Button
-
+                            isCompact={isCompact}
                             isSelected={selected !== buttonPreferences.type}
                             textButton={buttonPreferences.text}
                             flex={1}

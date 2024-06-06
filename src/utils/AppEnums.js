@@ -51,6 +51,24 @@ export const TasksButtons = [
         type: 2
     },
 ]
+export const NewTaskButtons = [
+    {
+        text: 'vez única',
+        type: 0
+    },
+    {
+        text: 'diária',
+        type: 1
+    },
+    {
+        text: 'semanal',
+        type: 2
+    },
+    {
+        text: 'mensal',
+        type: 3
+    },
+]
 
 const getRandomInt = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
