@@ -19,4 +19,7 @@ export const AppAssets = {
     plusGreen: require(`${imagePath}/plus_green.png`),
     percentage: require(`${imagePath}/percentage_brutalism.png`),
     arrowRight: require(`${imagePath}/arrow_right.png`), 
+    exclamationIcon: require(`${imagePath}/exclamation_icon.png`), 
+    successIcon: require(`${imagePath}/success_icon.png`), 
+    errorIcon: require(`${imagePath}/error_icon.png`)
 }
