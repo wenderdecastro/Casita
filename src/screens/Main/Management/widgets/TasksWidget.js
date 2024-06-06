@@ -26,7 +26,7 @@ export default function TasksWidget() {
         setSelected(val)
       }}
      />
-     <Gap height={26}/>
+     <Gap height={20}/>
      <TasksListWidget 
      DATA={TasksListMock}/>
     </TaskBox>

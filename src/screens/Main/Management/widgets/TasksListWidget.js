@@ -7,7 +7,7 @@ import { Gap } from '../../../../components/AppSpecialComponents'
 import TaskCardWidget from './TaskCardWidget'
 
 const List = styled.View`
-    height: 300px;
+    height: 333px;
     width: 100%;
 `
 
@@ -24,7 +24,7 @@ export default function TasksListWidget({ DATA, tapAction }) {
                 )
                 }
                 keyExtractor={item => item.id}
-                ItemSeparatorComponent={<Gap height={10} />}
+                ItemSeparatorComponent={<Gap height={20} />}
                 contentContainerStyle={{ paddingVertical: 10, paddingHorizontal: 5 }}
                 showsVerticalScrollIndicator={false}
             />
