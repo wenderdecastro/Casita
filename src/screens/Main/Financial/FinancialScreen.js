@@ -1,5 +1,5 @@
 import { Image, ScrollView, Text, View } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { AppContainer, Row } from "../../../components/AppContainers";
 import { AppColors } from "../../../utils/Pallete";
 import {
@@ -18,6 +18,7 @@ import { Gap } from "../../../components/AppSpecialComponents";
 import ProgressBarShadow from "./widgets/ProgressBarShadow";
 import SpentBox from "./widgets/SpentBox";
 import AppSvgIcon, { AppIconName } from "../../../../assets/Icons";
+import SpentModal from "./dialogs/SpentModal";
 
 const ViewCards = styled.View`
   width: 100%;
@@ -29,7 +30,7 @@ const ViewContentCard = styled.View`
 
 const FixedButton = styled.TouchableOpacity`
   padding: 15px;
-  background-color: ${AppColors.yellow};
+  background-color: ${AppColors.green};
   border-radius: 9999px;
   border-width: 1px;
   border-color: ${AppColors.black};
@@ -56,6 +57,7 @@ const ScrollContainer = styled.ScrollView`
 `;
 
 export default function FinancialScreen() {
+  const [spentModalIsVisible, setSpentModalIsVisible] = useState(false);
   return (
     <>
     <ScrollContainer>
@@ -186,11 +188,13 @@ export default function FinancialScreen() {
 
       </AppContainer>
     </ScrollContainer>
+    <SpentModal onClose={() => {setSpentModalIsVisible(false)}} visible={spentModalIsVisible}/>
+    
 
     <FixedButton
           activeOpacity={0.9}
           onPress={() => {
-            setIsNewTaskDialogVisible(true);
+            setSpentModalIsVisible(true);
           }}
         >
           <AppSvgIcon name={AppIconName.add} />

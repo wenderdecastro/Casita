@@ -70,6 +70,21 @@ export const NewTaskButtons = [
     },
 ]
 
+export const SpentTypeButtons = [
+    {
+        text: 'Gastos',
+        type: 0
+    },
+    {
+        text: 'Desejos',
+        type: 1
+    },
+    {
+        text: 'Economias',
+        type: 2
+    },
+]
+
 const getRandomInt = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 };
