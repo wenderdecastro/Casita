@@ -18,6 +18,7 @@ export const TitleExtraLarge = styled.Text`
   font-size: ${({ size = 32 }) => `${size}px`};
   color: ${({ color = AppColors.altBlack }) => color};
   text-align: ${({ textAlign = 'auto' }) => textAlign};
+  text-decoration: ${({ textDecoration = TextDecoration.none }) => textDecoration};
 `;
 
 export const TitleBlack = styled.Text`
@@ -58,6 +59,7 @@ font-family: ${FontFamily.archivoMedium};
 font-size: ${({ size = 14 }) => `${size}px`};
 color: ${({ color = AppColors.gray30 }) => color};
 text-align: ${({ textAlign = 'auto' }) => textAlign};
+text-decoration: ${({ textDecoration = TextDecoration.none }) => textDecoration};
 `
 
 export const BodySmall = styled.Text`
@@ -84,10 +86,10 @@ const TextStrokeShadow = ({
   top = 0,
   zIndex = -1,
   stroke = 1,
-  color="#000",
+  color = "#000",
   shadowLeft = 5,
   shadowTop = 3,
- ...props
+  ...props
 }) => {
   return (
     <View

@@ -72,6 +72,10 @@ export const AppIconName = {
     clock: {
         name: 'clock',
         family: IconFamily.materialCommunityIcons
+    },
+    add: {
+        name: 'add',
+        family: IconFamily.materialIcons,
     }
 };
 

@@ -66,7 +66,7 @@ export const TasksListMock = [
         isChecked: Math.random() < 0.5,
     },
     {
-        name: "Tarefa 2",
+        name: "Tarefa 2 com nome muito grande mesmo mesmo mesmo",
         priority: getRandomInt(1, 3),
         date: '25-05-2024T13:00:00',
         type: getRandomInt(0, 3),
