@@ -1,7 +1,7 @@
-import { View, Text, Image } from 'react-native'
+import { View, Image } from 'react-native'
 import React, { useState } from 'react'
 import AppDialog from '../../../../../components/AppDialog'
-import { TitleBlack } from '../../../../../components/AppFonts'
+import { FontFamily, TitleBlack } from '../../../../../components/AppFonts'
 import { Flex, NewTaskButtons } from '../../../../../utils/AppEnums'
 import AppInput from '../../../../../components/AppInput'
 import { Row } from '../../../../../components/AppContainers'
@@ -10,6 +10,33 @@ import { Gap } from '../../../../../components/AppSpecialComponents'
 import { AppAssets } from '../../../../../../assets/AppAssets'
 import ButtonSelector from '../../../../../components/ButtonSelector'
 import { AppColors } from '../../../../../utils/Pallete'
+import styled from 'styled-components/native'
+import AppSvgIcon, { AppIconName } from '../../../../../../assets/Icons'
+
+const SendButton = styled.TouchableOpacity`
+    border-radius: 10px;
+    border-width: 1px;
+    border-color: ${AppColors.black};
+    background-color: ${AppColors.yellow};
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+`
+const SendButtonShadow = styled.View`
+    border-radius: 10px;
+    border-width: 1px;
+    border-color: ${AppColors.black};
+    background-color: ${AppColors.black};
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -9999;
+    top: 3px;
+    left: 3px;
+`
 
 export default function NewTaskDialog({ visible, onClose, }) {
     const data = [
@@ -33,12 +60,10 @@ export default function NewTaskDialog({ visible, onClose, }) {
     return (
         <AppDialog
             visible={visible}
-
             padding={15}
-            paddingInside={10}
+            paddingInside={15}
             isFaded={true}
             justifyContentBox={Flex.flexStart}
-
             onClose={onClose}
             isAvoiding={true}
         >
@@ -77,13 +102,25 @@ export default function NewTaskDialog({ visible, onClose, }) {
             <AppInput
                 backgroundColor={AppColors.white}
                 placeholder={'Titulo da tarefa. Ex: Fazer as compras'}
+                fontFamily={FontFamily.archivoBold}
             />
             <Gap height={15} />
             <Row>
                 <AppInput
                     inputWidth={'80%'}
                     placeholder={'Descrição da tarefa'}
-                    isTextArea />
+                    isTextArea
+                    fontFamily={FontFamily.archivoMedium}
+                />
+                <Gap width={10} />
+                <View style={{ flex: 1 }}>
+                    <SendButton activeOpacity={0.9}>
+                        <AppSvgIcon name={AppIconName.send} />
+                    </SendButton>
+                    <SendButtonShadow>
+                        <AppSvgIcon name={AppIconName.send} />
+                    </SendButtonShadow>
+                </View>
             </Row>
 
 

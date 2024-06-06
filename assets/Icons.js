@@ -76,6 +76,10 @@ export const AppIconName = {
     add: {
         name: 'add',
         family: IconFamily.materialIcons,
+    },
+    send: {
+        name: 'send-sharp',
+        family: IconFamily.ionIcons
     }
 };
 
