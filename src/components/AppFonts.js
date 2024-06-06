@@ -10,7 +10,8 @@ export const FontFamily = {
   archivoMedium: 'Archivo_500Medium',
   archivoRegular: 'Archivo_400Regular',
   archivoExtraBold: 'Archivo_800ExtraBold',
-  archivoBlack: 'Archivo_900Black'
+  archivoBlack: 'Archivo_900Black',
+  archivoSemiBold: 'Archivo_600SemiBold',
 }
 
 export const TitleExtraLarge = styled.Text`
@@ -18,6 +19,7 @@ export const TitleExtraLarge = styled.Text`
   font-size: ${({ size = 32 }) => `${size}px`};
   color: ${({ color = AppColors.altBlack }) => color};
   text-align: ${({ textAlign = 'auto' }) => textAlign};
+  text-decoration: ${({ textDecoration = TextDecoration.none }) => textDecoration};
 `;
 
 export const TitleBlack = styled.Text`
@@ -58,12 +60,20 @@ font-family: ${FontFamily.archivoMedium};
 font-size: ${({ size = 14 }) => `${size}px`};
 color: ${({ color = AppColors.gray30 }) => color};
 text-align: ${({ textAlign = 'auto' }) => textAlign};
+text-decoration: ${({ textDecoration = TextDecoration.none }) => textDecoration};
 `
 
 export const BodySmall = styled.Text`
 font-family: ${FontFamily.archivoMedium};
 font-size: ${({ size = 12 }) => `${size}px`};
 color: ${({ color = AppColors.gray30 }) => color};
+text-align: ${({ textAlign = 'auto' }) => textAlign};
+`
+
+export const TextSemiBold = styled.Text`
+font-family: ${FontFamily.archivoSemiBold};
+font-size: ${({ size = 16 }) => `${size}px`};
+color: ${({ color = AppColors.black }) => color};
 text-align: ${({ textAlign = 'auto' }) => textAlign};
 `
 
@@ -84,10 +94,10 @@ const TextStrokeShadow = ({
   top = 0,
   zIndex = -1,
   stroke = 1,
-  color="#000",
+  color = "#000",
   shadowLeft = 5,
   shadowTop = 3,
- ...props
+  ...props
 }) => {
   return (
     <View

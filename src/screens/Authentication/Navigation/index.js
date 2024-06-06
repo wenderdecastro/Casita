@@ -1,29 +1,14 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import { AppContainer } from '../../../components/AppContainers'
 import AppButton from '../../../components/AppButton'
 import { Gap } from '../../../components/AppSpecialComponents'
 import { AppNavigation, AppRoutesKeys } from '../../../utils/AppRoutes/AppRoutesUtils'
 import { StackActions } from '@react-navigation/native'
-import ToastMessage from '../../../components/AppToastMessage'
+
 
 export default function Navigation({ navigation }) {
-
-  const toastRef = useRef(null);
-
-  const showToast = () => {
-    if (toastRef.current) {
-      toastRef.current.show();
-    }
-  }
-
   return (
     <AppContainer>
-      <ToastMessage
-        ref={toastRef}
-        type='warning'
-        title='Preenchas os campos'
-        description='Esquece de algo ai meu chapa!'
-      />
       <AppButton
         label={'LOGIN'}
         onTap={() => {
@@ -63,8 +48,10 @@ export default function Navigation({ navigation }) {
       />
       <Gap height={30} />
       <AppButton
-        label={'TOAST'}
-        onTap={() => showToast()}
+        label={'Financeiro'}
+        onTap={() => {
+          AppNavigation.push(navigation, AppRoutesKeys.financialScreen)
+        }}
       />
     </AppContainer>
   )
