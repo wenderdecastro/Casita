@@ -7,7 +7,7 @@ import { Gap } from '../../../../components/AppSpecialComponents'
 import TaskCardWidget from './TaskCardWidget'
 
 const List = styled.View`
-    height: 333px;
+    height: 350px;
     width: 100%;
 `
 
