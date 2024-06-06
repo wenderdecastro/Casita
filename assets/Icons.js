@@ -68,6 +68,10 @@ export const AppIconName = {
     asterisk: {
         name: 'star-of-life',
         family: IconFamily.fontAwesome5
+    },
+    add: {
+        name: 'add',
+        family: IconFamily.materialIcons,
     }
 };
 

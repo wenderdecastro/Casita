@@ -18,8 +18,8 @@ const BoxShadow = styled.View`
     width: 100%;
     height: 100%;
     position: absolute;
-    bottom: -7%;
-    left: 1.5%;
+    bottom: ${({ bottom }) => `${bottom}%`};
+    left: ${({ left }) => `${left}%`};
     z-index: -9999;
 `
 
@@ -35,13 +35,15 @@ export default function ContainerShadow({
     backgroundColor,
     Content,
     marginTop,
+    bottom = -7,
+    left = 1.5,
 }) {
     return(
     <BoxIncome width={width} height={height}  marginTop={marginTop}>
         <ViewIncome backgroundColor={backgroundColor}>
             {Content}
         </ViewIncome>
-        <BoxShadow/>
+        <BoxShadow bottom={bottom} left={left}/>
     </BoxIncome>
     )
 }
