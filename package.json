@@ -19,6 +19,7 @@
     "expo-font": "~12.0.5",
     "expo-status-bar": "~1.12.1",
     "link": "^2.1.1",
+    "moment": "^2.30.1",
     "react": "18.2.0",
     "react-native": "^0.74.1",
     "react-native-chart-kit": "^6.12.0",
