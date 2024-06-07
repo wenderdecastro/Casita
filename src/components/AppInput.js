@@ -16,7 +16,7 @@ const Input = styled.TextInput`
     padding: 8px;
     border-color: ${({ borderColor = AppColors.black }) => borderColor};
     background-color: ${({ isEditable = true, backgroundColor }) => isEditable ? backgroundColor : AppColors.gray20};
-    font-family: ${FontFamily.archivoBlack};
+    font-family: ${({fontFamily}) => fontFamily};
     font-size: ${({ fontSize }) => fontSize || '16px'};
     display: flex;
     align-items: center;
@@ -59,6 +59,7 @@ export default function AppInput({
     inputWidth,
     fontSize,
     textAlign,
+    fontFamily = FontFamily.archivoBlack,
 }) {
     const handleInputChange = (value) => {
         onChangeText === null ? null : onChangeText(value);
@@ -87,6 +88,7 @@ export default function AppInput({
                 placeholderTextColor={AppColors.black}
                 fontSize={fontSize}
                 textAlign={textAlign}
+                fontFamily={fontFamily}
             />
             <BoxShadow isTextArea={isTextArea} borderRadius={borderRadius} />
             <IconBox label={label}>

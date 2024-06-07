@@ -1,4 +1,4 @@
-import { View, Text, Image } from 'react-native'
+import { View, Text, Image, Touchable, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import styled from 'styled-components/native'
 import { AppColors } from '../../../../utils/Pallete'
@@ -56,7 +56,7 @@ const CheckBox = styled.TouchableOpacity`
     justify-content: center;
 `
 
-export default function TaskCardWidget({ item }) {
+export default function TaskCardWidget({ item, onTap }) {
 
     var dateFormatted = moment(item.date, 'DD-MM-YYYYTHH:mm:ss');
 
@@ -65,7 +65,7 @@ export default function TaskCardWidget({ item }) {
 
     const [isChecked, setIsChecked] = useState(item.isChecked)
     return (
-        <View>
+        <TouchableOpacity activeOpacity={0.9} onPress={onTap}>
             <CardBox>
                 <Row style={{ flex: 1 }}>
                     <View>
@@ -130,6 +130,6 @@ export default function TaskCardWidget({ item }) {
                     </Tag>
                 </Column>
             </CardShadow>
-        </View>
+        </TouchableOpacity>
     )
 }

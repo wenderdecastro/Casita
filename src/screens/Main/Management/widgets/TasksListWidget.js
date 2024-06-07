@@ -20,7 +20,10 @@ export default function TasksListWidget({ DATA, tapAction }) {
                 
                 renderItem={({ item }) =>
                 (
-                    <TaskCardWidget key={Math.random()} item={item}/>
+                    <TaskCardWidget
+                    onTap={() => tapAction(item)}
+                     key={Math.random()} 
+                     item={item}/>
                 )
                 }
                 keyExtractor={item => item.id}

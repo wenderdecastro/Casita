@@ -1,14 +1,17 @@
 import React, { useState } from 'react'
 import { AppContainer } from '../../../components/AppContainers'
 import { AppColors } from '../../../utils/Pallete'
-import { Flex } from '../../../utils/AppEnums'
+import { Flex, TasksButtons, TasksListMock } from '../../../utils/AppEnums'
 import MyDayWidget from './widgets/MyDayWidget'
 import { Gap } from '../../../components/AppSpecialComponents'
 import MyListsWidget from './widgets/MyListsWidget'
-import TasksWidget from './widgets/TasksWidget'
 import styled from 'styled-components/native'
 import AppSvgIcon, { AppIconName } from '../../../../assets/Icons'
 import NewTaskDialog from './widgets/dialogs/NewTaskDialog'
+import EditTaskDialog from './widgets/dialogs/EditTaskDialog'
+import TasksListWidget from './widgets/TasksListWidget'
+import ButtonSelector from '../../../components/ButtonSelector'
+import { TitleBlack } from '../../../components/AppFonts'
 
 const FixedButton = styled.TouchableOpacity`
   padding: 15px;
@@ -34,9 +37,23 @@ const FixedButtonShadow = styled.View`
   z-index: 0;
 `
 
+const TaskBox = styled.View`
+  width: 100%;
+`
+
 export default function ManagementScreen() {
 
+  const [selected, setSelected] = useState(0)
+
   const [isNewTaskDialogVisible, setIsNewTaskDialogVisible] = useState(false)
+  const [isEditTaskDialogVisible, setIsEditTaskDialogVisible] = useState(false)
+
+  const [taskSelected, setTaskSelected] = useState()
+
+  const handleOpenEditModal = (task) => {
+    setTaskSelected(task)
+    setIsEditTaskDialogVisible(true)
+  }
 
   return (
     <AppContainer justifyContent={Flex.flexStart} backgroundColor={AppColors.background}>
@@ -44,16 +61,33 @@ export default function ManagementScreen() {
       <Gap height={30} />
       <MyListsWidget />
       <Gap height={15} />
-      <TasksWidget />
+      <TaskBox>
+        <TitleBlack size={20}>TAREFAS</TitleBlack>
+        <Gap height={10} />
+        <ButtonSelector
+          selected={selected}
+          buttonList={TasksButtons}
+          mainColor={AppColors.white}
+          mainTextColor={AppColors.black}
+          handleTabSelected={(val) => {
+            setSelected(val)
+          }}
+        />
+        <Gap height={3} />
+        <TasksListWidget
+          DATA={TasksListMock}
+          tapAction={handleOpenEditModal} />
+      </TaskBox>
 
-      <FixedButton activeOpacity={0.9} onPress={() => { setIsNewTaskDialogVisible(true)}}>
+      <FixedButton activeOpacity={0.9} onPress={() => { setIsNewTaskDialogVisible(true) }}>
         <AppSvgIcon name={AppIconName.add} />
       </FixedButton>
       <FixedButtonShadow>
         <AppSvgIcon name={AppIconName.add} />
       </FixedButtonShadow>
 
-    <NewTaskDialog visible={isNewTaskDialogVisible} onClose={() => {setIsNewTaskDialogVisible(false)}} />
+      <NewTaskDialog visible={isNewTaskDialogVisible} onClose={() => { setIsNewTaskDialogVisible(false) }} />
+      <EditTaskDialog visible={isEditTaskDialogVisible} onClose={() => { setIsEditTaskDialogVisible(false) }} item={taskSelected} />
     </AppContainer>
   )
 }
