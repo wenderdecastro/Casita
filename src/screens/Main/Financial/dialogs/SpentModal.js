@@ -8,7 +8,7 @@ export default function SpentModal({ visible, onClose }) {
   const [selected, setSelected] = useState(0);
 
   return (
-    <AppDialog padding={5} visible={visible} onClose={onClose}>
+    <AppDialog paddingInside={16} padding={15} visible={visible} onClose={onClose}>
       <ButtonSelector
         selectedColor={AppColors.green}
         selected={selected}
