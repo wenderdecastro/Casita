@@ -8,7 +8,7 @@ const ViewIncome = styled.View`
     border-radius: 10px;
     border-width: 1px;
     border-color: ${AppColors.black};
-    justify-content: center;
+
     align-items: center;
 `
 
