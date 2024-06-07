@@ -95,10 +95,6 @@ export default function LoginScreen({ navigation }) {
     }
   }
 
-  useEffect(() => {
-    console.log(mail);
-  }, [mail])
-
   return (
     <AppContainer backgroundColor={AppColors.background}>
       <PositionedImage position={'absolute'} left={0} top={0} source={AppAssets.greenTriangle} />
