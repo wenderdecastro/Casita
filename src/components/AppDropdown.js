@@ -44,16 +44,16 @@ export default function AppDropdown({
                 dropdownStyles={{
                     backgroundColor: "white",
                     position: "absolute",
-                    top: 45,
+                    top: 36,
                     width: "100%",
                     zIndex: 99999,
                     borderColor: AppColors.black,
                     borderRadius: 5,
-                    borderWidth: 2.5,
+                    borderWidth: 1,
                     borderTopWidth: 0,
                     borderTopRightRadius: 0,
                     borderTopLeftRadius: 0,
-                    maxHeight: 100
+                    
                 }}
                 dropdownTextStyles={{
                     color: AppColors.black

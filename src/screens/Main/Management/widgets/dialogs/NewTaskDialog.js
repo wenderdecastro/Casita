@@ -12,6 +12,9 @@ import ButtonSelector from '../../../../../components/ButtonSelector'
 import { AppColors } from '../../../../../utils/Pallete'
 import styled from 'styled-components/native'
 import AppSvgIcon, { AppIconName } from '../../../../../../assets/Icons'
+import AppDatePicker from '../../../../../components/AppDatePicker'
+import AppButton from '../../../../../components/AppButton'
+import AppTimePicker from '../../../../../components/AppTimePicker'
 
 const SendButton = styled.TouchableOpacity`
     border-radius: 10px;
@@ -38,6 +41,16 @@ const SendButtonShadow = styled.View`
     left: 3px;
 `
 
+const CheckBox = styled.TouchableOpacity`
+    width: 25px;
+    height: 25px;
+    background-color: ${({ isChecked }) => isChecked ? AppColors.yellow : AppColors.white};
+    border-width: 1px;
+    border-color: ${AppColors.black};
+    align-items: center;
+    justify-content: center;
+`
+
 export default function NewTaskDialog({ visible, onClose, }) {
     const data = [
         {
@@ -57,15 +70,30 @@ export default function NewTaskDialog({ visible, onClose, }) {
     const [priority, setPriority] = useState()
     const [selected, setSelected] = useState(0)
 
+    const [date, setDate] = useState(new Date());
+    const [showDate, setShowDate] = useState(false);
+    const [dateIsEnabled, setDateIsEnabled] = useState(false)
+
+    const [time, setTime] = useState(new Date());
+    const [showTime, setShowTime] = useState(false);
+    const [timeIsEnabled, setTimeIsEnabled] = useState(false)
+
+    const showDatePicker = () => {
+        setShowDate(true);
+    };
+
+    const showTimePicker = () => {
+        setShowTime(true);
+    };
+
     return (
         <AppDialog
             visible={visible}
             padding={15}
             paddingInside={15}
-            isFaded={true}
             justifyContentBox={Flex.flexStart}
+            justifyContentContainer={Flex.center}
             onClose={onClose}
-            isAvoiding={true}
         >
             <Row alignItems={Flex.center}>
                 <TitleBlack size={20}>NOVA TAREFA</TitleBlack>
@@ -87,6 +115,34 @@ export default function NewTaskDialog({ visible, onClose, }) {
 
                 </View>
             </Row>
+            <Gap height={10} />
+            <Row alignItems={Flex.center} justifyContent={Flex.flexStart} width={'100%'}>
+                <CheckBox onPress={() => { setDateIsEnabled(!dateIsEnabled) }} isChecked={dateIsEnabled}>
+                    {dateIsEnabled ? <AppSvgIcon size={25} name={AppIconName.checkTask} /> : null}
+                </CheckBox>
+                <Gap width={12} />
+                <AppButton
+                    mainColor={AppColors.white}
+                    isDisabled={dateIsEnabled}
+                    onTap={showDatePicker}
+                    mainTextColor={AppColors.black}
+                    label={date.toLocaleDateString()}
+                    borderRadius={5} width={'120px'} />
+                <Gap width={12} />
+                <CheckBox onPress={() => { setTimeIsEnabled(!timeIsEnabled) }} isChecked={timeIsEnabled}>
+                    {timeIsEnabled ? <AppSvgIcon size={25} name={AppIconName.checkTask} /> : null}
+                </CheckBox>
+                <Gap width={12} />
+                <AppButton
+                    mainColor={AppColors.white}
+                    isDisabled={timeIsEnabled}
+                    onTap={showTimePicker}
+                    mainTextColor={AppColors.black}
+                    label={time.toLocaleTimeString()}
+                    borderRadius={5} width={'120px'} />
+            </Row>
+            <AppDatePicker date={date} setDate={setDate} show={showDate} setShow={setShowDate} />
+            <AppTimePicker time={time} setTime={setTime} show={showTime} setShow={setShowTime} />
             <Gap height={10} />
             <ButtonSelector
                 selected={selected}
