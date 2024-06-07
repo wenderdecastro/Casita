@@ -12,6 +12,7 @@ import EditTaskDialog from './widgets/dialogs/EditTaskDialog'
 import TasksListWidget from './widgets/TasksListWidget'
 import ButtonSelector from '../../../components/ButtonSelector'
 import { TitleBlack } from '../../../components/AppFonts'
+import { AppNavigation, AppRoutesKeys } from '../../../utils/AppRoutes/AppRoutesUtils'
 
 const FixedButton = styled.TouchableOpacity`
   padding: 15px;
@@ -41,7 +42,7 @@ const TaskBox = styled.View`
   width: 100%;
 `
 
-export default function ManagementScreen() {
+export default function ManagementScreen({ navigation }) {
 
   const [selected, setSelected] = useState(0)
 
@@ -57,27 +58,30 @@ export default function ManagementScreen() {
 
   return (
     <AppContainer justifyContent={Flex.flexStart} backgroundColor={AppColors.background}>
-      <MyDayWidget />
+      <MyDayWidget onTap={() => { AppNavigation.push(navigation, AppRoutesKeys.myDayScreen) }} />
       <Gap height={30} />
       <MyListsWidget />
       <Gap height={15} />
+
       <TaskBox>
         <TitleBlack size={20}>TAREFAS</TitleBlack>
-        <Gap height={10} />
-        <ButtonSelector
-          selected={selected}
-          buttonList={TasksButtons}
-          mainColor={AppColors.white}
-          mainTextColor={AppColors.black}
-          handleTabSelected={(val) => {
-            setSelected(val)
-          }}
-        />
-        <Gap height={3} />
-        <TasksListWidget
-          DATA={TasksListMock}
-          tapAction={handleOpenEditModal} />
       </TaskBox>
+      <Gap height={10} />
+      <ButtonSelector
+        selected={selected}
+        buttonList={TasksButtons}
+        mainColor={AppColors.white}
+        mainTextColor={AppColors.black}
+        handleTabSelected={(val) => {
+          setSelected(val)
+        }}
+      />
+      <Gap height={3} />
+      <TasksListWidget
+        DATA={TasksListMock}
+        tapAction={handleOpenEditModal}
+        flex={0.85} />
+
 
       <FixedButton activeOpacity={0.9} onPress={() => { setIsNewTaskDialogVisible(true) }}>
         <AppSvgIcon name={AppIconName.add} />

@@ -34,7 +34,7 @@ export default function MyDayWidget({ onTap = null }) {
         <View style={{
             width: '100%'
         }}>
-            <Button activeOpacity={0.95}>
+            <Button onPress={onTap} activeOpacity={0.95}>
                 <Row  alignItems={Flex.center}>
                     <Image
                         source={AppAssets.eightPointYellowStarSmall} />

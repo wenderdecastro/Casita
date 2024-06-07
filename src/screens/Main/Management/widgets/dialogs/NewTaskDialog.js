@@ -1,5 +1,5 @@
-import { View, Image } from 'react-native'
-import React, { useState } from 'react'
+import { View, Image, ActivityIndicator } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import AppDialog from '../../../../../components/AppDialog'
 import { FontFamily, TitleBlack } from '../../../../../components/AppFonts'
 import { Flex, NewTaskButtons } from '../../../../../utils/AppEnums'
@@ -15,6 +15,8 @@ import AppSvgIcon, { AppIconName } from '../../../../../../assets/Icons'
 import AppDatePicker from '../../../../../components/AppDatePicker'
 import AppButton from '../../../../../components/AppButton'
 import AppTimePicker from '../../../../../components/AppTimePicker'
+import api, { PostTaskPath } from '../../../../../services/ApiService'
+import moment from 'moment'
 
 const SendButton = styled.TouchableOpacity`
     border-radius: 10px;
@@ -67,16 +69,21 @@ export default function NewTaskDialog({ visible, onClose, }) {
         },
     ]
 
+    const [isLoading, setIsLoading] = useState(false)
+
     const [priority, setPriority] = useState()
-    const [selected, setSelected] = useState(0)
+    const [selected, setSelected] = useState(1)
 
     const [date, setDate] = useState(new Date());
     const [showDate, setShowDate] = useState(false);
-    const [dateIsEnabled, setDateIsEnabled] = useState(false)
+    const [dateIsDisabled, setDateIsDisabled] = useState(true)
 
     const [time, setTime] = useState(new Date());
     const [showTime, setShowTime] = useState(false);
-    const [timeIsEnabled, setTimeIsEnabled] = useState(false)
+    const [timeIsDisabled, setTimeIsDisabled] = useState(true)
+
+    const [title, setTitle] = useState()
+    const [description, setDescription] = useState()
 
     const showDatePicker = () => {
         setShowDate(true);
@@ -85,6 +92,41 @@ export default function NewTaskDialog({ visible, onClose, }) {
     const showTimePicker = () => {
         setShowTime(true);
     };
+
+    const formatDate = (date) => {
+
+        return moment(date).format('YYYY-MM-DD');
+    }
+
+    const formatTime = (time) => {
+
+        return moment(time).format('HH:mm:ss');
+    }
+
+
+
+    async function PostTask() {
+        setIsLoading(true)
+
+
+        await api.post(PostTaskPath, {
+            priorityId: priority,
+            name: title,
+            frequencyId: selected,
+            description: description,
+            dueDate: dateIsDisabled ? null : formatDate(date),
+            dueTime: timeIsDisabled ? null : formatTime(time),
+            isConcluded: false,
+        }, { params: { listId: 2 } })
+            .then((response) => { 
+                console.log(response)
+                setIsLoading(false) 
+            })
+            .catch(error => {
+                console.log(error.request)
+                setIsLoading(false) 
+            })
+    }
 
     return (
         <AppDialog
@@ -117,28 +159,28 @@ export default function NewTaskDialog({ visible, onClose, }) {
             </Row>
             <Gap height={10} />
             <Row alignItems={Flex.center} justifyContent={Flex.flexStart} width={'100%'}>
-                <CheckBox onPress={() => { setDateIsEnabled(!dateIsEnabled) }} isChecked={dateIsEnabled}>
-                    {dateIsEnabled ? <AppSvgIcon size={25} name={AppIconName.checkTask} /> : null}
+                <CheckBox onPress={() => { setDateIsDisabled(!dateIsDisabled) }} isChecked={!dateIsDisabled}>
+                    {!dateIsDisabled ? <AppSvgIcon size={25} name={AppIconName.checkTask} /> : null}
                 </CheckBox>
                 <Gap width={12} />
                 <AppButton
                     mainColor={AppColors.white}
-                    isDisabled={dateIsEnabled}
+                    isDisabled={dateIsDisabled}
                     onTap={showDatePicker}
                     mainTextColor={AppColors.black}
-                    label={date.toLocaleDateString()}
+                    label={moment(date).format('DD/MM/YYYY')}
                     borderRadius={5} width={'120px'} />
                 <Gap width={12} />
-                <CheckBox onPress={() => { setTimeIsEnabled(!timeIsEnabled) }} isChecked={timeIsEnabled}>
-                    {timeIsEnabled ? <AppSvgIcon size={25} name={AppIconName.checkTask} /> : null}
+                <CheckBox onPress={() => { setTimeIsDisabled(!timeIsDisabled) }} isChecked={!timeIsDisabled}>
+                    {!timeIsDisabled ? <AppSvgIcon size={25} name={AppIconName.checkTask} /> : null}
                 </CheckBox>
                 <Gap width={12} />
                 <AppButton
                     mainColor={AppColors.white}
-                    isDisabled={timeIsEnabled}
+                    isDisabled={timeIsDisabled}
                     onTap={showTimePicker}
                     mainTextColor={AppColors.black}
-                    label={time.toLocaleTimeString()}
+                    label={moment(time).format('HH:mm')}
                     borderRadius={5} width={'120px'} />
             </Row>
             <AppDatePicker date={date} setDate={setDate} show={showDate} setShow={setShowDate} />
@@ -157,21 +199,31 @@ export default function NewTaskDialog({ visible, onClose, }) {
             <Gap height={10} />
             <AppInput
                 backgroundColor={AppColors.white}
+                textValue={title}
                 placeholder={'Titulo da tarefa. Ex: Fazer as compras'}
                 fontFamily={FontFamily.archivoBold}
+                onChangeText={(val) => {
+                    setTitle(val)
+                }}
             />
             <Gap height={15} />
             <Row>
                 <AppInput
                     inputWidth={'80%'}
+                    textValue={description}
                     placeholder={'Descrição da tarefa'}
                     isTextArea
                     fontFamily={FontFamily.archivoMedium}
+                    onChangeText={(val) => {
+                        setDescription(val)
+                    }}
                 />
                 <Gap width={10} />
                 <View style={{ flex: 1 }}>
-                    <SendButton activeOpacity={0.9}>
-                        <AppSvgIcon name={AppIconName.send} />
+                    <SendButton activeOpacity={0.9} onPress={() => {
+                        PostTask()
+                    }}>
+                        {isLoading ? <ActivityIndicator color={AppColors.black}/> : <AppSvgIcon name={AppIconName.send} />}
                     </SendButton>
                     <SendButtonShadow>
                         <AppSvgIcon name={AppIconName.send} />

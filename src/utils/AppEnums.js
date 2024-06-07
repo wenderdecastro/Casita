@@ -54,19 +54,19 @@ export const TasksButtons = [
 export const NewTaskButtons = [
     {
         text: 'vez única',
-        type: 0
-    },
-    {
-        text: 'diária',
         type: 1
     },
     {
-        text: 'semanal',
+        text: 'diária',
         type: 2
     },
     {
-        text: 'mensal',
+        text: 'semanal',
         type: 3
+    },
+    {
+        text: 'mensal',
+        type: 4
     },
 ]
 
