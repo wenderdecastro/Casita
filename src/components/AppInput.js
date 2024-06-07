@@ -16,7 +16,7 @@ const Input = styled.TextInput`
     padding: 8px;
     border-color: ${({ borderColor = AppColors.black }) => borderColor};
     background-color: ${({ isEditable = true, backgroundColor }) => isEditable ? backgroundColor : AppColors.gray20};
-    font-family: ${FontFamily.archivoBlack};
+    font-family: ${FontFamily.archivoBold};
     font-size: ${({ fontSize }) => fontSize || '16px'};
     display: flex;
     align-items: center;

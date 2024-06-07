@@ -62,25 +62,23 @@ const ToastMessage = forwardRef(({ type = 'success', description = 'descrição'
     const [isVisible, setIsVisible] = useState(false);
     const topProp = new Animated.Value(-100);
 
-    const showToast = () => {
-        setIsVisible(true);
-
-        Animated.timing(topProp, {
-            toValue: 50,
-            duration: 500,
-            useNativeDriver: false,
-            easing: Easing.out(Easing.exp),
-        }).start();
-
-        const timer = setTimeout(() => {
-            setIsVisible(false);
-            clearTimeout(timer);
-        }, timeout);
-    };
+    useEffect(() => {
+        if (isVisible) {
+            Animated.timing(topProp, {
+                toValue: 50,
+                duration: 2000,
+                useNativeDriver: false,
+                easing: Easing.out(Easing.exp),
+            }).start(() => {
+                setIsVisible(false);
+            });
+        }
+    }, [isVisible]);
 
     useImperativeHandle(ref, () => ({
-        show: showToast
+        show: () => {setIsVisible(true)}
     }));
+
 
     const ToastType = {
         success: {
@@ -89,7 +87,7 @@ const ToastMessage = forwardRef(({ type = 'success', description = 'descrição'
         },
         warning: {
             color: AppColors.yellow,
-            icon: AppAssets.exclamationIcon
+            icon: AppAssets.warningIcon
         },
         error: {
             color: AppColors.red,

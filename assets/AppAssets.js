@@ -29,4 +29,7 @@ export const AppAssets = {
     greenPointStar: require(`${imagePath}/green_point_star.png`),
     redPointStar: require(`${imagePath}/red_point_star.png`),
     yellowPointStar: require(`${imagePath}/yellow_point_star.png`),
+    successIcon: require(`${imagePath}/success_icon.png`),
+    warningIcon: require(`${imagePath}/exclamation_icon.png`),
+    errorIcon: require(`${imagePath}/error_icon.png`)
 }
