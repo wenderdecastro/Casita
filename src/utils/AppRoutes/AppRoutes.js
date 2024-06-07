@@ -10,6 +10,7 @@ import RecoveryPasswordInsertCodeScreen from "../../screens/Authentication/Recov
 import RecoveryPasswordInsertNewPasswordScreen from "../../screens/Authentication/RecoveryPasswordInsertNewPasswordScreen";
 import LoginScreen from "../../screens/Authentication/LoginScreen";
 import FinancialScreen from "../../screens/Main/Financial/FinancialScreen";
+import GoalsScreen from "../../screens/Main/Financial/GoalsScreen";
 
 const { createNativeStackNavigator } = require("@react-navigation/native-stack");
 
@@ -51,6 +52,9 @@ export default function AppRoutes() {
                 <Stack.Screen
                     name={AppRoutesKeys.financialScreen}
                     component={FinancialScreen} />
+                <Stack.Screen
+                    name={AppRoutesKeys.goalsScreen}
+                    component={GoalsScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     )
