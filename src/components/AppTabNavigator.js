@@ -59,7 +59,8 @@ export default function AppTabNavigator() {
           elevation: 0,
           backgroundColor: AppColors.white,
           position: 'absolute',
-          height: 60
+          height: 60,
+          zIndex: 0
         },
 
         tabBarActiveBackgroundColor: "transparent",

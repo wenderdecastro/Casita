@@ -1,5 +1,5 @@
 import { View, Text, Image } from 'react-native'
-import React, { useState } from 'react'
+import React, { useCallback, useMemo, useRef, useState } from 'react'
 import { AppContainer, Row } from '../../../components/AppContainers'
 import { AppColors } from '../../../utils/Pallete'
 import { AppAssets } from '../../../../assets/AppAssets'
@@ -7,12 +7,12 @@ import { BodyMedium, TitleBlack } from '../../../components/AppFonts'
 import { Flex, TasksListMock } from '../../../utils/AppEnums'
 import { Gap } from '../../../components/AppSpecialComponents'
 import TasksListWidget from './widgets/TasksListWidget'
-import MyDayBottomSheet from './widgets/MyDayBottomSheet'
 import styled from 'styled-components'
-import AppInput from '../../../components/AppInput'
 import AppButton from '../../../components/AppButton'
 import AppSvgIcon, { AppIconName } from '../../../../assets/Icons'
 import NewTaskDialog from './widgets/dialogs/NewTaskDialog'
+import { BottomSheetModal, BottomSheetModalProvider, BottomSheetScrollView, BottomSheetView } from '@gorhom/bottom-sheet'
+import BottomSheetListWidget from './widgets/BottomSheetListWidget'
 
 const ButtonBox = styled.View`
     border-radius: 10px;
@@ -28,6 +28,7 @@ const ButtonBox = styled.View`
     text-align: center;
     padding: 10px;
     flex-direction: row;
+    z-index: -1;
 `
 
 const FixedButton = styled.TouchableOpacity`
@@ -52,6 +53,22 @@ const FixedButtonShadow = styled.View`
 
 export default function MyDayScreen() {
     const [isNewTaskDialogVisible, setIsNewTaskDialogVisible] = useState(false)
+    
+
+    // ref
+    const bottomSheetModalRef = useRef(null);
+
+    // variables
+    const snapPoints = useMemo(() => ["25%", "50%"], []);
+
+    // callbacks
+    const handlePresentModalPress = useCallback(() => {
+        bottomSheetModalRef.current?.present();
+    }, []);
+    const handleSheetChanges = useCallback((index) => {
+        console.log("handleSheetChanges", index);
+    }, []);
+
 
     return (
         <AppContainer alignItems={Flex.flexStart} justifyContent={Flex.flexStart} backgroundColor={AppColors.yellow}>
@@ -73,7 +90,38 @@ export default function MyDayScreen() {
                 flex={0.9}
             />
 
-            <MyDayBottomSheet />
+            <BottomSheetModalProvider>
+                <BottomSheetModal
+                    ref={bottomSheetModalRef}
+                    index={1}
+                    snapPoints={snapPoints}
+                    onChange={handleSheetChanges}
+                    style={{
+                        zIndex: 99999
+                    }}
+                    
+                >
+                    <BottomSheetScrollView
+                        style={{
+                            flex: 1,
+                            padding: 20,
+                        }}
+
+                    >
+                        <TitleBlack size={20}>O QUE PARA HOJE?</TitleBlack>
+                        <Gap height={20}/>
+                        <BottomSheetListWidget label={'SEMANAIS'} data={TasksListMock}/>
+                        <Gap height={40}/>
+                        <BottomSheetListWidget label={'MENSAIS'} data={TasksListMock}/>
+                        <Gap height={40}/>
+                        <BottomSheetListWidget label={'LISTAS PERSONALIZADAS'} data={TasksListMock}/>
+                        <Gap height={40}/>
+                        <BottomSheetListWidget label={'OUTRAS'} data={TasksListMock}/>
+                        <Gap height={40}/>
+                    </BottomSheetScrollView>
+                </BottomSheetModal>
+
+            </BottomSheetModalProvider>
             <ButtonBox>
                 <View style={{ flex: 7 }}>
                     <AppButton
@@ -87,9 +135,9 @@ export default function MyDayScreen() {
                     />
 
                 </View>
-                <Gap width={10}/>
+                <Gap width={10} />
                 <View style={{ flex: 1 }}>
-                    <FixedButton activeOpacity={0.9}>
+                    <FixedButton activeOpacity={0.9} onPress={handlePresentModalPress}>
                         <AppSvgIcon name={AppIconName.add} />
                     </FixedButton>
                     <FixedButtonShadow>
