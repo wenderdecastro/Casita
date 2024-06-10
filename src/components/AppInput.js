@@ -15,7 +15,7 @@ const Input = styled.TextInput`
     border-width: 1px;
     padding: 8px;
     border-color: ${({ borderColor = AppColors.black }) => borderColor};
-    background-color: ${({ isEditable = true, backgroundColor }) => isEditable ? backgroundColor : AppColors.gray20};
+    background-color: ${({ backgroundColor = AppColors.background }) => backgroundColor};
     font-family: ${({fontFamily}) => fontFamily};
     font-size: ${({ fontSize }) => fontSize || '16px'};
     display: flex;

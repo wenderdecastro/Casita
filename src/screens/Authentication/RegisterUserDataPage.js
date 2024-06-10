@@ -35,7 +35,8 @@ export default function RegisterUserDataScreen({navigation}) {
   }
 
   const validatedInputs = () => {
-    const emailRegex =/^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.[a-z]?$/i;
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
     if (name === '' || mail === '' || password === '' || confirmyPassword === '') {
       setTypeToast('warning');
       setTitleToast('Preencha os Campos');

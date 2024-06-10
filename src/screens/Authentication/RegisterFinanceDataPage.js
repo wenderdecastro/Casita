@@ -5,26 +5,18 @@ import { AppColors } from '../../utils/Pallete'
 import AppSquare from '../../components/AppNativeShapes/AppSquare'
 import LeadingButtonWidget from './widgets/LeadingButtonWidget'
 import { LeadingBox } from './widgets/RecoveryPasswordContainer'
-import { TitleBlack, TitleExtraLarge, BodyLarge, DualTextWithShadow } from '../../components/AppFonts'
+import TextStrokeShadow, { TitleBlack, TitleExtraLarge, BodyLarge } from '../../components/AppFonts'
 import { BodyMedium } from '../../components/AppFonts'
 import { Gap } from '../../components/AppSpecialComponents'
 import AppInput from '../../components/AppInput'
 import AppButton from '../../components/AppButton'
+import AppTextWithStroke from '../../components/AppTextWithStroke'
+import { View } from 'react-native'
 
 export default function RegisterFinanceDataScreen({ navigation }) {
   return (
     <AppContainer backgroundColor={AppColors.background}>
       {/* Componentes de fundo */}
-      <DualTextWithShadow
-        primaryText="$"
-        secondaryText="$"
-        primaryTextStyle={{ fontSize: 300, color: AppColors.green }}
-        secondaryTextStyle={{ fontSize: 305, color: AppColors.black }}
-        position='absolute'
-        left={0}
-        top={615}
-        rotate={-20}
-      />
       <PositionedImage position={'absolute'} left={80} top={90} source={AppAssets.plusGreen} />
       <PositionedImage position={'absolute'} left={80} top={3} source={AppAssets.dotStar} />
       <AppSquare
@@ -57,67 +49,64 @@ export default function RegisterFinanceDataScreen({ navigation }) {
       <Gap height={20} />
 
 
-      <Row alignItems={'center'} width={'100%'} justifyContent={'space-around'}>
+      <Row alignItems={'center'} width={'100%'} justifyContent={'space-between'}>
         <Column>
-          <TitleExtraLarge size={20} color={AppColors.green} >CONTAS</TitleExtraLarge>
-          <BodyLarge color={AppColors.black}>Cartões, dividas, etc.</BodyLarge>
+          <AppTextWithStroke
+            text={' CONTAS '}
+            fontSize={20}
+            shadowLeft={1}
+          />
+          <BodyLarge color={AppColors.black} style={{ marginLeft: 10 }}>Cartões, dividas, etc.</BodyLarge>
         </Column>
         <AppInput
           inputWidth={'120px'}
           SuffixIcon={
-            <DualTextWithShadow
-              primaryText="%"
-              secondaryText="%"
-              primaryTextStyle={{ fontSize: 30, color: AppColors.green }}
-              secondaryTextStyle={{ fontSize: 32, color: AppColors.black }}
-            />
+            <PositionedImage position={'relative'} top={-18} source={AppAssets.percentage} />
           }
         />
       </Row>
 
 
       <Gap height={10} />
-      <Row alignItems={'center'} width={'100%'} justifyContent={'space-around'}>
+      <Row alignItems={'center'} width={'100%'} justifyContent={'space-between'}>
         <Column>
-          <TitleExtraLarge size={20} color={AppColors.green}>DESEJOS</TitleExtraLarge>
-          <BodyLarge color={AppColors.black}>Seus gastos pessoais.</BodyLarge>
+          <AppTextWithStroke
+            text={' DESEJOS '}
+            fontSize={20}
+            shadowLeft={1}
+          />
+          <BodyLarge color={AppColors.black} style={{ marginLeft: 10 }}>Seus gastos pessoais.</BodyLarge>
         </Column>
         <AppInput
           inputWidth={'120px'}
           SuffixIcon={
-            <DualTextWithShadow
-              primaryText="%"
-              secondaryText="%"
-              primaryTextStyle={{ fontSize: 30, color: AppColors.green }}
-              secondaryTextStyle={{ fontSize: 32, color: AppColors.black }}
-            />
+            <PositionedImage position={'relative'} top={-18} source={AppAssets.percentage} />
           }
         />
       </Row>
 
 
       <Gap height={10} />
-      <Row alignItems={'center'} width={'100%'} justifyContent={'space-around'}>
+      <Row alignItems={'center'} width={'100%'} justifyContent={'space-between'} >
         <Column>
-          <TitleExtraLarge size={20} color={AppColors.green}>ECONOMIAS</TitleExtraLarge>
-          <BodyLarge color={AppColors.black}>Quanto deseja guardar.</BodyLarge>
+          <AppTextWithStroke
+            text={' ECONIMIAS '}
+            fontSize={20}
+            shadowLeft={1}
+          />
+          <BodyLarge color={AppColors.black} style={{ marginLeft: 10 }}>Quanto deseja guardar.</BodyLarge>
         </Column>
         <AppInput
           inputWidth={'120px'}
           SuffixIcon={
-            <DualTextWithShadow
-              primaryText="%"
-              secondaryText="%"
-              primaryTextStyle={{ fontSize: 30, color: AppColors.green }}
-              secondaryTextStyle={{ fontSize: 32, color: AppColors.black }}
-            />
+            <PositionedImage position={'relative'} top={-18} source={AppAssets.percentage} />
           }
         />
       </Row>
 
       <Gap height={40} />
       <AppButton mainColor={AppColors.white} label={'CADASTRAR'} />
-      
+
     </AppContainer>
   )
 }
