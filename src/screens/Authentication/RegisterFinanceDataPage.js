@@ -17,6 +17,7 @@ export default function RegisterFinanceDataScreen({ navigation }) {
   return (
     <AppContainer backgroundColor={AppColors.background}>
       {/* Componentes de fundo */}
+      <PositionedImage position={'absolute'} left={0} top={85} source={AppAssets.dolarSignGreen} />
       <PositionedImage position={'absolute'} left={80} top={90} source={AppAssets.plusGreen} />
       <PositionedImage position={'absolute'} left={80} top={3} source={AppAssets.dotStar} />
       <AppSquare
