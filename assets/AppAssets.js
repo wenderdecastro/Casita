@@ -35,5 +35,8 @@ export const AppAssets = {
     close: require(`${imagePath}/close.png`),
     check: require(`${imagePath}/check.png`),
     minusIcon: require(`${imagePath}/minus_icon.png`),
-    paperPlaneIcon: require(`${imagePath}/paper_plane_icon.png`)
+    paperPlaneIcon: require(`${imagePath}/paper_plane_icon.png`),
+    eightPointGreenStarGoals: require(`${imagePath}/eight_point_green_star_goals.png`),
+    steamDeckImage: require(`${imagePath}/steam_deck_image.jpg`),
+    dolarSignIcon: require(`${imagePath}/dolar_sign_icon.png`),
 }

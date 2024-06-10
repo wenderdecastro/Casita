@@ -19,10 +19,12 @@ export default function AppTextWithStroke({
     stroke = 1,
     textColor = AppColors.white,
     shadowTop = 5,
-    shadowLeft = 5
+    shadowLeft = 5,
+    top,
+    left
 }) {
     return (
-        <View>
+        <View style={{position:'relative', top: top, left: left}}>
             <TextStroke stroke={stroke} color={AppColors.black}>
                 <FontStyle style={{
                     fontSize: fontSize,
