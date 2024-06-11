@@ -59,6 +59,7 @@ export default function AppInput({
     inputWidth,
     fontSize,
     textAlign,
+    maxLength,
     fontFamily = FontFamily.archivoBlack,
     textInputProps,
 }) {
@@ -90,6 +91,7 @@ export default function AppInput({
                 fontSize={fontSize}
                 textAlign={textAlign}
                 fontFamily={fontFamily}
+                maxLength={maxLength}
                 {...textInputProps}
             />
             <BoxShadow isTextArea={isTextArea} borderRadius={borderRadius} />

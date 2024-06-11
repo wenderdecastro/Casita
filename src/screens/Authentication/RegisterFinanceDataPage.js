@@ -12,12 +12,14 @@ import AppInput from '../../components/AppInput'
 import AppButton from '../../components/AppButton'
 import AppTextWithStroke from '../../components/AppTextWithStroke'
 import api from '../../services/ApiService'
+import CurrencyInput from 'react-native-currency-input'
+import { AppRoutesKeys } from '../../utils/AppRoutes/AppRoutesUtils'
 
 export default function RegisterFinanceDataScreen({ navigation, route }) {
-  const [income, setIncome] = useState('2000');
-  const [accounts, setAccounts] = useState('1000');
-  const [wishes, setWishes] = useState('350');
-  const [savings, setSavings] = useState('650');
+  const [income, setIncome] = React.useState(2999);
+  const [accounts, setAccounts] = useState('60');
+  const [wishes, setWishes] = useState('20');
+  const [savings, setSavings] = useState('20');
 
   const { name, mail, password } = route.params;
   console.log(name, mail, password);
@@ -28,9 +30,9 @@ export default function RegisterFinanceDataScreen({ navigation, route }) {
     password: password,
     idNavigation: {
       balance: 0,
-      necessitiesPercentage: accounts,
-      savingsPercentage: savings,
-      wantsPercentage: wishes,
+      necessitiesPercentage: accounts/100,
+      savingsPercentage: savings/100,
+      wantsPercentage: wishes/100,
       monthlyIncome: income
     }
   });
@@ -38,7 +40,7 @@ export default function RegisterFinanceDataScreen({ navigation, route }) {
   async function postUser() {
     try {
       const response = await api.post('/User', userDetails);
-      console.log('Usuário registrado com sucesso:', response);
+      navigation.replace(AppRoutesKeys.loginScreen)
     } catch (error) {
       console.error('Erro ao registrar usuário:', error);
     }
@@ -73,7 +75,7 @@ export default function RegisterFinanceDataScreen({ navigation, route }) {
       <Gap height={20} />
       <BodyMedium color={AppColors.black} size={18}>Qual a sua renda mensal?</BodyMedium>
       <Gap height={15} />
-      <AppInput
+      {/* <AppInput
         keyboardType='numeric'
         placeholder={'R$0,00'}
         fontSize={'45px'}
@@ -81,6 +83,16 @@ export default function RegisterFinanceDataScreen({ navigation, route }) {
         isTextArea
         textValue={income}
         onChangeText={(txt) => setIncome(txt)}
+      /> */}
+      <CurrencyInput
+        value={income}
+        onChangeValue={setIncome}
+        renderTextInput={textInputProps => <AppInput placeholder={'R$00.00'} isTextArea textInputProps={textInputProps} keyboardType='numeric' textAlign={'center'} fontSize={45}/>}
+        renderText
+        prefix="R$"
+        delimiter="."
+        separator=","
+        precision={2}
       />
 
 
@@ -98,6 +110,7 @@ export default function RegisterFinanceDataScreen({ navigation, route }) {
           />
           <BodyLarge color={AppColors.black} style={{ marginLeft: 10 }}>Cartões, dividas, etc.</BodyLarge>
         </Column>
+        
         <AppInput
           inputWidth={'120px'}
           textValue={accounts}
@@ -105,6 +118,9 @@ export default function RegisterFinanceDataScreen({ navigation, route }) {
           SuffixIcon={
             <PositionedImage position={'relative'} top={-18} source={AppAssets.percentage} />
           }
+          fontSize={20}
+          keyboardType='numeric'
+          maxLength={2}
         />
       </Row>
 
@@ -126,6 +142,9 @@ export default function RegisterFinanceDataScreen({ navigation, route }) {
           SuffixIcon={
             <PositionedImage position={'relative'} top={-18} source={AppAssets.percentage} />
           }
+          fontSize={20}
+          keyboardType='numeric'
+          maxLength={2}
         />
       </Row>
 
@@ -147,6 +166,9 @@ export default function RegisterFinanceDataScreen({ navigation, route }) {
           SuffixIcon={
             <PositionedImage position={'relative'} top={-18} source={AppAssets.percentage} />
           }
+          fontSize={20}
+          keyboardType='numeric'
+          maxLength={2}
         />
       </Row>
 
