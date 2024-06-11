@@ -14,10 +14,11 @@ export default function AppTinyButtonIcon({
     iconWidth = 19,
     iconHeight = 15,
     marginLeft,
+    onPress,
 }) {
     return (
-        <Input>
-            <ContainerShadow  width={28} backgroundColor={backgroundColor} height={28} Content={
+        <Input onPress={onPress}>
+            <ContainerShadow  width={'28px'} backgroundColor={backgroundColor} height={28} Content={
                 <Image
                 source={icon}
                 style={{

@@ -31,7 +31,7 @@ export default function AddFundsModal({ visible, onClose }) {
         Content={
           <Row justifyContent={'space-between'} width={'100%'} height={'100%'} alignItems={'center'} style={{padding: 8}}>
             
-            <AppTinyButtonIcon />
+            <AppTinyButtonIcon onPress={() => onClose()}/>
             
             <BodyLarge style={{height: 38}} size={24} color={AppColors.black}>R$</BodyLarge>
             

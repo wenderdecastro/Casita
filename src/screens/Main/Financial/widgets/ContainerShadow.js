@@ -8,7 +8,7 @@ const ViewIncome = styled.View`
     border-radius:${({ borderRadius = '10' }) => `${borderRadius}px`};
     border-width: 1px;
     border-color: ${AppColors.black};
-    justify-content: center;
+    justify-content: ${({ justifyContent = 'center' }) => `${justifyContent}`};
     align-items: center;
 `
 
@@ -38,6 +38,7 @@ export default function ContainerShadow({
     bottom = -7,
     left = 1.5,
     borderRadius,
+    justifyContent,
 }) {
     return(
     <BoxIncome width={width} height={height}  marginTop={marginTop}>

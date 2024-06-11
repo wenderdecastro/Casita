@@ -39,4 +39,6 @@ export const AppAssets = {
     eightPointGreenStarGoals: require(`${imagePath}/eight_point_green_star_goals.png`),
     steamDeckImage: require(`${imagePath}/steam_deck_image.jpg`),
     dolarSignIcon: require(`${imagePath}/dolar_sign_icon.png`),
+    addPickIcon: require(`${imagePath}/add_pick_icon.png`),
+    goalArrowIcon: require(`${imagePath}/goal_arrow_icon.png`),
 }

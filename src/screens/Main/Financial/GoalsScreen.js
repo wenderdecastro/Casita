@@ -11,14 +11,41 @@ import GoalCard from "./widgets/GoalCard";
 import styled from "styled-components";
 import { useState } from "react";
 import AddFundsModal from "./dialogs/AddFundsModal";
+import AppSvgIcon, { AppIconName } from "../../../../assets/Icons";
+import AddGoalModal from "./dialogs/AddGoalModal";
 
 export const LeadingBoxButton = styled.View`
   position: absolute;
   top: 2%;
 `;
 
+const FixedButton = styled.TouchableOpacity`
+  padding: 15px;
+  background-color: ${AppColors.green};
+  border-radius: 9999px;
+  border-width: 1px;
+  border-color: ${AppColors.black};
+  position: absolute;
+  bottom: 50px;
+  right: 20px;
+  z-index: 1;
+`;
+
+const FixedButtonShadow = styled.View`
+  padding: 15px;
+  background-color: ${AppColors.black};
+  border-radius: 9999px;
+  border-width: 1px;
+  border-color: ${AppColors.black};
+  position: absolute;
+  bottom: 49px;
+  right: 18px;
+  z-index: 0;
+`;
+
 export default function GoalsScreen({ navigation }) {
   const [fundsModalIsVisible, setFundsModalIsVisible] = useState(false);
+  const [addFundsModalIsVisible, setAddFundsModalIsVisible] = useState(false);
   return (
     <AppContainer
       justifyContent={Flex.auto}
@@ -65,6 +92,24 @@ export default function GoalsScreen({ navigation }) {
         }}
         visible={fundsModalIsVisible}
       />
+
+      <AddGoalModal
+        onClose={() => {
+          setAddFundsModalIsVisible(false);
+        }}
+        visible={addFundsModalIsVisible}
+      />
+      <FixedButton
+        activeOpacity={0.9}
+        onPress={() => {
+          setAddFundsModalIsVisible(true);
+        }}
+      >
+        <AppSvgIcon name={AppIconName.add} />
+      </FixedButton>
+      <FixedButtonShadow>
+        <AppSvgIcon name={AppIconName.add} />
+      </FixedButtonShadow>
     </AppContainer>
   );
 }
