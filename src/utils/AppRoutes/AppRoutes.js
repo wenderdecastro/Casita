@@ -14,6 +14,7 @@ import ListsScreen from "../../screens/Main/Management/ListsScreen";
 import ListDetailScreen from "../../screens/Main/Management/ListDetailScreen";
 import FinancialScreen from "../../screens/Main/Financial/FinancialScreen";
 import GoalsScreen from "../../screens/Main/Financial/GoalsScreen";
+import HistoryScreen from "../../screens/Main/Financial/HistoryScreen";
 
 const { createNativeStackNavigator } = require("@react-navigation/native-stack");
 
@@ -67,6 +68,9 @@ export default function AppRoutes() {
                 <Stack.Screen
                     name={AppRoutesKeys.goalsScreen}
                     component={GoalsScreen} />
+                <Stack.Screen
+                    name={AppRoutesKeys.historyScreen}
+                    component={HistoryScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     )

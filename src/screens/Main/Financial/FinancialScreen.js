@@ -1,4 +1,4 @@
-import { Image, ScrollView, Text, View } from "react-native";
+import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
 import { AppContainer, Row } from "../../../components/AppContainers";
 import { AppColors } from "../../../utils/Pallete";
@@ -78,11 +78,13 @@ export default function FinancialScreen({navigation}) {
 
         <Row width={"100%"} justifyContent={Flex.center}>
           <View>
-            <AppTextWithStroke
-              text={"Ver histórico"}
-              shadowTop={10}
-              shadowLeft={5}
-            />
+            <TouchableOpacity onPress={() => navigation.replace(AppRoutesKeys.historyScreen)}>
+              <AppTextWithStroke
+                text={"Ver histórico"}
+                shadowTop={10}
+                shadowLeft={5}
+              />
+            </TouchableOpacity>
           </View>
           <View>
             <Image
