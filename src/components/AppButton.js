@@ -63,7 +63,7 @@ export default function AppButton({
                 width={width}
                 justifyContent={justifyContent}
             >
-                {isLoading ? <ActivityIndicator color={AppColors.white} /> :
+                {isLoading ? <ActivityIndicator color={mainTextColor} /> :
 
                     <>
                         {AppSvgIcon ? AppSvgIcon : null}

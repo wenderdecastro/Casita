@@ -10,6 +10,7 @@ import HomeScreen from '../screens/Main/Home/HomeScreen';
 import ManagementScreen from '../screens/Main/Management/ManagementScreen';
 import FinancialScreen from '../screens/Main/Financial/FinancialScreen';
 import ProfileScreen from '../screens/Main/Profile/ProfileScreen';
+import { useRoute } from '@react-navigation/native';
 
 
 const Tab = createBottomTabNavigator();
@@ -35,12 +36,12 @@ const ProfileImage = styled.Image`
 `
 
 export default function AppTabNavigator() {
-
+  const { params } = useRoute();
 
   return (
     <Tab.Navigator
     
-      initialRouteName={AppRoutesKeys.homeScreen}
+      initialRouteName={AppRoutesKeys.managementScreen}
 
       screenOptions={({ route }) => ({
         headerShown: false,
@@ -93,21 +94,20 @@ export default function AppTabNavigator() {
       })}
     >
       <Tab.Screen
-        name={AppRoutesKeys.homeScreen}
-        component={HomeScreen}
-      />
-      <Tab.Screen
         name={AppRoutesKeys.managementScreen}
         component={ManagementScreen}
+        initialParams={{userData : params.userData}}
         
       />
       <Tab.Screen
         name={AppRoutesKeys.financialScreen}
         component={FinancialScreen}
+        initialParams={{userData : params.userData}}
       />
       <Tab.Screen
         name={AppRoutesKeys.profileScreen}
         component={ProfileScreen}
+        initialParams={{userData : params.userData}}
       />
 
     </Tab.Navigator>

@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { AppContainer, Row } from '../../../components/AppContainers'
 import { AppColors } from '../../../utils/Pallete'
 import { BuyListMock, Flex, TasksButtons, TasksListMock } from '../../../utils/AppEnums'
@@ -19,6 +19,7 @@ import { Image, TouchableOpacity, View } from 'react-native'
 import AppTextWithStroke from '../../../components/AppTextWithStroke'
 import BottomSheetDefaultListWidget from './widgets/BottomSheetDefaultListWidget'
 import NewItemDialog from './widgets/dialogs/NewItemDialog'
+import { useRoute } from '@react-navigation/native'
 
 const FixedButton = styled.TouchableOpacity`
   padding: 15px;
@@ -79,6 +80,7 @@ const TotalBox = styled.View`
 export default function ManagementScreen({ navigation }) {
 
   const [selected, setSelected] = useState(0)
+  const { params } = useRoute();
 
   const [isNewTaskDialogVisible, setIsNewTaskDialogVisible] = useState(false)
   const [isEditTaskDialogVisible, setIsEditTaskDialogVisible] = useState(false)
@@ -93,6 +95,13 @@ export default function ManagementScreen({ navigation }) {
     setTaskSelected(task)
     setIsEditTaskDialogVisible(true)
   }
+
+  useEffect(() => {
+
+    console.log('====================================');
+    console.log(params);
+    console.log('====================================');
+  }, [params])
 
   // ref
   const bottomSheetModalRef = useRef(null);
