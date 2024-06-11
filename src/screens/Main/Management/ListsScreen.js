@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity } from 'react-native'
+import { View,  Image } from 'react-native'
 import React, { useCallback, useMemo, useRef, useState } from 'react'
 import { AppContainer, Row } from '../../../components/AppContainers'
 import { AppColors } from '../../../utils/Pallete'
@@ -6,7 +6,6 @@ import { BuyListMock, Flex } from '../../../utils/AppEnums'
 import { AppAssets } from '../../../../assets/AppAssets'
 import { Gap } from '../../../components/AppSpecialComponents'
 import { TitleBlack } from '../../../components/AppFonts'
-import AppTextWithStroke from '../../../components/AppTextWithStroke'
 import AppSvgIcon, { AppIconName } from '../../../../assets/Icons'
 import MyListCardWidget from './widgets/MyListCardWidget'
 import { BottomSheetModal, BottomSheetScrollView } from '@gorhom/bottom-sheet'
@@ -15,6 +14,7 @@ import BottomSheetDefaultListWidget from './widgets/BottomSheetDefaultListWidget
 import styled from 'styled-components/native'
 import ListCardWidget from './widgets/ListCardWidget'
 import NewListDialog from './widgets/dialogs/NewListDialog'
+import { AppNavigation, AppRoutesKeys } from '../../../utils/AppRoutes/AppRoutesUtils'
 
 const FixedButton = styled.TouchableOpacity`
   padding: 15px;
@@ -58,7 +58,7 @@ const TotalBox = styled.View`
   bottom: 20px;
 `
 
-export default function ListsScreen() {
+export default function ListsScreen({navigation}) {
 
     const [bottomSheetType, setBottomSheetType] = useState()
     const [isChecked, setIsChecked] = useState(false)
@@ -125,6 +125,7 @@ export default function ListsScreen() {
                 title={'Lista de numero 1'}
                 actualProgress={8}
                 total={10}
+                onTap={() => {AppNavigation.push(navigation, AppRoutesKeys.listDetailScreen)}}
             />
             <BottomSheetModal
                 ref={bottomSheetModalRef}
