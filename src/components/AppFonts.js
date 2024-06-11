@@ -10,7 +10,8 @@ export const FontFamily = {
   archivoMedium: 'Archivo_500Medium',
   archivoRegular: 'Archivo_400Regular',
   archivoExtraBold: 'Archivo_800ExtraBold',
-  archivoBlack: 'Archivo_900Black'
+  archivoBlack: 'Archivo_900Black',
+  archivoSemiBold: 'Archivo_600SemiBold',
 }
 
 export const TitleExtraLarge = styled.Text`
@@ -66,6 +67,13 @@ export const BodySmall = styled.Text`
 font-family: ${FontFamily.archivoMedium};
 font-size: ${({ size = 12 }) => `${size}px`};
 color: ${({ color = AppColors.gray30 }) => color};
+text-align: ${({ textAlign = 'auto' }) => textAlign};
+`
+
+export const TextSemiBold = styled.Text`
+font-family: ${FontFamily.archivoSemiBold};
+font-size: ${({ size = 16 }) => `${size}px`};
+color: ${({ color = AppColors.black }) => color};
 text-align: ${({ textAlign = 'auto' }) => textAlign};
 `
 

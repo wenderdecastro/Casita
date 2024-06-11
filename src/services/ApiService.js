@@ -19,16 +19,6 @@ const api = axios.create({
   baseURL: BASE_URL_LOCAL,
     timeout: 10000
 });
-
-
-// api.interceptors.request.use(async (config) => {
-//   const token = await AppStorage.read(AppStorageKeys.token)
-//   if (token) {
-//     config.headers.Authorization = `Bearer ${token}`
-//   }
-//   return config
-// },
-//   (error) => Promise.reject(error)
-// )
+export const PostLoginPath = '/Login';
 
 export default api;
