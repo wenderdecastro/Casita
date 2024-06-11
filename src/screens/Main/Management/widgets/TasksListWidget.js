@@ -7,13 +7,13 @@ import { Gap } from '../../../../components/AppSpecialComponents'
 import TaskCardWidget from './TaskCardWidget'
 
 const List = styled.View`
-    height: 350px;
+    flex: ${({flex}) => flex};
     width: 100%;
 `
 
-export default function TasksListWidget({ DATA, tapAction }) {
+export default function TasksListWidget({ DATA, tapAction, flex = 1 }) {
     return (
-        <List>
+        <List flex={flex}>
             <FlatList
                 endFillColor={AppColors.background}
                 data={DATA}

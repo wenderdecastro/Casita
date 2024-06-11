@@ -54,19 +54,19 @@ export const TasksButtons = [
 export const NewTaskButtons = [
     {
         text: 'vez única',
-        type: 0
-    },
-    {
-        text: 'diária',
         type: 1
     },
     {
-        text: 'semanal',
+        text: 'diária',
         type: 2
     },
     {
-        text: 'mensal',
+        text: 'semanal',
         type: 3
+    },
+    {
+        text: 'mensal',
+        type: 4
     },
 ]
 
@@ -159,6 +159,129 @@ export const TasksListMock = [
         priority: getRandomInt(1, 3),
         date: '25-05-2024T13:00:00',
         type: getRandomInt(0, 3),
+        isChecked: Math.random() < 0.5,
+    }
+];
+
+export const BuyListMock = [
+    {
+        name: "Abacaxi",
+        priority: getRandomInt(1, 3),
+        price: '300,00',
+        isChecked: Math.random() < 0.5,
+    },
+    {
+        name: "Maçã",
+        priority: getRandomInt(1, 3),
+        price: '150,00',
+        isChecked: Math.random() < 0.5,
+    },
+    {
+        name: "Banana",
+        priority: getRandomInt(1, 3),
+        price: '100,00',
+        isChecked: Math.random() < 0.5,
+    },
+    {
+        name: "Uva",
+        priority: getRandomInt(1, 3),
+        price: '200,00',
+        isChecked: Math.random() < 0.5,
+    },
+    {
+        name: "Laranja",
+        priority: getRandomInt(1, 3),
+        price: '120,00',
+        isChecked: Math.random() < 0.5,
+    },
+    {
+        name: "Pera",
+        priority: getRandomInt(1, 3),
+        price: '180,00',
+        isChecked: Math.random() < 0.5,
+    },
+    {
+        name: "Melancia",
+        priority: getRandomInt(1, 3),
+        price: '250,00',
+        isChecked: Math.random() < 0.5,
+    },
+    {
+        name: "Morango",
+        priority: getRandomInt(1, 3),
+        price: '280,00',
+        isChecked: Math.random() < 0.5,
+    },
+    {
+        name: "Manga",
+        priority: getRandomInt(1, 3),
+        price: '200,00',
+        isChecked: Math.random() < 0.5,
+    },
+    {
+        name: "Cereja",
+        priority: getRandomInt(1, 3),
+        price: '400,00',
+        isChecked: Math.random() < 0.5,
+    },
+    {
+        name: "Kiwi",
+        priority: getRandomInt(1, 3),
+        price: '150,00',
+        isChecked: Math.random() < 0.5,
+    },
+    {
+        name: "Limão",
+        priority: getRandomInt(1, 3),
+        price: '80,00',
+        isChecked: Math.random() < 0.5,
+    },
+    {
+        name: "Ameixa",
+        priority: getRandomInt(1, 3),
+        price: '120,00',
+        isChecked: Math.random() < 0.5,
+    },
+    {
+        name: "Framboesa",
+        priority: getRandomInt(1, 3),
+        price: '300,00',
+        isChecked: Math.random() < 0.5,
+    },
+    {
+        name: "Pêssego",
+        priority: getRandomInt(1, 3),
+        price: '180,00',
+        isChecked: Math.random() < 0.5,
+    },
+    {
+        name: "Abacate",
+        priority: getRandomInt(1, 3),
+        price: '220,00',
+        isChecked: Math.random() < 0.5,
+    },
+    {
+        name: "Açaí",
+        priority: getRandomInt(1, 3),
+        price: '350,00',
+        isChecked: Math.random() < 0.5,
+    },
+    {
+        name: "Jabuticaba",
+        priority: getRandomInt(1, 3),
+        price: '160,00',
+        isChecked: Math.random() < 0.5,
+    },
+    {
+        name: "Tangerina",
+        priority: getRandomInt(1, 3),
+        price: '100,00',
+        isChecked: Math.random() < 0.5,
+    },
+    {
+        name: "Caju",
+        priority: getRandomInt(1, 3),
+        price: '200,00',
         isChecked: Math.random() < 0.5,
     }
 ];

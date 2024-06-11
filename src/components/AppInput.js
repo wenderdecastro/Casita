@@ -60,6 +60,7 @@ export default function AppInput({
     fontSize,
     textAlign,
     fontFamily = FontFamily.archivoBlack,
+    textInputProps,
 }) {
     const handleInputChange = (value) => {
         onChangeText === null ? null : onChangeText(value);
@@ -89,6 +90,7 @@ export default function AppInput({
                 fontSize={fontSize}
                 textAlign={textAlign}
                 fontFamily={fontFamily}
+                {...textInputProps}
             />
             <BoxShadow isTextArea={isTextArea} borderRadius={borderRadius} />
             <IconBox label={label}>

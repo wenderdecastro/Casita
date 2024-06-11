@@ -49,9 +49,6 @@ const TagBoxShadow = styled.View`
     right: -1.25%;
 `
 
-
-
-
 export default function MyListCardWidget({
     cardColor = AppColors.green,
     appIconName = AppIconName.default,
@@ -59,9 +56,10 @@ export default function MyListCardWidget({
     tagText,
     tagTextColor = AppColors.white,
     tagColor = AppColors.blue,
+    onTap,
 }) {
     return (
-        <CardBox activeOpacity={0.9}>
+        <CardBox activeOpacity={0.9} onPress={onTap}>
             <Card backgroundColor={cardColor}>
                 <Row>
                     <AppSvgIcon name={appIconName} />

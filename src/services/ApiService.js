@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const ip = '192.168.21.135';
 
-const apiPort = '5282';
+const apiPort = '7029';
 
 const BASE_URL_LOCAL = `http://${ip}:${apiPort}/api`;
 
@@ -23,7 +23,11 @@ export async function postUser(userDetails) {
 }
 
 const api = axios.create({
-  baseURL: BASE_URL_LOCAL
+    headers: {
+        "Content-Type": "application/json",
+    },
+  baseURL: BASE_URL_LOCAL,
+    timeout: 10000
 });
 
 export default api;

@@ -9,6 +9,9 @@ import RecoveryPasswordInsertEmailScreen from "../../screens/Authentication/Reco
 import RecoveryPasswordInsertCodeScreen from "../../screens/Authentication/RecoveryPasswordInsertCodeScreen";
 import RecoveryPasswordInsertNewPasswordScreen from "../../screens/Authentication/RecoveryPasswordInsertNewPasswordScreen";
 import LoginScreen from "../../screens/Authentication/LoginScreen";
+import MyDayScreen from "../../screens/Main/Management/MyDayScreen";
+import ListsScreen from "../../screens/Main/Management/ListsScreen";
+import ListDetailScreen from "../../screens/Main/Management/ListDetailScreen";
 import FinancialScreen from "../../screens/Main/Financial/FinancialScreen";
 
 const { createNativeStackNavigator } = require("@react-navigation/native-stack");
@@ -48,6 +51,15 @@ export default function AppRoutes() {
                 <Stack.Screen
                     name={AppRoutesKeys.registerFinanceDataPage}
                     component={RegisterFinanceDataScreen} />
+                <Stack.Screen
+                    name={AppRoutesKeys.myDayScreen}
+                    component={MyDayScreen} />
+                <Stack.Screen
+                    name={AppRoutesKeys.listsScreen}
+                    component={ListsScreen} />
+                <Stack.Screen
+                    name={AppRoutesKeys.listDetailScreen}
+                    component={ListDetailScreen} />
                 <Stack.Screen
                     name={AppRoutesKeys.financialScreen}
                     component={FinancialScreen} />
