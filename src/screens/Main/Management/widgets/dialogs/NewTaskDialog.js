@@ -53,7 +53,7 @@ const CheckBox = styled.TouchableOpacity`
     justify-content: center;
 `
 
-export default function NewTaskDialog({ visible, onClose, }) {
+export default function NewTaskDialog({ visible, onClose, userId}) {
     const data = [
         {
             value: 'Alta',
@@ -117,7 +117,7 @@ export default function NewTaskDialog({ visible, onClose, }) {
             dueDate: dateIsDisabled ? null : formatDate(date),
             dueTime: timeIsDisabled ? null : formatTime(time),
             isConcluded: false,
-        }, { params: { listId: 2 } })
+        }, { params: { userId: userId } })
             .then((response) => { 
                 console.log(response)
                 setIsLoading(false) 
