@@ -20,6 +20,8 @@ export const AppRoutesKeys ={
     recoveryPasswordInsertCodeEscreen: "recoveryPasswordInsertCodeEscreen",
     recoveryPasswordInsertNewPasswordEscreen: "recoveryPasswordInsertNewPasswordEscreen",
     myDayScreen: "myDayScreen",
+    listsScreen: "listsScreen",
+    listDetailScreen: "listDetailScreen",
 }
 
 export const AppNavigation = {

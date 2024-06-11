@@ -18,7 +18,7 @@ import MyListCardWidget from './widgets/MyListCardWidget'
 import { Image, TouchableOpacity, View } from 'react-native'
 import AppTextWithStroke from '../../../components/AppTextWithStroke'
 import BottomSheetDefaultListWidget from './widgets/BottomSheetDefaultListWidget'
-import NewListDialog from './widgets/dialogs/NewListDialog'
+import NewItemDialog from './widgets/dialogs/NewItemDialog'
 
 const FixedButton = styled.TouchableOpacity`
   padding: 15px;
@@ -82,7 +82,7 @@ export default function ManagementScreen({ navigation }) {
 
   const [isNewTaskDialogVisible, setIsNewTaskDialogVisible] = useState(false)
   const [isEditTaskDialogVisible, setIsEditTaskDialogVisible] = useState(false)
-  const [isNewListDialogVisible, setIsNewListDialogVisible] = useState(false)
+  const [isNewItemDialogVisible, setIsNewItemDialogVisible] = useState(false)
   const [bottomSheetType, setBottomSheetType] = useState()
 
   const [taskSelected, setTaskSelected] = useState()
@@ -138,7 +138,7 @@ export default function ManagementScreen({ navigation }) {
           />
         </Row>
         <Gap height={15} />
-        <TouchableOpacity activeOpacity={0.9}>
+        <TouchableOpacity activeOpacity={0.9} onPress={() => {AppNavigation.push(navigation, AppRoutesKeys.listsScreen)}}>
           <Row width={'100%'} justifyContent={Flex.flexEnd}>
             <View>
               <AppTextWithStroke
@@ -224,7 +224,7 @@ export default function ManagementScreen({ navigation }) {
           <Gap height={170} />
         </BottomSheetScrollView>
 
-        <FixedButton activeOpacity={0.9} onPress={() => { setIsNewListDialogVisible(true) }}>
+        <FixedButton activeOpacity={0.9} onPress={() => { setIsNewItemDialogVisible(true) }}>
           <AppSvgIcon name={AppIconName.add} />
         </FixedButton>
         <FixedButtonShadow>
@@ -252,7 +252,7 @@ export default function ManagementScreen({ navigation }) {
 
       <NewTaskDialog visible={isNewTaskDialogVisible} onClose={() => { setIsNewTaskDialogVisible(false) }} />
       <EditTaskDialog visible={isEditTaskDialogVisible} onClose={() => { setIsEditTaskDialogVisible(false) }} item={taskSelected} />
-      <NewListDialog visible={isNewListDialogVisible} onClose={() => { setIsNewListDialogVisible(false) }}/>
+      <NewItemDialog visible={isNewItemDialogVisible} onClose={() => { setIsNewItemDialogVisible(false) }}/>
     </AppContainer>
   )
 }

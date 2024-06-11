@@ -49,9 +49,6 @@ const TagBoxShadow = styled.View`
     right: -1.25%;
 `
 
-
-
-
 export default function MyListCardWidget({
     cardColor = AppColors.green,
     appIconName = AppIconName.default,
