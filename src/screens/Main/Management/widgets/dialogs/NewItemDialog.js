@@ -70,7 +70,6 @@ export default function NewItemDialog({ visible, onClose, }) {
                     renderTextInput={textInputProps => <AppInput borderRadius={8} backgroundColor={AppColors.white} inputWidth={'140px'} textInputProps={textInputProps} variant='filled' />}
                     renderText
                     prefix="R$"
-
                     delimiter="."
                     separator=","
                     precision={2}

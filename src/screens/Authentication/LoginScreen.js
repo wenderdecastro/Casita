@@ -15,7 +15,9 @@ import ToastMessage from '../../components/AppToastMessage'
 
 import api from '../../services/ApiService'
 import { PostLoginPath } from '../../services/ApiService'
-import { AppRoutesKeys } from '../../utils/AppRoutes/AppRoutesUtils'
+import { AppNavigation, AppRoutesKeys } from '../../utils/AppRoutes/AppRoutesUtils'
+import { AppStorage, AppStorageKeys } from '../../utils/AppStorage'
+import { tokenDecode } from '../../services/TokenService'
 
 const LeadingBox = styled.View`
 position: absolute;
@@ -50,6 +52,7 @@ gap: 25px;
 export default function LoginScreen({ navigation }) {
   const [mail, setMail] = useState('luiz.henrique31415@gmail.com');
   const [password, setPassword] = useState('123456');
+  const [isLoading, setIsLoading] = useState(false)
 
   const [typeToast, setTypeToast] = useState('success');
   const [titleToast, setTitleToast] = useState('');
@@ -66,6 +69,7 @@ export default function LoginScreen({ navigation }) {
 
 
   async function Login() {
+    setIsLoading(true)
     if (mail == '' || password == '') {
       setTypeToast('warning');
       setTitleToast('Preencha os Campos');
@@ -78,9 +82,12 @@ export default function LoginScreen({ navigation }) {
       });
 
       if (response.status === 200) {
-        navigation.replace(AppRoutesKeys.tabNavigator);
+        const data = response.data;
+        await AppStorage.write(AppStorageKeys.token, data.token);
+        const userData = await tokenDecode()
+        AppNavigation.push(navigation, AppRoutesKeys.tabNavigator, {userData: userData})
       }
-
+      setIsLoading(false)
     } catch (error) {
       if (error.response && error.response.status === 401) {
         setTypeToast('error');
@@ -92,7 +99,9 @@ export default function LoginScreen({ navigation }) {
         setDescriptionToast('Esqueceu de algo ai meu chapa!');
       }
       showToast();
+      setIsLoading(false)
     }
+    setIsLoading(false)
   }
 
   return (
@@ -147,6 +156,7 @@ export default function LoginScreen({ navigation }) {
           mainColor={AppColors.white}
           label={'LOGIN'}
           onTap={() => { Login() }}
+          isLoading={isLoading}
         />
         <Row justifyContent={'center'} gap={28}>
           <BodyLarge color={AppColors.black}>Não tem conta?</BodyLarge>
