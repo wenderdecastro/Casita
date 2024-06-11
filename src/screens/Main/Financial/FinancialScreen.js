@@ -19,6 +19,7 @@ import ProgressBarShadow from "./widgets/ProgressBarShadow";
 import SpentBox from "./widgets/SpentBox";
 import AppSvgIcon, { AppIconName } from "../../../../assets/Icons";
 import SpentModal from "./dialogs/SpentModal";
+import { AppRoutesKeys } from "../../../utils/AppRoutes/AppRoutesUtils";
 
 const ViewCards = styled.View`
   width: 100%;
@@ -56,7 +57,14 @@ const ScrollContainer = styled.ScrollView`
   width: 100%;
 `;
 
-export default function FinancialScreen() {
+const InputContainer = styled.TouchableOpacity`
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+`;
+
+export default function FinancialScreen({navigation}) {
   const [spentModalIsVisible, setSpentModalIsVisible] = useState(false);
   return (
     <>
@@ -107,7 +115,11 @@ export default function FinancialScreen() {
           marginTop={20}
           bottom={-8}
           left={1.2}
-          Content={<TitleBlack size={20}>MINHAS METAS</TitleBlack>}
+          Content={
+            <InputContainer onPress={() => navigation.replace(AppRoutesKeys.goalsScreen)}>
+              <TitleBlack size={20}>MINHAS METAS</TitleBlack>
+            </InputContainer>
+        }
         />
 
         <Gap height={25} />

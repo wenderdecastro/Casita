@@ -22,6 +22,7 @@ export const AppRoutesKeys ={
     myDayScreen: "myDayScreen",
     listsScreen: "listsScreen",
     listDetailScreen: "listDetailScreen",
+    goalsScreen: "GoalsScreen",
 }
 
 export const AppNavigation = {

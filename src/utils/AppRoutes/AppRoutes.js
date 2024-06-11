@@ -13,6 +13,7 @@ import MyDayScreen from "../../screens/Main/Management/MyDayScreen";
 import ListsScreen from "../../screens/Main/Management/ListsScreen";
 import ListDetailScreen from "../../screens/Main/Management/ListDetailScreen";
 import FinancialScreen from "../../screens/Main/Financial/FinancialScreen";
+import GoalsScreen from "../../screens/Main/Financial/GoalsScreen";
 
 const { createNativeStackNavigator } = require("@react-navigation/native-stack");
 
@@ -63,6 +64,9 @@ export default function AppRoutes() {
                 <Stack.Screen
                     name={AppRoutesKeys.financialScreen}
                     component={FinancialScreen} />
+                <Stack.Screen
+                    name={AppRoutesKeys.goalsScreen}
+                    component={GoalsScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     )
