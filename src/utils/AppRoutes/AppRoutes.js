@@ -19,7 +19,7 @@ export default function AppRoutes() {
     return (
         <NavigationContainer>
             <Stack.Navigator
-                initialRouteName={AppRoutesKeys.registerFinanceDataPage}
+                initialRouteName={AppRoutesKeys.profileScreen}
                 screenOptions={{ headerShown: false }}>
                 <Stack.Screen
                     name={AppRoutesKeys.navigator}

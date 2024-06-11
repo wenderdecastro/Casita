@@ -13,11 +13,11 @@ import AppButton from '../../components/AppButton'
 import ToastMessage from '../../components/AppToastMessage'
 
 import { AppRoutesKeys } from '../../utils/AppRoutes/AppRoutesUtils'
-import { StackActions } from '@react-navigation/native'
+
 
 export default function RegisterUserDataScreen({navigation}) {
-  const [name, setName] = useState('Enzo');
-  const [mail, setMail] = useState('enzo.quarelo@gmail.com');
+  const [name, setName] = useState('Josefina');
+  const [mail, setMail] = useState('josefa@gmail.com');
   const [password, setPassword] = useState('123');
   const [confirmyPassword, setConfirmyPassword] = useState('123');
 
@@ -58,7 +58,11 @@ export default function RegisterUserDataScreen({navigation}) {
       showToast();
       return false;
     }
-    return true;
+    navigation.replace(AppRoutesKeys.registerFinanceDataPage, {
+    name,
+    mail,
+    password,
+  });
   }
 
   return (

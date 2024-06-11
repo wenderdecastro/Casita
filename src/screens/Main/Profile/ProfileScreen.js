@@ -50,6 +50,7 @@ export default function ProfileScreen() {
           <AppInput
             backgroundColor={AppColors.white}
             inputWidth={'120px'}
+            borderRadius={10}
           />
         </Row>
 
