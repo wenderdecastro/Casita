@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { AppRoutesKeys } from '../utils/AppRoutes/AppRoutesUtils';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import styled from 'styled-components/native';
@@ -37,6 +37,7 @@ const ProfileImage = styled.Image`
 
 export default function AppTabNavigator() {
   const { params } = useRoute();
+
 
   return (
     <Tab.Navigator

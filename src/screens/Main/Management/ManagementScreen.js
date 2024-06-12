@@ -101,6 +101,9 @@ export default function ManagementScreen({ navigation }) {
   }
 
   useEffect(() => {
+    console.log('====================================');
+    console.log(params);
+    console.log('====================================');
     getHomeData()
   }, [])
 

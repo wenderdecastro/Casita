@@ -21,9 +21,14 @@ export async function tokenDecode() {
 
     const decoded = jwtDecode(token)
 
+    
     return {
+        monthlyIcome: decoded.MonthlyIncome,
+        necessities: decoded.Necessities,
+        savings: decoded.Savings,
+        wants: decoded.Wants,
         email: decoded.email,
         name: decoded.name,
-        id: decoded.jti
+        id: decoded.jti,
     }
 }

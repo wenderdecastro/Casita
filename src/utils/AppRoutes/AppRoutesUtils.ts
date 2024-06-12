@@ -5,35 +5,34 @@ import {
   StackActions,
 } from "@react-navigation/native";
 
-export const AppRoutesKeys ={
-    registerUserDataPage: "registerUserDataPage",
-    registerFinanceDataPage: "registerFinanceDataPage",
-    landingPage: "landingPage",
-    loginScreen : "loginScreen",
-    tabNavigator: "tabNavigator",
-    navigator: "navigator",
-    homeScreen: "homeScreen",
-    financialScreen: "financialScreen",
-    managementScreen: "managementScreen",
-    profileScreen: "profileScreen",
-    recoveryPasswordInsertEmailEscreen: "recoveryPasswordInsertEmailEscreen",
-    recoveryPasswordInsertCodeEscreen: "recoveryPasswordInsertCodeEscreen",
-    recoveryPasswordInsertNewPasswordEscreen: "recoveryPasswordInsertNewPasswordEscreen",
-    myDayScreen: "myDayScreen",
-    listsScreen: "listsScreen",
-    listDetailScreen: "listDetailScreen",
-}
+export const AppRoutesKeys = {
+  registerUserDataPage: "registerUserDataPage",
+  registerFinanceDataPage: "registerFinanceDataPage",
+  landingPage: "landingPage",
+  loginScreen: "loginScreen",
+  tabNavigator: "tabNavigator",
+  navigator: "navigator",
+  homeScreen: "homeScreen",
+  financialScreen: "financialScreen",
+  managementScreen: "managementScreen",
+  profileScreen: "profileScreen",
+  recoveryPasswordInsertEmailEscreen: "recoveryPasswordInsertEmailEscreen",
+  recoveryPasswordInsertCodeEscreen: "recoveryPasswordInsertCodeEscreen",
+  recoveryPasswordInsertNewPasswordEscreen:
+    "recoveryPasswordInsertNewPasswordEscreen",
+  myDayScreen: "myDayScreen",
+  listsScreen: "listsScreen",
+  listDetailScreen: "listDetailScreen",
+};
 
 export const AppNavigation = {
   push: push,
-  pop: pop, 
+  pop: pop,
   popWithData: popWithData,
-  popToTop: popToTop
-}
-
+  popToTop: popToTop,
+};
 
 async function push<RouteName extends keyof ParamListBase>(
-
   navigation: NavigationProp<ParamListBase>,
   routeKey: RouteName,
   params?: ParamListBase[RouteName],
@@ -45,6 +44,7 @@ async function push<RouteName extends keyof ParamListBase>(
       params = undefined;
     }
     if (!killCurrentScreen) {
+
       const pushAction = StackActions.push(routeKey, params);
       navigation.dispatch(pushAction);
     } else {
@@ -68,7 +68,6 @@ async function pop(
   }
 }
 
-
 async function popWithData<RouteName extends keyof ParamListBase>(
   navigation: NavigationProp<ParamListBase>,
   routeKey: any,
@@ -86,10 +85,10 @@ async function popWithData<RouteName extends keyof ParamListBase>(
 }
 
 async function popToTop(
-  navigation: NavigationProp<ParamListBase>,
+  navigation: NavigationProp<ParamListBase>
 ): Promise<void> {
   try {
-    const popAction = StackActions.popToTop()
+    const popAction = StackActions.popToTop();
     navigation.dispatch(popAction);
   } catch (error) {
     console.error("Erro ao fazer pop na rota:", error);
