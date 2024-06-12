@@ -41,4 +41,5 @@ export const AppAssets = {
     dolarSignIcon: require(`${imagePath}/dolar_sign_icon.png`),
     addPickIcon: require(`${imagePath}/add_pick_icon.png`),
     goalArrowIcon: require(`${imagePath}/goal_arrow_icon.png`),
+    shopCarIcon: require(`${imagePath}/shop_car_icon.png`),
 }
