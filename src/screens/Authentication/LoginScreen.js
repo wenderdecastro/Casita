@@ -51,7 +51,7 @@ gap: 25px;
 
 export default function LoginScreen({ navigation }) {
   const [mail, setMail] = useState('luiz.henrique31415@gmail.com');
-  const [password, setPassword] = useState('123456');
+  const [password, setPassword] = useState('1');
   const [isLoading, setIsLoading] = useState(false)
 
   const [typeToast, setTypeToast] = useState('success');
