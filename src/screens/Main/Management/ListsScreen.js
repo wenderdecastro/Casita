@@ -1,5 +1,5 @@
 import { View,  Image } from 'react-native'
-import React, { useCallback, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { AppContainer, Row } from '../../../components/AppContainers'
 import { AppColors } from '../../../utils/Pallete'
 import { BuyListMock, Flex } from '../../../utils/AppEnums'
@@ -15,6 +15,8 @@ import styled from 'styled-components/native'
 import ListCardWidget from './widgets/ListCardWidget'
 import NewListDialog from './widgets/dialogs/NewListDialog'
 import { AppNavigation, AppRoutesKeys } from '../../../utils/AppRoutes/AppRoutesUtils'
+import api from '../../../services/ApiService'
+import { FlatList } from 'react-native-gesture-handler'
 
 const FixedButton = styled.TouchableOpacity`
   padding: 15px;
@@ -58,7 +60,12 @@ const TotalBox = styled.View`
   bottom: 20px;
 `
 
-export default function ListsScreen({navigation}) {
+export default function ListsScreen({navigation, route}) {
+
+    //Listas API
+    const [customList, setCustomList] = useState([]);
+    const [shopList, setShopList] = useState([]);
+    const [taskList, setTaskList] = useState([]);
 
     const [bottomSheetType, setBottomSheetType] = useState()
     const [isChecked, setIsChecked] = useState(false)
@@ -80,6 +87,16 @@ export default function ListsScreen({navigation}) {
     const handleSheetChanges = useCallback((index) => {
         console.log("handleSheetChanges", index);
     }, []);
+
+
+    //API Call
+    async function ListApi() {
+        const resApi = await api.get(`/TaskList/custom?userId=${route.params.userId}`)
+        console.log("UIRBUYBVU45YBRVUORBT4O8Y", resApi.status);
+    }
+
+    //API Call useEffect
+    useEffect(() => {ListApi()}, [])
     return (
         <AppContainer alignItems={Flex.flexStart} justifyContent={Flex.flexStart} backgroundColor={AppColors.background}>
             <Row alignItems={Flex.center}>
@@ -120,7 +137,7 @@ export default function ListsScreen({navigation}) {
             <Gap height={47} />
             <TitleBlack size={20}>LISTAS PERSONALIZADAS</TitleBlack>
             <Gap height={10} />
-            <ListCardWidget
+            <FlatList
                 tagText={'5'}
                 title={'Lista de numero 1'}
                 actualProgress={8}

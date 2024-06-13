@@ -77,7 +77,7 @@ const TotalBox = styled.View`
   bottom: 20px;
 `
 
-export default function ManagementScreen({ navigation }) {
+export default function ManagementScreen({ navigation, route }) {
 
   const [selected, setSelected] = useState(0)
   const { params } = useRoute();
@@ -147,7 +147,7 @@ export default function ManagementScreen({ navigation }) {
           />
         </Row>
         <Gap height={15} />
-        <TouchableOpacity activeOpacity={0.9} onPress={() => {AppNavigation.push(navigation, AppRoutesKeys.listsScreen)}}>
+        <TouchableOpacity activeOpacity={0.9} onPress={() => {AppNavigation.push(navigation, AppRoutesKeys.listsScreen, {userId: route.params.id})}}>
           <Row width={'100%'} justifyContent={Flex.flexEnd}>
             <View>
               <AppTextWithStroke
