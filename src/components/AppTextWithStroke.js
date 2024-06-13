@@ -12,6 +12,12 @@ const ShadowBox = styled.View`
     z-index: -9999;
 `
 
+const Box = styled.View`
+    position: relative;
+    bottom: ${({ bottom }) => `${bottom}`};
+    left: ${({ left }) => `${left}%`};
+`
+
 export default function AppTextWithStroke({
     text,
     fontSize = 16,

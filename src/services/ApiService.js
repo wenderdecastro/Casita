@@ -11,6 +11,17 @@ export const PostTaskPath = '/Task'
 export const EditTaskPath = '/Task'
 export const ConcludeTaskPath = '/Task/conclude'
 export const MyDayTaskPath = '/Task/myday'
+export const PostLoginPath = '/Login';
+export const UserPath = '/User'
+export async function postUser(userDetails) {
+  try {
+    const response = await api.post('/User', userDetails);
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao postar usuário:', error);
+    throw error;
+  }
+}
 
 const api = axios.create({
     headers: {
@@ -19,6 +30,5 @@ const api = axios.create({
   baseURL: BASE_URL_LOCAL,
     timeout: 10000
 });
-export const PostLoginPath = '/Login';
 
 export default api;

@@ -1,30 +1,56 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { PositionedImage, AppContainer, Row, Column } from '../../components/AppContainers'
 import { AppAssets } from '../../../assets/AppAssets'
 import { AppColors } from '../../utils/Pallete'
 import AppSquare from '../../components/AppNativeShapes/AppSquare'
 import LeadingButtonWidget from './widgets/LeadingButtonWidget'
 import { LeadingBox } from './widgets/RecoveryPasswordContainer'
-import { TitleBlack, TitleExtraLarge, BodyLarge, DualTextWithShadow } from '../../components/AppFonts'
+import TextStrokeShadow, { TitleBlack, TitleExtraLarge, BodyLarge } from '../../components/AppFonts'
 import { BodyMedium } from '../../components/AppFonts'
 import { Gap } from '../../components/AppSpecialComponents'
 import AppInput from '../../components/AppInput'
 import AppButton from '../../components/AppButton'
+import AppTextWithStroke from '../../components/AppTextWithStroke'
+import api from '../../services/ApiService'
+import CurrencyInput from 'react-native-currency-input'
+import { AppRoutesKeys } from '../../utils/AppRoutes/AppRoutesUtils'
 
-export default function RegisterFinanceDataScreen({ navigation }) {
+export default function RegisterFinanceDataScreen({ navigation, route }) {
+  const [income, setIncome] = React.useState(2999);
+  const [accounts, setAccounts] = useState('60');
+  const [wishes, setWishes] = useState('20');
+  const [savings, setSavings] = useState('20');
+
+  const { name, mail, password } = route.params;
+  console.log(name, mail, password);
+
+  const [userDetails, setUserDetails] = useState({
+    name: name,
+    email: mail,
+    password: password,
+    idNavigation: {
+      balance: 0,
+      necessitiesPercentage: accounts/100,
+      savingsPercentage: savings/100,
+      wantsPercentage: wishes/100,
+      monthlyIncome: income
+    }
+  });
+
+  async function postUser() {
+    try {
+      const response = await api.post('/User', userDetails);
+      navigation.replace(AppRoutesKeys.loginScreen)
+    } catch (error) {
+      console.error('Erro ao registrar usuário:', error);
+    }
+  };
+
+
   return (
     <AppContainer backgroundColor={AppColors.background}>
       {/* Componentes de fundo */}
-      <DualTextWithShadow
-        primaryText="$"
-        secondaryText="$"
-        primaryTextStyle={{ fontSize: 300, color: AppColors.green }}
-        secondaryTextStyle={{ fontSize: 305, color: AppColors.black }}
-        position='absolute'
-        left={0}
-        top={615}
-        rotate={-20}
-      />
+      <PositionedImage position={'absolute'} left={-10} top={85} source={AppAssets.dolarSignGreen} />
       <PositionedImage position={'absolute'} left={80} top={90} source={AppAssets.plusGreen} />
       <PositionedImage position={'absolute'} left={80} top={3} source={AppAssets.dotStar} />
       <AppSquare
@@ -49,7 +75,25 @@ export default function RegisterFinanceDataScreen({ navigation }) {
       <Gap height={20} />
       <BodyMedium color={AppColors.black} size={18}>Qual a sua renda mensal?</BodyMedium>
       <Gap height={15} />
-      <AppInput keyboardType='numeric' placeholder={'R$0,00'} fontSize={'45px'} textAlign={'center'} isTextArea />
+      {/* <AppInput
+        keyboardType='numeric'
+        placeholder={'R$0,00'}
+        fontSize={'45px'}
+        textAlign={'center'}
+        isTextArea
+        textValue={income}
+        onChangeText={(txt) => setIncome(txt)}
+      /> */}
+      <CurrencyInput
+        value={income}
+        onChangeValue={setIncome}
+        renderTextInput={textInputProps => <AppInput placeholder={'R$00.00'} isTextArea textInputProps={textInputProps} keyboardType='numeric' textAlign={'center'} fontSize={45}/>}
+        renderText
+        prefix="R$"
+        delimiter="."
+        separator=","
+        precision={2}
+      />
 
 
       <Gap height={40} />
@@ -57,67 +101,80 @@ export default function RegisterFinanceDataScreen({ navigation }) {
       <Gap height={20} />
 
 
-      <Row alignItems={'center'} width={'100%'} justifyContent={'space-around'}>
+      <Row alignItems={'center'} width={'100%'} justifyContent={'space-between'}>
         <Column>
-          <TitleExtraLarge size={20} color={AppColors.green} >CONTAS</TitleExtraLarge>
-          <BodyLarge color={AppColors.black}>Cartões, dividas, etc.</BodyLarge>
+          <AppTextWithStroke
+            text={' CONTAS '}
+            fontSize={20}
+            shadowLeft={1}
+          />
+          <BodyLarge color={AppColors.black} style={{ marginLeft: 10 }}>Cartões, dividas, etc.</BodyLarge>
         </Column>
+        
         <AppInput
           inputWidth={'120px'}
+          textValue={accounts}
+          onChangeText={(txt) => setAccounts(txt)}
           SuffixIcon={
-            <DualTextWithShadow
-              primaryText="%"
-              secondaryText="%"
-              primaryTextStyle={{ fontSize: 30, color: AppColors.green }}
-              secondaryTextStyle={{ fontSize: 32, color: AppColors.black }}
-            />
+            <AppTextWithStroke text={" % "} textColor={AppColors.background} fontSize={34}/>
           }
+          fontSize={20}
+          keyboardType='numeric'
+          maxLength={2}
         />
       </Row>
 
 
       <Gap height={10} />
-      <Row alignItems={'center'} width={'100%'} justifyContent={'space-around'}>
+      <Row alignItems={'center'} width={'100%'} justifyContent={'space-between'}>
         <Column>
-          <TitleExtraLarge size={20} color={AppColors.green}>DESEJOS</TitleExtraLarge>
-          <BodyLarge color={AppColors.black}>Seus gastos pessoais.</BodyLarge>
+          <AppTextWithStroke
+            text={' DESEJOS '}
+            fontSize={20}
+            shadowLeft={1}
+          />
+          <BodyLarge color={AppColors.black} style={{ marginLeft: 10 }}>Seus gastos pessoais.</BodyLarge>
         </Column>
         <AppInput
           inputWidth={'120px'}
+          textValue={wishes}
+          onChangeText={(txt) => setWishes(txt)}
           SuffixIcon={
-            <DualTextWithShadow
-              primaryText="%"
-              secondaryText="%"
-              primaryTextStyle={{ fontSize: 30, color: AppColors.green }}
-              secondaryTextStyle={{ fontSize: 32, color: AppColors.black }}
-            />
+           <AppTextWithStroke text={" % "} textColor={AppColors.background} fontSize={34}/>
           }
+          fontSize={20}
+          keyboardType='numeric'
+          maxLength={2}
         />
       </Row>
 
 
       <Gap height={10} />
-      <Row alignItems={'center'} width={'100%'} justifyContent={'space-around'}>
+      <Row alignItems={'center'} width={'100%'} justifyContent={'space-between'} >
         <Column>
-          <TitleExtraLarge size={20} color={AppColors.green}>ECONOMIAS</TitleExtraLarge>
-          <BodyLarge color={AppColors.black}>Quanto deseja guardar.</BodyLarge>
+          <AppTextWithStroke
+            text={' ECONIMIAS '}
+            fontSize={20}
+            shadowLeft={1}
+          />
+          <BodyLarge color={AppColors.black} style={{ marginLeft: 10 }}>Quanto deseja guardar.</BodyLarge>
         </Column>
         <AppInput
           inputWidth={'120px'}
+          textValue={savings}
+          onChangeText={(txt) => setSavings(txt)}
           SuffixIcon={
-            <DualTextWithShadow
-              primaryText="%"
-              secondaryText="%"
-              primaryTextStyle={{ fontSize: 30, color: AppColors.green }}
-              secondaryTextStyle={{ fontSize: 32, color: AppColors.black }}
-            />
+           <AppTextWithStroke text={" % "} textColor={AppColors.background} fontSize={34}/>
           }
+          fontSize={20}
+          keyboardType='numeric'
+          maxLength={2}
         />
       </Row>
 
       <Gap height={40} />
-      <AppButton mainColor={AppColors.white} label={'CADASTRAR'} />
-      
+      <AppButton mainColor={AppColors.white} label={'CADASTRAR'} onTap={() => postUser()} />
+
     </AppContainer>
   )
 }

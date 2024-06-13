@@ -8,7 +8,7 @@ import { useState, forwardRef, useImperativeHandle, useRef, useEffect } from "re
 import { Animated, View, Easing } from "react-native";
 
 const Toast = styled.View`
-    width: 100%;
+    width: 340px;
     height: 80px;
     z-index: 9999;
     background-color: ${AppColors.white};
@@ -21,12 +21,11 @@ const Toast = styled.View`
 
 const BoxShadow = styled.View`
     background-color: ${AppColors.black};
-    width: 100%;
+    width: 340px;
     height: 80px;
     border-radius: 10px;
     position: absolute;
     bottom: -3px;
-    left: 1%;
 `
 
 const Icon = styled.View`
@@ -102,7 +101,7 @@ const ToastMessage = forwardRef(({ type = 'success', description = 'descrição'
     return (
         <>
             {isVisible && (
-                <Animated.View style={{ width: '100%', position: 'absolute', top: topProp }}>
+                <Animated.View style={{ width: '100%', position: 'absolute', top: topProp, alignItems: 'center' }}>
                     <Toast>
                         <IconBox>
                             <Icon color={colorIcon}>
