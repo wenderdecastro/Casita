@@ -116,7 +116,7 @@ export default function RegisterFinanceDataScreen({ navigation, route }) {
           textValue={accounts}
           onChangeText={(txt) => setAccounts(txt)}
           SuffixIcon={
-            <PositionedImage position={'relative'} top={-18} source={AppAssets.percentage} />
+            <AppTextWithStroke text={" % "} textColor={AppColors.background} fontSize={34}/>
           }
           fontSize={20}
           keyboardType='numeric'
@@ -140,7 +140,7 @@ export default function RegisterFinanceDataScreen({ navigation, route }) {
           textValue={wishes}
           onChangeText={(txt) => setWishes(txt)}
           SuffixIcon={
-            <PositionedImage position={'relative'} top={-18} source={AppAssets.percentage} />
+           <AppTextWithStroke text={" % "} textColor={AppColors.background} fontSize={34}/>
           }
           fontSize={20}
           keyboardType='numeric'
@@ -164,7 +164,7 @@ export default function RegisterFinanceDataScreen({ navigation, route }) {
           textValue={savings}
           onChangeText={(txt) => setSavings(txt)}
           SuffixIcon={
-            <PositionedImage position={'relative'} top={-18} source={AppAssets.percentage} />
+           <AppTextWithStroke text={" % "} textColor={AppColors.background} fontSize={34}/>
           }
           fontSize={20}
           keyboardType='numeric'

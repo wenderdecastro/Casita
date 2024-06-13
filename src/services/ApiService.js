@@ -12,6 +12,7 @@ export const EditTaskPath = '/Task'
 export const ConcludeTaskPath = '/Task/conclude'
 export const MyDayTaskPath = '/Task/myday'
 export const PostLoginPath = '/Login';
+export const UserPath = '/User'
 export async function postUser(userDetails) {
   try {
     const response = await api.post('/User', userDetails);

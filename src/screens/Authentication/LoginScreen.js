@@ -50,8 +50,8 @@ gap: 25px;
 `
 
 export default function LoginScreen({ navigation }) {
-  const [mail, setMail] = useState('luiz.henrique31415@gmail.com');
-  const [password, setPassword] = useState('1');
+  const [mail, setMail] = useState('enzo.quarelo@gmail.com');
+  const [password, setPassword] = useState('errado');
   const [isLoading, setIsLoading] = useState(false)
 
   const [typeToast, setTypeToast] = useState('success');
@@ -69,39 +69,44 @@ export default function LoginScreen({ navigation }) {
 
 
   async function Login() {
-    setIsLoading(true)
-    if (mail == '' || password == '') {
+    // Verifica se os campos estão vazios antes de prosseguir
+    if (mail.trim() === '' || password.trim() === '') {
       setTypeToast('warning');
       setTitleToast('Preencha os Campos');
       setDescriptionToast('Esqueceu de algo ai meu chapa!');
+      showToast(); // Exibe o toast imediatamente se os campos estiverem vazios
+      setIsLoading(false); // Garante que o estado de loading seja resetado
+      return; // Sai da função para evitar a execução do código abaixo
     }
+  
+    setIsLoading(true);
     try {
       const response = await api.post(`${PostLoginPath}`, {
         email: mail,
         password: password
       });
-
+  
       if (response.status === 200) {
         const data = response.data;
         await AppStorage.write(AppStorageKeys.token, data.token);
-        const userData = await tokenDecode()
-        AppNavigation.push(navigation, AppRoutesKeys.tabNavigator, {userData: userData})
+        const userData = await tokenDecode();
+        AppNavigation.push(navigation, AppRoutesKeys.tabNavigator, {userData: userData});
       }
-      setIsLoading(false)
+      setIsLoading(false);
     } catch (error) {
       if (error.response && error.response.status === 401) {
         setTypeToast('error');
         setTitleToast('Email ou Senha inválidos');
         setDescriptionToast('Tem algo de errado ai meu mano!');
+        showToast();
       } else {
         setTypeToast('warning');
         setTitleToast('Preencha os Campos');
         setDescriptionToast('Esqueceu de algo ai meu chapa!');
       }
       showToast();
-      setIsLoading(false)
+      setIsLoading(false);
     }
-    setIsLoading(false)
   }
 
   return (

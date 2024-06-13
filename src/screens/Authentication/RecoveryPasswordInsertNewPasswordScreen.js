@@ -10,6 +10,7 @@ import AppButton from '../../components/AppButton'
 import { AppNavigation, AppRoutesKeys } from '../../utils/AppRoutes/AppRoutesUtils'
 import api from '../../services/ApiService'
 import ToastMessage from '../../components/AppToastMessage'
+import { UserPath } from '../../services/ApiService'
 
 export default function RecoveryPasswordInsertNewPasswordScreen({ navigation, route }) {
   const { mail } = route.params
@@ -44,8 +45,17 @@ export default function RecoveryPasswordInsertNewPasswordScreen({ navigation, ro
       return;
     }
 
+    if (newPaswsword == '' || confirmPassword == '') {
+      setTypeToast('warning');
+      setTitleToast('Preencha os Campos');
+      setDescriptionToast('Esqueceu de algo ai meu chapa!');
+      showToast();
+      setIsLoading(false);
+      return;
+    }
+
     try {
-      await api.put(`/User/ChangePassword?email=${mail}`, {
+      await api.put(`${UserPath}/ChangePassword?email=${mail}`, {
         senhaNova: newPaswsword,
       });
 
