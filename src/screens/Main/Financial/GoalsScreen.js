@@ -9,10 +9,12 @@ import { TitleBlack } from "../../../components/AppFonts";
 import { Gap } from "../../../components/AppSpecialComponents";
 import GoalCard from "./widgets/GoalCard";
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddFundsModal from "./dialogs/AddFundsModal";
 import AppSvgIcon, { AppIconName } from "../../../../assets/Icons";
 import AddGoalModal from "./dialogs/AddGoalModal";
+import { useRoute } from "@react-navigation/native";
+import api, { GetGoalsPath } from "../../../services/ApiService";
 
 export const LeadingBoxButton = styled.View`
   position: absolute;
@@ -43,14 +45,45 @@ const FixedButtonShadow = styled.View`
   z-index: 0;
 `;
 
+const List = styled.View`
+    flex: ${({ flex }) => flex};
+    width: 100%;
+`
+
 export default function GoalsScreen({ navigation }) {
   const [fundsModalIsVisible, setFundsModalIsVisible] = useState(false);
   const [addFundsModalIsVisible, setAddFundsModalIsVisible] = useState(false);
+
+  const [data, setData] = useState([])
+
+
+  const { params } = useRoute()
+
+  useEffect(() => {
+    getGoals()
+  }, [])
+
+  async function getGoals() {
+    await api.get(GetGoalsPath, {
+      params: {
+        id: params.userData.id
+      }
+    }).then(response => {
+      console.log('====================================');
+      console.log(response);
+      console.log('====================================');
+      setData(response.data)
+    }).catch(error => {
+      console.log('====================================');
+      console.log(error.request);
+      console.log('====================================');
+    })
+  }
   return (
     <AppContainer
       justifyContent={Flex.auto}
       backgroundColor={AppColors.background}
-      
+
     >
       <Row width={"100%"}>
         <LeadingBoxButton>
@@ -73,19 +106,24 @@ export default function GoalsScreen({ navigation }) {
         <Gap width={17} />
         <TitleBlack size={32}>METAS</TitleBlack>
       </Row>
-
       <Gap height={28} />
-      <GoalCard
-        onPress={() => {
-          setFundsModalIsVisible(true);
-        }}
-      />
+      <List>
+        <FlatList
+          endFillColor={AppColors.background}
+          data={data}
 
-      <Gap height={28} />
-      <GoalCard />
+          renderItem={({ item }) =>
+          (
+            <GoalCard/>
+          )
+          }
+          keyExtractor={item => item.id}
+          ItemSeparatorComponent={<Gap height={20} />}
+          contentContainerStyle={{ paddingVertical: 10, paddingHorizontal: 5 }}
+          showsVerticalScrollIndicator={false}
+        />
+      </List>
 
-      <Gap height={28} />
-      <GoalCard />
 
       <AddFundsModal
         onClose={() => {
@@ -95,6 +133,7 @@ export default function GoalsScreen({ navigation }) {
       />
 
       <AddGoalModal
+        userId={params.userData.id}
         onClose={() => {
           setAddFundsModalIsVisible(false);
         }}

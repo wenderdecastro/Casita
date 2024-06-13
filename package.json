@@ -40,7 +40,8 @@
     "react-native-screens": "^3.31.1",
     "react-native-svg": "^15.3.0",
     "styled-components": "^6.1.11",
-    "typescript": "~5.3.3"
+    "typescript": "~5.3.3",
+    "expo-image-picker": "~15.0.5"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

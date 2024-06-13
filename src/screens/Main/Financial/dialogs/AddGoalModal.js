@@ -1,4 +1,4 @@
-import { Image, TextInput, TouchableOpacity, View } from "react-native";
+import { Image, View } from "react-native";
 import AppDialog from "../../../../components/AppDialog";
 import { AppColors } from "../../../../utils/Pallete";
 import ContainerShadow from "../widgets/ContainerShadow";
@@ -8,6 +8,12 @@ import { BodyLarge, FontFamily, TitleBlack } from "../../../../components/AppFon
 import { Row } from "../../../../components/AppContainers";
 import { Gap } from "../../../../components/AppSpecialComponents";
 import { AppAssets } from "../../../../../assets/AppAssets";
+import * as ImagePicker from 'expo-image-picker';
+import React, { useState } from "react";
+import { useRoute } from "@react-navigation/native";
+import CurrencyInput from "react-native-currency-input";
+import AppInput from "../../../../components/AppInput";
+import AppButton from "../../../../components/AppButton";
 
 const Input = styled.TextInput`
   font-family: ${({ fontFamily }) => fontFamily};
@@ -32,7 +38,29 @@ const BoxView = styled.View`
   width: 79%;
 `;
 
-export default function AddGoalModal({ visible, onClose }) {
+export default function AddGoalModal({ visible, onClose, userId }) {
+  const [image, setImage] = useState(null);
+  const [value, setValue] = useState();
+
+  const [name, setName] = useState()
+  const [goalQuantity, setGoalQuantity] = useState()
+
+
+  const pickImage = async () => {
+
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+    }
+  };
   return (
     <AppDialog
       paddingInside={16}
@@ -40,14 +68,14 @@ export default function AddGoalModal({ visible, onClose }) {
       visible={visible}
       onClose={onClose}
     >
-      <ContainerShadow
-        width={"100%"}
-        height={40}
+      <AppInput
         backgroundColor={AppColors.white}
-        borderRadius={0}
-        Content={
-          <Input fontFamily={FontFamily.archivoBold}>Nome da Meta</Input>
-        }
+        placeholder={'Nome da meta'}
+        fontFamily={FontFamily.archivoBold}
+        textValue={name}
+        onChangeText={val => {
+          setName(val)
+        }}
       />
 
       <Gap height={12} />
@@ -58,8 +86,9 @@ export default function AddGoalModal({ visible, onClose }) {
           backgroundColor={AppColors.white}
           borderRadius={8}
           Content={
-            <Button>
+            <Button onPress={pickImage}>
               <Image
+
                 source={AppAssets.addPickIcon}
                 style={{
                   flex: 1,
@@ -105,20 +134,26 @@ export default function AddGoalModal({ visible, onClose }) {
                   R$
                 </BodyLarge>
 
-                <Input
-                  fontSize={"20px"}
-                  keyboardType={KeyboardType.numeric}
-                  fontFamily={FontFamily.archivoMedium}
-                  placeholder={"380,00"}
-                >
-                  <BodyLarge
-                    style={{ width: "auto" }}
-                    size={20}
-                    color={AppColors.black}
-                  >
-                    380,00
-                  </BodyLarge>
-                </Input>
+                <CurrencyInput
+                  value={value}
+                  onChangeValue={setValue}
+                  renderTextInput={textInputProps => 
+                  <AppInput 
+                  isTransparent
+                  fontFamily={FontFamily.archivoMedium} 
+                  borderRadius={8} 
+                  backgroundColor={AppColors.white} 
+                  inputWidth={'140px'} 
+                  textInputProps={textInputProps}
+                  placeholder={'0,00'} 
+                  
+                   />}
+                  renderText
+                  prefix=""
+                  delimiter="."
+                  separator=","
+                  precision={2}
+                />
               </BoxView>
             </Row>
           }
@@ -126,16 +161,12 @@ export default function AddGoalModal({ visible, onClose }) {
       </Row>
 
       <Gap height={16} />
-      <ContainerShadow
-        width={"100%"}
-        height={40}
-        backgroundColor={AppColors.white}
-        borderRadius={100}
-        Content={
-            <Button>
-                <TitleBlack>CRIAR META</TitleBlack>
-            </Button>
-        }
+      <AppButton
+        label={'CRIAR META'}
+
+        onTap={() => {
+
+        }}
       />
     </AppDialog>
   );
