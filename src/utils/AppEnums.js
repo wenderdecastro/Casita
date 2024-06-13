@@ -85,6 +85,21 @@ export const SpentTypeButtons = [
     },
 ]
 
+export const HistoryTypeButtons = [
+    {
+        text: 'Contas',
+        type: 0
+    },
+    {
+        text: 'Desejos',
+        type: 1
+    },
+    {
+        text: 'Economias',
+        type: 2
+    },
+]
+
 const getRandomInt = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 };

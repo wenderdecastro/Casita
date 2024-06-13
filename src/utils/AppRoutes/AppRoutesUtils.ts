@@ -23,6 +23,7 @@ export const AppRoutesKeys ={
     listsScreen: "listsScreen",
     listDetailScreen: "listDetailScreen",
     goalsScreen: "GoalsScreen",
+    historyScreen: "HistoryScreen",
 }
 
 export const AppNavigation = {
