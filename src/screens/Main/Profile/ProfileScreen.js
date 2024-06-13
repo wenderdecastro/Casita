@@ -1,5 +1,5 @@
 import { View, Text, ScrollView } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { AppColors } from '../../../utils/Pallete'
 import { AppContainer, Column, Row } from '../../../components/AppContainers'
 import { BodyLarge, BodyMedium, H3, TitleBlack } from '../../../components/AppFonts'
@@ -10,8 +10,14 @@ import AppInput from '../../../components/AppInput'
 import AppButton from '../../../components/AppButton'
 import { Gap } from '../../../components/AppSpecialComponents'
 import AppTextWithStroke from '../../../components/AppTextWithStroke'
+import { useRoute } from '@react-navigation/native'
 
 export default function ProfileScreen() {
+  const {params} = useRoute();
+
+  useEffect(() => {
+    console.log(params);
+  }, [])
   return (
     <ScrollView>
       <AppContainer backgroundColor={AppColors.background} justifyContent={Flex.auto}>

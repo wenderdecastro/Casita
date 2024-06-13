@@ -24,8 +24,8 @@ const BoxShadow = styled.View`
   width: 100%;
   height: 100%;
   position: absolute;
-  bottom: ${({ bottom = '-7%' }) => `${bottom}`};
-  left: ${({ left = '1.5%' }) => `${left}`};
+  bottom: ${({ bottom = '-7%' }) => `${bottom}%`};
+  left: ${({ left = '1.5%' }) => `${left}%`};
   z-index: -9999;
 `;
 
