@@ -17,12 +17,13 @@ import AppButton from '../../../../../components/AppButton'
 import AppTimePicker from '../../../../../components/AppTimePicker'
 import api, { PostTaskPath } from '../../../../../services/ApiService'
 import moment from 'moment'
+import { AppNavigation, AppRoutesKeys } from '../../../../../utils/AppRoutes/AppRoutesUtils'
 
 const SendButton = styled.TouchableOpacity`
     border-radius: 10px;
     border-width: 1px;
     border-color: ${AppColors.black};
-    background-color: ${AppColors.yellow};
+    background-color: ${({isDisabled}) => isDisabled ? AppColors.gray20 : AppColors.yellow};
     align-items: center;
     justify-content: center;
     flex: 1;
@@ -53,7 +54,9 @@ const CheckBox = styled.TouchableOpacity`
     justify-content: center;
 `
 
-export default function NewTaskDialog({ visible, onClose, userId}) {
+export default function NewTaskDialog({ visible, onClose, userId, navigation }) {
+
+
     const data = [
         {
             value: 'Alta',
@@ -103,28 +106,25 @@ export default function NewTaskDialog({ visible, onClose, userId}) {
         return moment(time).format('HH:mm:ss');
     }
 
-
-
     async function PostTask() {
         setIsLoading(true)
-
-
         await api.post(PostTaskPath, {
             priorityId: priority,
             name: title,
             frequencyId: selected,
             description: description,
             dueDate: dateIsDisabled ? null : formatDate(date),
-            dueTime: timeIsDisabled ? null : formatTime(time),
+            dueTime: timeIsDisabled ? null : `${formatTime(time)}.0000000`,
             isConcluded: false,
         }, { params: { userId: userId } })
-            .then((response) => { 
+            .then((response) => {
                 console.log(response)
-                setIsLoading(false) 
+                setIsLoading(false)
+                AppNavigation.popWithData(navigation, AppRoutesKeys.managementScreen, { refresh: true })
             })
             .catch(error => {
                 console.log(error.request)
-                setIsLoading(false) 
+                setIsLoading(false)
             })
     }
 
@@ -220,10 +220,10 @@ export default function NewTaskDialog({ visible, onClose, userId}) {
                 />
                 <Gap width={10} />
                 <View style={{ flex: 1 }}>
-                    <SendButton activeOpacity={0.9} onPress={() => {
+                    <SendButton isDisabled={!priority || !title} activeOpacity={ !priority || !title ? 1 : 0.9} onPress={!priority || !title ? null : () => {
                         PostTask()
                     }}>
-                        {isLoading ? <ActivityIndicator color={AppColors.black}/> : <AppSvgIcon name={AppIconName.send} />}
+                        {isLoading ? <ActivityIndicator color={AppColors.black} /> : <AppSvgIcon name={AppIconName.send} />}
                     </SendButton>
                     <SendButtonShadow>
                         <AppSvgIcon name={AppIconName.send} />

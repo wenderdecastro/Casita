@@ -9,6 +9,7 @@ import { BodyMedium, TitleExtraLarge } from '../../../../components/AppFonts'
 import moment from 'moment'
 import AppSvgIcon, { AppIconName } from '../../../../../assets/Icons'
 import { TextDecoration } from '../../../../utils/AppEnums'
+import api, { ConcludeTaskPath } from '../../../../services/ApiService'
 
 const CardBox = styled.View`
     padding: 10px;
@@ -36,7 +37,7 @@ const CardShadow = styled.View`
 `
 
 const Tag = styled.View`
-    background-color: ${({ isChecked }) => isChecked ? AppColors.background : AppColors.blue};
+    background-color: ${({ isChecked, hasPassedTime }) => isChecked ? AppColors.background : hasPassedTime ? AppColors.red : AppColors.blue};
     border-radius: 9999px;
     border-width: 1px;
     border-color: ${AppColors.black};
@@ -58,14 +59,58 @@ const CheckBox = styled.TouchableOpacity`
 
 export default function TaskCardWidget({ item, onTap }) {
 
-    var dateFormatted = moment(item.date, 'DD-MM-YYYYTHH:mm:ss');
+    var date = moment(item.dueDate).format('DD/MM/YYYY');
 
-    var date = dateFormatted.format('DD/MM/YYYY');
-    var time = dateFormatted.format('HH:mm');
+    const [isChecked, setIsChecked] = useState(item.isConcluded)
 
-    const [isChecked, setIsChecked] = useState(item.isChecked)
+    async function concludeTask() {
+        api.patch(`${ConcludeTaskPath}/${item.id}`).then(response => {
+            console.log(response);
+        }).catch(error => {
+            console.log(error.request);
+        })
+    }
+
+    function hasPassedDueDate(dueDate) {
+        if (!dueDate) {
+            return false;
+        }
+        const currentDate = moment();
+
+
+        const dueDateTime = moment(dueDate, 'YYYY-MM-DD');
+
+
+        return currentDate.isAfter(dueDateTime);
+    }
+
+
+    function hasPassedDueTime(dueTime) {
+        if (!dueTime) {
+            return false;
+        }
+
+
+        const currentTime = moment().format('HH:mm:ss');
+
+
+        return currentTime > dueTime;
+    }
+
+    function verifyDate() {
+        if (item.dueDate != null || item.dueTime != null) {
+            if (item.dueDate != null) {
+                return hasPassedDueDate(date)
+            } else if (item.dueTime != null) {
+                return hasPassedDueTime(item.dueTime)
+            }
+        }
+
+        return false
+    }
+
     return (
-        <TouchableOpacity activeOpacity={0.9} onPress={onTap}>
+        <TouchableOpacity activeOpacity={0.9} onPress={ isChecked ? null : onTap}>
             <CardBox>
                 <Row style={{ flex: 1 }}>
                     <View>
@@ -74,7 +119,7 @@ export default function TaskCardWidget({ item, onTap }) {
                             width: 35,
                             height: 35,
                             resizeMode: 'contain'
-                        }} source={isChecked ? AppAssets.emptyPointStar : item.priority == 1 ? AppAssets.redPointStar : item.priority == 2 ? AppAssets.yellowPointStar : item.priority == 3 ? AppAssets.greenPointStar : AppAssets.emptyPointStar} />
+                        }} source={isChecked ? AppAssets.emptyPointStar : item.priorityId == 1 ? AppAssets.redPointStar : item.priorityId == 2 ? AppAssets.yellowPointStar : item.priorityId == 3 ? AppAssets.greenPointStar : AppAssets.emptyPointStar} />
                     </View>
                     <Gap width={12} />
                     <Column width={'55%'}>
@@ -82,53 +127,85 @@ export default function TaskCardWidget({ item, onTap }) {
                             textDecoration={isChecked ? TextDecoration.lineThrough : TextDecoration.none}
                             color={AppColors.black}>{item.name}</BodyMedium>
                         <Gap height={5} />
-                        <Tag isChecked={isChecked}>
-                            <TitleExtraLarge
-                                textDecoration={isChecked ? TextDecoration.lineThrough : TextDecoration.none}
-                                color={isChecked ? AppColors.black : AppColors.white}
-                                size={14}>{date}</TitleExtraLarge>
+                        {item.dueDate != null || item.dueTime != null ? <>
 
-                            <Gap width={10} />
+                            <Tag hasPassedTime={verifyDate()} isChecked={isChecked}>
+                                {item.dueDate != null ? <><TitleExtraLarge
+                                    textDecoration={isChecked ? TextDecoration.lineThrough : TextDecoration.none}
+                                    color={isChecked ? AppColors.black : AppColors.white}
+                                    size={14}>{date}</TitleExtraLarge></> : null}
 
-                            <AppSvgIcon
-                                color={isChecked ? AppColors.black : AppColors.white}
-                                name={AppIconName.clock}
-                                size={18} />
+                                <Gap width={10} />
 
-                            <Gap width={3} />
+                                {item.dueTime != null ? <><AppSvgIcon
+                                    color={isChecked ? AppColors.black : AppColors.white}
+                                    name={AppIconName.clock}
+                                    size={18} />
 
-                            <TitleExtraLarge
-                                color={isChecked ? AppColors.black : AppColors.white}
-                                textDecoration={isChecked ? TextDecoration.lineThrough : TextDecoration.none}
-                                size={14}>{time}</TitleExtraLarge>
-                        </Tag>
+                                    <Gap width={3} />
+
+                                    <TitleExtraLarge
+                                        color={isChecked ? AppColors.black : AppColors.white}
+                                        textDecoration={isChecked ? TextDecoration.lineThrough : TextDecoration.none}
+                                        size={14}>{item.dueTime.slice(0, 5)}</TitleExtraLarge></> : null}
+                            </Tag></> : null}
                     </Column>
                 </Row>
-                <CheckBox onPress={() => { setIsChecked(!isChecked) }} isChecked={isChecked}>
-                    {isChecked ? <AppSvgIcon size={25} name={AppIconName.checkTask}/> : null}
+                <CheckBox
+                    onPress={async () => {
+                        setIsChecked(!isChecked)
+                        await concludeTask()
+                    }} isChecked={isChecked}>
+                    {isChecked ? <AppSvgIcon size={25} name={AppIconName.checkTask} /> : null}
                 </CheckBox>
             </CardBox>
             <CardShadow>
-                <View>
-                    <Image style={{
-                        flex: 1,
-                        width: 35,
-                        height: 35,
-                        resizeMode: 'contain'
-                    }} source={item.priority == 1 ? AppAssets.redPointStar : item.priority == 2 ? AppAssets.yellowPointStar : item.priority == 3 ? AppAssets.greenPointStar : AppAssets.emptyPointStar} />
-                </View>
-                <Gap width={12} />
-                <Column width={'55%'}>
-                    <BodyMedium color={AppColors.black}>{item.name}</BodyMedium>
-                    <Gap height={5} />
-                    <Tag>
-                        <TitleExtraLarge color={AppColors.white} size={14}>{date}</TitleExtraLarge>
-                        <Gap width={10} />
-                        <AppSvgIcon color={AppColors.white} name={AppIconName.clock} size={18} />
-                        <Gap width={3} />
-                        <TitleExtraLarge color={AppColors.white} size={14}>{time}</TitleExtraLarge>
-                    </Tag>
-                </Column>
+                <Row style={{ flex: 1 }}>
+                    <View>
+                        <Image style={{
+                            flex: 1,
+                            width: 35,
+                            height: 35,
+                            resizeMode: 'contain'
+                        }} source={isChecked ? AppAssets.emptyPointStar : item.priorityId == 1 ? AppAssets.redPointStar : item.priorityId == 2 ? AppAssets.yellowPointStar : item.priorityId == 3 ? AppAssets.greenPointStar : AppAssets.emptyPointStar} />
+                    </View>
+                    <Gap width={12} />
+                    <Column width={'55%'}>
+                        <BodyMedium
+                            textDecoration={isChecked ? TextDecoration.lineThrough : TextDecoration.none}
+                            color={AppColors.black}>{item.name}</BodyMedium>
+                        <Gap height={5} />
+                        {item.dueDate != null || item.dueTime != null ? <>
+
+                            <Tag isChecked={isChecked}>
+                                {item.dueDate != null ? <><TitleExtraLarge
+                                    textDecoration={isChecked ? TextDecoration.lineThrough : TextDecoration.none}
+                                    color={isChecked ? AppColors.black : AppColors.white}
+                                    size={14}>{date}</TitleExtraLarge><Gap width={10} /></> : null}
+
+
+
+                                {item.dueTime != null ? <><AppSvgIcon
+                                    color={isChecked ? AppColors.black : AppColors.white}
+                                    name={AppIconName.clock}
+                                    size={18} />
+
+                                    <Gap width={3} />
+
+                                    <TitleExtraLarge
+                                        color={isChecked ? AppColors.black : AppColors.white}
+                                        textDecoration={isChecked ? TextDecoration.lineThrough : TextDecoration.none}
+                                        size={14}>{item.dueTime.slice(0, 5)}</TitleExtraLarge></> : null}
+                            </Tag></> : null}
+                    </Column>
+                </Row>
+                <CheckBox
+                    onPress={async () => {
+                        setIsChecked(!isChecked)
+                        await concludeTask()
+                    }} isChecked={isChecked}>
+                    {isChecked ? <AppSvgIcon size={25} name={AppIconName.checkTask} /> : null}
+                </CheckBox>
             </CardShadow>
         </TouchableOpacity>
     )

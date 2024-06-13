@@ -100,12 +100,23 @@ export default function ManagementScreen({ navigation }) {
     setIsEditTaskDialogVisible(true)
   }
 
+  function closeModals() {
+    setIsNewTaskDialogVisible(false)
+    setIsEditTaskDialogVisible(false)
+    setIsNewItemDialogVisible(false)
+  }
+
   useEffect(() => {
-    console.log('====================================');
-    console.log(params);
-    console.log('====================================');
+
     getHomeData()
   }, [])
+
+  useEffect(() => {
+    if (params.refresh) {
+      closeModals()
+      getHomeData()
+    }
+  }, [params])
 
   async function getHomeData() {
     setIsLoading(true)
@@ -146,7 +157,7 @@ export default function ManagementScreen({ navigation }) {
 
   return (
     <AppContainer justifyContent={isLoading ? Flex.center : Flex.flexStart} backgroundColor={AppColors.background}>
-      {isLoading ? <ActivityIndicator color={AppColors.black} size={60} /> : <><MyDayWidget onTap={() => { AppNavigation.push(navigation, AppRoutesKeys.myDayScreen) }} />
+      {isLoading ? <ActivityIndicator color={AppColors.black} size={60} /> : data ? <><MyDayWidget onTap={() => { AppNavigation.push(navigation, AppRoutesKeys.myDayScreen) }} />
         <Gap height={30} />
         <ListBox>
           <TitleBlack size={20}>MINHAS LISTAS</TitleBlack>
@@ -208,7 +219,7 @@ export default function ManagementScreen({ navigation }) {
         />
         <Gap height={3} />
         <TasksListWidget
-          DATA={selected == 0 ? data[2].appTasks : selected == 1 ? data[3].appTasks : data[4].appTasks }
+          DATA={selected == 0 ? data[2].appTasks : selected == 1 ? data[3].appTasks : data[4].appTasks}
           tapAction={handleOpenEditModal}
           flex={0.85} />
 
@@ -284,9 +295,9 @@ export default function ManagementScreen({ navigation }) {
 
 
 
-        <NewTaskDialog userId={params.userData.userId} visible={isNewTaskDialogVisible} onClose={() => { setIsNewTaskDialogVisible(false) }} />
-        <EditTaskDialog visible={isEditTaskDialogVisible} onClose={() => { setIsEditTaskDialogVisible(false) }} item={taskSelected} />
-        <NewItemDialog visible={isNewItemDialogVisible} onClose={() => { setIsNewItemDialogVisible(false) }} /></>}
+        <NewTaskDialog navigation={navigation} userId={params.userData.id} visible={isNewTaskDialogVisible} onClose={() => { setIsNewTaskDialogVisible(false) }} />
+        <EditTaskDialog navigation={navigation} visible={isEditTaskDialogVisible} onClose={() => { setIsEditTaskDialogVisible(false) }} item={taskSelected} />
+        <NewItemDialog visible={isNewItemDialogVisible} onClose={() => { setIsNewItemDialogVisible(false) }} /></> : <></>}
     </AppContainer>
   )
 }

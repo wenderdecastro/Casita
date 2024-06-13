@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { SelectList } from 'react-native-dropdown-select-list';
 import styled from 'styled-components/native';
 import { AppColors } from '../utils/Pallete';
@@ -29,8 +29,11 @@ export default function AppDropdown({
     placeholder,
     label,
     isDisabled = false,
+    selected = null
 }
 ) {
+
+
 
     return (
         <DropdownBox pointerEvents={isDisabled ? 'none' : 'auto'}>
@@ -40,7 +43,7 @@ export default function AppDropdown({
                 data={data}
                 save="key"
                 search={false}
-                
+                defaultOption={selected}
                 dropdownStyles={{
                     backgroundColor: "white",
                     position: "absolute",
