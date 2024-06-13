@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useRef } from 'react'
 import { PositionedImage, AppContainer, Row, Column } from '../../components/AppContainers'
 import { AppAssets } from '../../../assets/AppAssets'
 import { AppColors } from '../../utils/Pallete'
@@ -14,15 +14,30 @@ import AppTextWithStroke from '../../components/AppTextWithStroke'
 import api from '../../services/ApiService'
 import CurrencyInput from 'react-native-currency-input'
 import { AppRoutesKeys } from '../../utils/AppRoutes/AppRoutesUtils'
+import ToastMessage from '../../components/AppToastMessage'
 
 export default function RegisterFinanceDataScreen({ navigation, route }) {
   const [income, setIncome] = React.useState(2999);
   const [accounts, setAccounts] = useState('60');
-  const [wishes, setWishes] = useState('20');
-  const [savings, setSavings] = useState('20');
+  const [wishes, setWishes] = useState('90');
+  const [savings, setSavings] = useState('10');
 
   const { name, mail, password } = route.params;
-  console.log(name, mail, password);
+
+  const [isLoading, setIsLoading] = useState(false)
+
+  const [typeToast, setTypeToast] = useState('success');
+  const [titleToast, setTitleToast] = useState('');
+  const [descriptionToast, setDescriptionToast] = useState('');
+
+  const toastRef = useRef(null);
+
+  const showToast = () => {
+    console.log(toastRef)
+    if (toastRef.current) {
+      toastRef.current.show();
+    }
+  }
 
   const [userDetails, setUserDetails] = useState({
     name: name,
@@ -38,13 +53,40 @@ export default function RegisterFinanceDataScreen({ navigation, route }) {
   });
 
   async function postUser() {
+    setIsLoading(true);
+    
+    if (!accounts ||!wishes ||!savings ||!income) {
+      setTypeToast('error');
+      setTitleToast('Preencha os Campos');
+      setDescriptionToast('Por favor, preencha todos os campos.');
+      setIsLoading(false);
+      showToast(); 
+      return; 
+    }
+  
+    if (parseInt(accounts) + parseInt(wishes) + parseInt(savings) > 100) {
+      setTypeToast('warning');
+      setTitleToast('Erro na divisão dos Gastos');
+      setDescriptionToast('Só dá pra separar 100% da renda');
+      setIsLoading(false);
+      showToast();
+      return;
+    }
+  
     try {
-      const response = await api.post('/User', userDetails);
-      navigation.replace(AppRoutesKeys.loginScreen)
+      await api.post('/User', userDetails);
+      setIsLoading(false);
+      navigation.replace(AppRoutesKeys.loginScreen);
     } catch (error) {
-      console.error('Erro ao registrar usuário:', error);
+      setTypeToast('error');
+      setTitleToast('Falha ao realizar Cadastro');
+      setDescriptionToast('Verifique os dados informados');
+      setIsLoading(false);
+      showToast();
+      return false;
     }
   };
+  
 
 
   return (
@@ -65,6 +107,13 @@ export default function RegisterFinanceDataScreen({ navigation, route }) {
         <LeadingButtonWidget navigation={navigation} />
       </LeadingBox>
 
+      <ToastMessage
+        ref={toastRef}
+        type={typeToast}
+        title={titleToast}
+        description={descriptionToast}
+      />
+
       {/* Titulo */}
       <Row width={"100%"} alignItems={'center'} >
         <PositionedImage source={AppAssets.eightPointGreenStarSmall} />
@@ -75,15 +124,6 @@ export default function RegisterFinanceDataScreen({ navigation, route }) {
       <Gap height={20} />
       <BodyMedium color={AppColors.black} size={18}>Qual a sua renda mensal?</BodyMedium>
       <Gap height={15} />
-      {/* <AppInput
-        keyboardType='numeric'
-        placeholder={'R$0,00'}
-        fontSize={'45px'}
-        textAlign={'center'}
-        isTextArea
-        textValue={income}
-        onChangeText={(txt) => setIncome(txt)}
-      /> */}
       <CurrencyInput
         value={income}
         onChangeValue={setIncome}
@@ -107,6 +147,7 @@ export default function RegisterFinanceDataScreen({ navigation, route }) {
             text={' CONTAS '}
             fontSize={20}
             shadowLeft={1}
+            textColor={AppColors.green}
           />
           <BodyLarge color={AppColors.black} style={{ marginLeft: 10 }}>Cartões, dividas, etc.</BodyLarge>
         </Column>
@@ -116,7 +157,7 @@ export default function RegisterFinanceDataScreen({ navigation, route }) {
           textValue={accounts}
           onChangeText={(txt) => setAccounts(txt)}
           SuffixIcon={
-            <AppTextWithStroke text={" % "} textColor={AppColors.background} fontSize={34}/>
+            <AppTextWithStroke text={" % "} textColor={AppColors.background} fontSize={34} top={-16} left={10}/>
           }
           fontSize={20}
           keyboardType='numeric'
@@ -132,6 +173,7 @@ export default function RegisterFinanceDataScreen({ navigation, route }) {
             text={' DESEJOS '}
             fontSize={20}
             shadowLeft={1}
+            textColor={AppColors.green}
           />
           <BodyLarge color={AppColors.black} style={{ marginLeft: 10 }}>Seus gastos pessoais.</BodyLarge>
         </Column>
@@ -140,7 +182,7 @@ export default function RegisterFinanceDataScreen({ navigation, route }) {
           textValue={wishes}
           onChangeText={(txt) => setWishes(txt)}
           SuffixIcon={
-           <AppTextWithStroke text={" % "} textColor={AppColors.background} fontSize={34}/>
+           <AppTextWithStroke text={" % "} textColor={AppColors.background} fontSize={34} top={-16} left={10}/>
           }
           fontSize={20}
           keyboardType='numeric'
@@ -156,6 +198,7 @@ export default function RegisterFinanceDataScreen({ navigation, route }) {
             text={' ECONIMIAS '}
             fontSize={20}
             shadowLeft={1}
+            textColor={AppColors.green}
           />
           <BodyLarge color={AppColors.black} style={{ marginLeft: 10 }}>Quanto deseja guardar.</BodyLarge>
         </Column>
@@ -164,7 +207,7 @@ export default function RegisterFinanceDataScreen({ navigation, route }) {
           textValue={savings}
           onChangeText={(txt) => setSavings(txt)}
           SuffixIcon={
-           <AppTextWithStroke text={" % "} textColor={AppColors.background} fontSize={34}/>
+           <AppTextWithStroke text={" % "} textColor={AppColors.background} fontSize={34} top={-16} left={10}/>
           }
           fontSize={20}
           keyboardType='numeric'
@@ -173,7 +216,7 @@ export default function RegisterFinanceDataScreen({ navigation, route }) {
       </Row>
 
       <Gap height={40} />
-      <AppButton mainColor={AppColors.white} label={'CADASTRAR'} onTap={() => postUser()} />
+      <AppButton mainColor={AppColors.white} label={'CADASTRAR'} onTap={() => postUser()} isLoading={isLoading} />
 
     </AppContainer>
   )

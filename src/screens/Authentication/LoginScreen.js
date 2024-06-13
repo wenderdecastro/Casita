@@ -54,14 +54,13 @@ export default function LoginScreen({ navigation }) {
   const [password, setPassword] = useState('errado');
   const [isLoading, setIsLoading] = useState(false)
 
-  const [typeToast, setTypeToast] = useState('success');
-  const [titleToast, setTitleToast] = useState('');
-  const [descriptionToast, setDescriptionToast] = useState('');
+  const [typeToast, setTypeToast] = useState('error');
+  const [titleToast, setTitleToast] = useState('Email ou Senha inválidos');
+  const [descriptionToast, setDescriptionToast] = useState('Verifique os seus dados ai meu mano!');
 
   const toastRef = useRef(null);
 
   const showToast = () => {
-    console.log(toastRef)
     if (toastRef.current) {
       toastRef.current.show();
     }
@@ -69,43 +68,41 @@ export default function LoginScreen({ navigation }) {
 
 
   async function Login() {
-    // Verifica se os campos estão vazios antes de prosseguir
     if (mail.trim() === '' || password.trim() === '') {
       setTypeToast('warning');
       setTitleToast('Preencha os Campos');
       setDescriptionToast('Esqueceu de algo ai meu chapa!');
-      showToast(); // Exibe o toast imediatamente se os campos estiverem vazios
-      setIsLoading(false); // Garante que o estado de loading seja resetado
-      return; // Sai da função para evitar a execução do código abaixo
+      showToast();
+      setIsLoading(false);
+      return;
     }
-  
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(mail)) {
+      setTypeToast('error');
+      setTitleToast('Email Inválido');
+      setDescriptionToast('Por favor, insira um email válido.');
+      showToast();
+      setIsLoading(false);
+      return;
+    }
+
     setIsLoading(true);
     try {
       const response = await api.post(`${PostLoginPath}`, {
         email: mail,
         password: password
       });
-  
+
       if (response.status === 200) {
         const data = response.data;
         await AppStorage.write(AppStorageKeys.token, data.token);
         const userData = await tokenDecode();
-        AppNavigation.push(navigation, AppRoutesKeys.tabNavigator, {userData: userData});
+        AppNavigation.push(navigation, AppRoutesKeys.tabNavigator, { userData: userData });
       }
       setIsLoading(false);
-    } catch (error) {
-      if (error.response && error.response.status === 401) {
-        setTypeToast('error');
-        setTitleToast('Email ou Senha inválidos');
-        setDescriptionToast('Tem algo de errado ai meu mano!');
-        showToast();
-      } else {
-        setTypeToast('warning');
-        setTitleToast('Preencha os Campos');
-        setDescriptionToast('Esqueceu de algo ai meu chapa!');
-      }
+    } catch(error) {
+      setIsLoading(false);
       showToast();
-      setIsLoading(false);
     }
   }
 
