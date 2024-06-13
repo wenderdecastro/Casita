@@ -39,7 +39,7 @@ export const TextAlign = {
 
 export const TasksButtons = [
     {
-        text: 'Próximas',
+        text: 'Todas',
         type: 0
     },
     {

@@ -1,5 +1,5 @@
 import { View, Text } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components/native'
 import { Row } from '../../../../components/AppContainers'
 import AppSvgIcon, { AppIconName } from '../../../../../assets/Icons'
@@ -16,6 +16,7 @@ const Card = styled.View`
     border-radius: 10px;
     background-color: ${({ backgroundColor }) => backgroundColor};
     border-width: 1px;
+    width: 100%;
     border-color: ${AppColors.black};
 `
 
@@ -58,6 +59,9 @@ export default function MyListCardWidget({
     tagColor = AppColors.blue,
     onTap,
 }) {
+    useEffect(() => {
+        console.log(tagText);
+    }, [])
     return (
         <CardBox activeOpacity={0.9} onPress={onTap}>
             <Card backgroundColor={cardColor}>
@@ -71,14 +75,14 @@ export default function MyListCardWidget({
                     <Tag backgroundColor={tagColor}>
 
                         <TitleBlack size={24} color={tagTextColor}>
-                            {tagText}
+                        {tagText.toString()}
                         </TitleBlack>
 
 
                     </Tag>
                     <TagBoxShadow>
                     <TitleBlack size={24} color={tagTextColor}>
-                            {tagText}
+                    {tagText.toString()}
                         </TitleBlack>
                     </TagBoxShadow>
                 </View> : null}
@@ -94,14 +98,14 @@ export default function MyListCardWidget({
                     <Tag backgroundColor={tagColor}>
 
                     <TitleBlack size={24} color={tagTextColor}>
-                            {tagText}
+                    {tagText.toString()}
                         </TitleBlack>
 
 
                     </Tag>
                     <TagBoxShadow>
                     <TitleBlack size={24} color={tagTextColor}>
-                            {tagText}
+                    {tagText.toString()}
                         </TitleBlack>
                     </TagBoxShadow>
                 </View> : null}
