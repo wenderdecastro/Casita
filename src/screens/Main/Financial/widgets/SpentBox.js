@@ -20,12 +20,12 @@ const ViewIncome = styled.View`
 
 const BoxShadow = styled.View`
   background-color: ${AppColors.black};
-  border-radius: 15px;
+  border-radius: 10px;
   width: 100%;
   height: 100%;
   position: absolute;
-  bottom: -7%;
-  left: 1.5%;
+  bottom: ${({ bottom = '-7%' }) => `${bottom}`};
+  left: ${({ left = '1.5%' }) => `${left}`};
   z-index: -9999;
 `;
 
@@ -50,8 +50,8 @@ const ViewNumber = styled.View`
   width: auto;
   height: 100%;
   position: absolute;
-  bottom: -25%;
-  left: 2%;
+  bottom: ${({ bottomText = '-25%' }) => `${bottomText}`};
+  left: ${({ leftText = '2%' }) => `${leftText}`};
   z-index: 1;
 `;
 
@@ -63,6 +63,11 @@ export default function SpentBox({
   marginTop,
   bottom = -3,
   left = 2,
+  leftText,
+  bottomText,
+  textSize = 24,
+  textShadowTop = 6,
+  textShadowLeft = 5,
   Shadow = false,
   total = 100,
   actualProgress = 80,
@@ -81,12 +86,12 @@ export default function SpentBox({
           progress={progressPercentage}
           progressBarColor={actualProgressColor}
         />
-        <ViewNumber>
+        <ViewNumber bottom={bottomText} left={leftText}>
           <AppTextWithStroke
             text={`R$ ${Limit}`}
-            fontSize={24}
-            shadowTop={6}
-            shadowLeft={5}
+            fontSize={textSize}
+            shadowTop={textShadowTop}
+            shadowLeft={textShadowLeft}
           />
         </ViewNumber>
         {Shadow == true ? <BoxShadow bottom={bottom} left={left} /> : <></>}
