@@ -64,158 +64,206 @@ const InputContainer = styled.TouchableOpacity`
   align-items: center;
 `;
 
-export default function FinancialScreen({navigation}) {
+export default function FinancialScreen({ navigation }) {
   const [spentModalIsVisible, setSpentModalIsVisible] = useState(false);
   return (
     <>
-    <ScrollContainer>
-      <AppContainer
-        justifyContent={Flex.auto}
-        backgroundColor={AppColors.background}
-      >
-        <TitleBlack size={20}>SALDO ATUAL</TitleBlack>
-        <TitleBlack size={32}>R$ 3380,00</TitleBlack>
+      <ScrollContainer>
+        <AppContainer
+          justifyContent={Flex.auto}
+          backgroundColor={AppColors.background}
+        >
+          <TitleBlack size={20}>SALDO ATUAL</TitleBlack>
+          <TitleBlack size={32}>R$ 3380,00</TitleBlack>
 
-        <Row width={"100%"} justifyContent={Flex.center}>
-          <View>
-            <TouchableOpacity onPress={() => navigation.replace(AppRoutesKeys.historyScreen)}>
-              <AppTextWithStroke
-                text={"Ver histórico"}
-                shadowTop={10}
-                shadowLeft={5}
+          <Row width={"100%"} justifyContent={Flex.center}>
+            <View>
+              <TouchableOpacity
+                onPress={() => navigation.replace(AppRoutesKeys.historyScreen)}
+              >
+                <AppTextWithStroke
+                  text={"Ver histórico"}
+                  shadowTop={10}
+                  shadowLeft={5}
+                />
+              </TouchableOpacity>
+            </View>
+            <View>
+              <Image
+                source={AppAssets.arrowRight}
+                style={{
+                  flex: 1,
+                  height: 19,
+                  width: 22,
+                  resizeMode: "contain",
+                }}
               />
-            </TouchableOpacity>
-          </View>
-          <View>
-            <Image
-              source={AppAssets.arrowRight}
-              style={{
-                flex: 1,
-                height: 19,
-                width: 22,
-                resizeMode: "contain",
-              }}
+            </View>
+          </Row>
+
+          <Gap height={12} />
+
+          <Row width={"100%"} justifyContent={"space-between"}>
+            <Income MoneyValue="330,00" />
+
+            <Income
+              MoneyValue="330,00"
+              Title="Despesas"
+              IconPath={AppAssets.redArrowDown}
             />
-          </View>
-        </Row>
+          </Row>
 
-        <Gap height={12} />
-
-        <Row width={"100%"} justifyContent={"space-between"}>
-          <Income MoneyValue="330,00" />
-
-          <Income
-            MoneyValue="330,00"
-            Title="Despesas"
-            IconPath={AppAssets.redArrowDown}
-          />
-        </Row>
-
-        <ContainerShadow
-          width={"100%"}
-          height={51}
-          marginTop={20}
-          bottom={-8}
-          left={1.2}
-          Content={
-            <InputContainer onPress={() => navigation.replace(AppRoutesKeys.goalsScreen)}>
-              <TitleBlack size={20}>MINHAS METAS</TitleBlack>
-            </InputContainer>
-        }
-        />
-
-        <Gap height={25} />
-
-        <ViewCards>
-          <TitleBlack textAlign={"start"} size={20}>
-            CARTÕES
-          </TitleBlack>
           <ContainerShadow
             width={"100%"}
-            height={189}
+            height={51}
             marginTop={20}
-            backgroundColor={AppColors.white}
-            bottom={-3}
-            left={1.3}
+            bottom={-8}
+            left={1.2}
             Content={
-              <ViewContentCard>
-                <TitleBlack size={20}>CARTÃO DE CRÉDITO</TitleBlack>
-                <Row gap={15}>
-                  <Image
-                    style={{
-                      height: 27,
-                      width: 27,
-                      resizeMode: "contain",
-                    }}
-                    source={AppAssets.fourPointGreenStar}
-                  />
-
-                  <BodyLarge color={AppColors.black}>Saldo em conta</BodyLarge>
-                  <Gap width={79} />
-                  <TextSemiBold>24/09</TextSemiBold>
-                </Row>
-
-                <Gap height={18} />
-
-                <ProgressBarShadow />
-
-                <Gap height={5} />
-
-                <Row justifyContent={Flex.spaceBetween}>
-                  <TextSemiBold>R$ 45,00</TextSemiBold>
-                  <TextSemiBold> / </TextSemiBold>
-                  <TextSemiBold>R$ 90,00</TextSemiBold>
-                </Row>
-
-                <Gap height={20} />
-
-                <Row justifyContent={Flex.spaceBetween}>
-                  <TextSemiBold>Limite total</TextSemiBold>
-                  <TextSemiBold>R$ 1200,00</TextSemiBold>
-                </Row>
-              </ViewContentCard>
+              <InputContainer
+                onPress={() => navigation.replace(AppRoutesKeys.goalsScreen)}
+              >
+                <TitleBlack size={20}>MINHAS METAS</TitleBlack>
+              </InputContainer>
             }
           />
 
-          <Gap height={40} />
+          <Gap height={25} />
 
-          <TitleBlack textAlign={"start"} size={20}>
-            QUANTO POSSO GASTAR?
-          </TitleBlack>
+          <ViewCards>
+            <TitleBlack textAlign={"start"} size={20}>
+              CARTÕES
+            </TitleBlack>
+            <ContainerShadow
+              width={"100%"}
+              height={189}
+              marginTop={20}
+              backgroundColor={AppColors.white}
+              bottom={-3}
+              left={1.3}
+              Content={
+                <ViewContentCard>
+                  <TitleBlack size={20}>CARTÃO DE CRÉDITO</TitleBlack>
+                  <Row gap={15}>
+                    <Image
+                      style={{
+                        height: 27,
+                        width: 27,
+                        resizeMode: "contain",
+                      }}
+                      source={AppAssets.fourPointGreenStar}
+                    />
 
-          <Row width={"100%"} justifyContent={"space-between"}>
-            <SpentBox />
-            <SpentBox
-              star={"yellow"}
-              actualProgressColor={AppColors.yellow}
-              actualProgress={50}
+                    <BodyLarge color={AppColors.black}>
+                      Saldo em conta
+                    </BodyLarge>
+                    <Gap width={79} />
+                    <TextSemiBold>24/09</TextSemiBold>
+                  </Row>
+
+                  <Gap height={18} />
+
+                  <ProgressBarShadow />
+
+                  <Gap height={5} />
+
+                  <Row justifyContent={Flex.spaceBetween}>
+                    <TextSemiBold>R$ 45,00</TextSemiBold>
+                    <TextSemiBold> / </TextSemiBold>
+                    <TextSemiBold>R$ 90,00</TextSemiBold>
+                  </Row>
+
+                  <Gap height={20} />
+
+                  <Row justifyContent={Flex.spaceBetween}>
+                    <TextSemiBold>Limite total</TextSemiBold>
+                    <TextSemiBold>R$ 1200,00</TextSemiBold>
+                  </Row>
+                </ViewContentCard>
+              }
             />
-            <SpentBox
-              star={"green"}
-              actualProgressColor={AppColors.green}
-              actualProgress={30}
-            />
-          </Row>
-        </ViewCards>
-        <Gap height={150} />
 
+            <Gap height={40} />
 
-      </AppContainer>
-    </ScrollContainer>
-    <SpentModal onClose={() => {setSpentModalIsVisible(false)}} visible={spentModalIsVisible}/>
-    
+            <TitleBlack textAlign={"start"} size={20}>
+              QUANTO POSSO GASTAR?
+            </TitleBlack>
 
-    <FixedButton
-          activeOpacity={0.9}
-          onPress={() => {
-            setSpentModalIsVisible(true);
-          }}
-        >
-          <AppSvgIcon name={AppIconName.add} />
-        </FixedButton>
-        <FixedButtonShadow>
-          <AppSvgIcon name={AppIconName.add} />
-        </FixedButtonShadow>
+            <Row width={"100%"} justifyContent={"space-between"}>
+              <SpentBox
+                Limit={40}
+                width={165}
+                leftText={"10%"}
+                textSize={40}
+                Shadow={true}
+                textShadowLeft={3}
+                star={"red"}
+                actualProgressColor={AppColors.red}
+                actualProgress={80}
+              />
+              <SpentBox
+                Limit={90}
+                width={165}
+                leftText={"10%"}
+                textSize={40}
+                Shadow={true}
+                textShadowLeft={3}
+                star={"yellow"}
+                actualProgressColor={AppColors.yellow}
+                actualProgress={60}
+              />
+            </Row>
+          </ViewCards>
+          <Gap height={15} />
+
+          <ContainerShadow
+            width={"100%"}
+            height={"132"}
+            justifyContent={"start"}
+            alignItens={"center"}
+            Content={
+              <>
+                <ContainerShadow
+                  height={"47"}
+                  width={"100%"}
+                  bottom={-9}
+                  backgroundColor={AppColors.white}
+                  Content={
+                    <TitleBlack size={20}>DINHEIRO ECONOMIZADO</TitleBlack>
+                  }
+                />
+
+                <AppTextWithStroke
+                  text={`R$ 1800`}
+                  fontSize={64}
+                  shadowTop={3}
+                  shadowLeft={0.4}
+                />
+              </>
+            }
+          />
+
+          <Gap height={150} />
+        </AppContainer>
+      </ScrollContainer>
+      <SpentModal
+        onClose={() => {
+          setSpentModalIsVisible(false);
+        }}
+        visible={spentModalIsVisible}
+      />
+
+      <FixedButton
+        activeOpacity={0.9}
+        onPress={() => {
+          setSpentModalIsVisible(true);
+        }}
+      >
+        <AppSvgIcon name={AppIconName.add} />
+      </FixedButton>
+      <FixedButtonShadow>
+        <AppSvgIcon name={AppIconName.add} />
+      </FixedButtonShadow>
     </>
   );
 }

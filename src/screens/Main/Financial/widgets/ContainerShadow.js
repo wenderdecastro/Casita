@@ -9,7 +9,7 @@ const ViewIncome = styled.View`
     border-width: 1px;
     border-color: ${AppColors.black};
     justify-content: ${({ justifyContent = 'center' }) => `${justifyContent}`};
-    align-items: center;
+    align-items: ${({ alignItens = 'center' }) => `${alignItens}`};
 `
 
 const BoxShadow = styled.View`
@@ -39,10 +39,11 @@ export default function ContainerShadow({
     left = 1.5,
     borderRadius,
     justifyContent,
+    alignItens,
 }) {
     return(
-    <BoxIncome width={width} height={height}  marginTop={marginTop}>
-        <ViewIncome borderRadius={borderRadius} backgroundColor={backgroundColor}>
+    <BoxIncome  width={width} height={height}  marginTop={marginTop}>
+        <ViewIncome alignItens={alignItens} justifyContent={justifyContent} borderRadius={borderRadius} backgroundColor={backgroundColor}>
             {Content}
         </ViewIncome>
         <BoxShadow borderRadius={borderRadius} bottom={bottom} left={left}/>
