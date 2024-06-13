@@ -50,6 +50,7 @@ export default function GoalsScreen({ navigation }) {
     <AppContainer
       justifyContent={Flex.auto}
       backgroundColor={AppColors.background}
+      
     >
       <Row width={"100%"}>
         <LeadingBoxButton>

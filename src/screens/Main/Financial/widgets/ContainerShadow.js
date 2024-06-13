@@ -30,8 +30,8 @@ const BoxIncome = styled.View`
 `
 
 export default function ContainerShadow({
-    width= 100, 
-    height= 100,
+    width= '100px', 
+    height= '100',
     backgroundColor,
     Content,
     marginTop,

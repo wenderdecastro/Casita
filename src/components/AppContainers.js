@@ -12,7 +12,8 @@ align-items: ${({ alignItems = Flex.center }) => alignItems};
 justify-content: ${({ justifyContent = Flex.center }) => justifyContent};
 background-color: ${({ backgroundColor = AppColors.red }) => backgroundColor};
 flex: ${({ flex = 1 }) => flex};
-width: 100%;
+width: ${({ width = '100%' }) => `${width}`};
+height: ${({ height = '100%' }) => `${height}`};
 `
 
 export const Column = styled.View`

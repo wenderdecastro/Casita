@@ -39,7 +39,7 @@ export const TextAlign = {
 
 export const TasksButtons = [
     {
-        text: 'Próximas',
+        text: 'Todas',
         type: 0
     },
     {
@@ -73,6 +73,21 @@ export const NewTaskButtons = [
 export const SpentTypeButtons = [
     {
         text: 'Gastos',
+        type: 0
+    },
+    {
+        text: 'Desejos',
+        type: 1
+    },
+    {
+        text: 'Economias',
+        type: 2
+    },
+]
+
+export const HistoryTypeButtons = [
+    {
+        text: 'Contas',
         type: 0
     },
     {
