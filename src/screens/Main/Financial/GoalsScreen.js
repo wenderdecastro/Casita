@@ -1,4 +1,4 @@
-import { ActivityIndicator, FlatList, Image, View } from "react-native";
+import { ActivityIndicator, FlatList, Image, ToastAndroid, View } from "react-native";
 import { AppContainer, Row } from "../../../components/AppContainers";
 import { Flex } from "../../../utils/AppEnums";
 import { AppColors } from "../../../utils/Pallete";
@@ -58,6 +58,13 @@ export default function GoalsScreen({ navigation }) {
   const [data, setData] = useState([])
   const [isLoading, setIsLoading] = useState(false);
 
+  const [selectedGoal, setSelectedGoal] = useState()
+
+  const handleOpenAddFundsModal = (item) => {
+    setSelectedGoal(item);
+    setFundsModalIsVisible(true);
+  };
+
 
   const { params } = useRoute()
 
@@ -67,30 +74,34 @@ export default function GoalsScreen({ navigation }) {
 
   useEffect(() => {
     if (params.refresh) {
+      setFundsModalIsVisible(false)
+      setAddFundsModalIsVisible(false)
       getGoals()
     }
   }, [params])
 
   async function getGoals() {
-    setIsLoading(true)
-    await api.get(GetGoalsPath, {
-      params: {
-        id: params.userData.id
-      }
-    }).then(response => {
-      console.log('====================================');
-      console.log(response);
-      console.log('====================================');
-      setData(response.data)
-      setIsLoading(false)
-    }).catch(error => {
-      console.log('====================================');
-      console.log(error.request);
-      console.log('====================================');
-      setIsLoading(false)
-    })
 
-    setIsLoading(false)
+      setIsLoading(true)
+      await api.get(GetGoalsPath, {
+        params: {
+          id: params.userData.id
+        }
+      }).then(response => {
+        console.log('====================================');
+        console.log(response);
+        console.log('====================================');
+        setData(response.data)
+        setIsLoading(false)
+      }).catch(error => {
+        console.log('====================================');
+        console.log(error.request);
+        console.log('====================================');
+        setIsLoading(false)
+      })
+
+      setIsLoading(false)
+    
   }
   return (
     <AppContainer
@@ -98,7 +109,7 @@ export default function GoalsScreen({ navigation }) {
       backgroundColor={AppColors.background}
 
     >
-      {isLoading ? <ActivityIndicator /> : data ?
+      {isLoading ? <ActivityIndicator color={AppColors.black} size={60} /> : data ?
         <>
           <Row width={"100%"}>
             <LeadingBoxButton>
@@ -131,9 +142,7 @@ export default function GoalsScreen({ navigation }) {
               (
                 <GoalCard
                   item={item}
-                  onPress={() => {
-                    setFundsModalIsVisible(true)
-                  }}
+                  onPress={() => { handleOpenAddFundsModal(item) }}
                 />
               )
               }
@@ -146,6 +155,8 @@ export default function GoalsScreen({ navigation }) {
 
 
           <AddFundsModal
+            navigation={navigation}
+            goal={selectedGoal}
             onClose={() => {
               setFundsModalIsVisible(false);
             }}
@@ -153,6 +164,7 @@ export default function GoalsScreen({ navigation }) {
           />
 
           <AddGoalModal
+            navigation={navigation}
             userId={params.userData.id}
             onClose={() => {
               setAddFundsModalIsVisible(false);

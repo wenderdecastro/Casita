@@ -45,6 +45,8 @@ export default function AddGoalModal({ visible, onClose, userId, navigation }) {
   const [value, setValue] = useState();
   const [name, setName] = useState()
 
+  const [isLoading, setIsLoading] = useState(false)
+
 
 
   const pickImage = async () => {
@@ -65,6 +67,7 @@ export default function AddGoalModal({ visible, onClose, userId, navigation }) {
 
 
   const postGoal = async () => {
+    setIsLoading(true)
     const form = new FormData()
 
     form.append("Photo", {
@@ -83,11 +86,14 @@ export default function AddGoalModal({ visible, onClose, userId, navigation }) {
       console.log('====================================');
       console.log(response);
       console.log('====================================');
+      setIsLoading(false)
       AppNavigation.popWithData(navigation, AppRoutesKeys.goalsScreen, { refresh: true })
     }).catch(error => {
       console.log(error.request);
-
+      setIsLoading(false)
     })
+
+    setIsLoading(false)
   }
 
   return (
@@ -192,7 +198,8 @@ export default function AddGoalModal({ visible, onClose, userId, navigation }) {
       <Gap height={16} />
       <AppButton
         label={'CRIAR META'}
-
+        isDisabled={!image || !name || !value}
+        isLoading={isLoading}
         onTap={postGoal}
       />
     </AppDialog>
