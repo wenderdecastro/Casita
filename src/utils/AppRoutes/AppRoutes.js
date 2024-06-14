@@ -15,6 +15,7 @@ import ListDetailScreen from "../../screens/Main/Management/ListDetailScreen";
 import FinancialScreen from "../../screens/Main/Financial/FinancialScreen";
 import GoalsScreen from "../../screens/Main/Financial/GoalsScreen";
 import HistoryScreen from "../../screens/Main/Financial/HistoryScreen";
+import SplashScreen from "../../screens/Authentication/SplashScreen";
 
 const { createNativeStackNavigator } = require("@react-navigation/native-stack");
 
@@ -24,8 +25,11 @@ export default function AppRoutes() {
     return (
         <NavigationContainer>
             <Stack.Navigator
-                initialRouteName={AppRoutesKeys.historyScreen}
+                initialRouteName={AppRoutesKeys.landingPage}
                 screenOptions={{ headerShown: false }}>
+                <Stack.Screen
+                    name={AppRoutesKeys.splashScreen}
+                    component={SplashScreen} />
                 <Stack.Screen
                     name={AppRoutesKeys.navigator}
                     component={Navigation} />

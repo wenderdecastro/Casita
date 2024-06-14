@@ -27,7 +27,6 @@ export default function RecoveryPasswordInsertNewPasswordScreen({ navigation, ro
   const toastRef = useRef(null);
 
   const showToast = () => {
-    console.log(toastRef)
     if (toastRef.current) {
       toastRef.current.show();
     }
@@ -55,9 +54,7 @@ export default function RecoveryPasswordInsertNewPasswordScreen({ navigation, ro
     }
 
     try {
-      await api.put(`${UserPath}/ChangePassword?email=${mail}`, {
-        senhaNova: newPaswsword,
-      });
+      await api.patch(`${UserPath}/ChangePassword?email=${mail}&senha=${newPaswsword}`);
 
       navigation.replace(AppRoutesKeys.loginScreen);
     } catch (error) {

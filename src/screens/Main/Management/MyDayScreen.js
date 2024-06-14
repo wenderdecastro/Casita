@@ -1,5 +1,5 @@
 import { View, Text, Image } from 'react-native'
-import React, { useCallback, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { AppContainer, Row } from '../../../components/AppContainers'
 import { AppColors } from '../../../utils/Pallete'
 import { AppAssets } from '../../../../assets/AppAssets'
@@ -12,7 +12,9 @@ import AppButton from '../../../components/AppButton'
 import AppSvgIcon, { AppIconName } from '../../../../assets/Icons'
 import NewTaskDialog from './widgets/dialogs/NewTaskDialog'
 import { BottomSheetModal, BottomSheetModalProvider, BottomSheetScrollView, BottomSheetView } from '@gorhom/bottom-sheet'
-import BottomSheetListWidget from './widgets/BottomSheetListWidget'
+import BottomSheetListWidget from './widgets/BottomSheetListWidget';
+import { tokenDecode } from '../../../services/TokenService';
+import api from '../../../services/ApiService';
 
 const ButtonBox = styled.View`
     border-radius: 10px;
@@ -51,9 +53,11 @@ const FixedButtonShadow = styled.View`
   z-index: -999;
 `
 
-export default function MyDayScreen() {
-    const [isNewTaskDialogVisible, setIsNewTaskDialogVisible] = useState(false)
-    
+export default function MyDayScreen({ navigation }) {
+    const [isNewTaskDialogVisible, setIsNewTaskDialogVisible] = useState(false);
+    const [tasks, setTasks] = useState([]);
+    const [weeklyTasks, setWeeklyTasks] = useState([]);
+    const [monthlyTasks, setMonthlyTasks] = useState([]);
 
     // ref
     const bottomSheetModalRef = useRef(null);
@@ -69,6 +73,40 @@ export default function MyDayScreen() {
         console.log("handleSheetChanges", index);
     }, []);
 
+    async function GetTasks() {
+        const token = await tokenDecode()
+        const userId = token.id
+        await api.get(`/Task/myday?userId=${userId}`)
+            .then((response) => {
+                setTasks(response.data);
+            })
+            .catch(error => {
+                console.log(error.request)
+            })
+    }
+
+    async function GetAllTasks() {
+        const token = await tokenDecode()
+        const userId = token.id
+        await api.get(`/Task?userId=${userId}`)
+            .then((response) => {
+                const tasks = response.data;
+                const weeklyTasks = tasks.filter(task => task.frequencyId === 3);
+                const monthlyTasks = tasks.filter(task => task.frequencyId === 4);
+
+                setWeeklyTasks(weeklyTasks);
+                setMonthlyTasks(monthlyTasks);
+            })
+            .catch(error => {
+                console.log(error.request);
+            });
+    }
+
+
+    useEffect(() => {
+        GetTasks();
+        GetAllTasks();
+    }, [])
 
     return (
         <AppContainer alignItems={Flex.flexStart} justifyContent={Flex.flexStart} backgroundColor={AppColors.yellow}>
@@ -85,9 +123,9 @@ export default function MyDayScreen() {
             <Gap height={30} />
             <TitleBlack size={20}>TAREFAS</TitleBlack>
             <TasksListWidget
-                DATA={TasksListMock}
+                DATA={tasks}
                 tapAction={() => { }}
-                flex={0.9}
+                flex={0.88}
             />
 
             <BottomSheetModalProvider>
@@ -99,7 +137,7 @@ export default function MyDayScreen() {
                     style={{
                         zIndex: 99999
                     }}
-                    
+
                 >
                     <BottomSheetScrollView
                         style={{
@@ -109,15 +147,11 @@ export default function MyDayScreen() {
 
                     >
                         <TitleBlack size={20}>O QUE PARA HOJE?</TitleBlack>
-                        <Gap height={20}/>
-                        <BottomSheetListWidget label={'SEMANAIS'} data={TasksListMock}/>
-                        <Gap height={40}/>
-                        <BottomSheetListWidget label={'MENSAIS'} data={TasksListMock}/>
-                        <Gap height={40}/>
-                        <BottomSheetListWidget label={'LISTAS PERSONALIZADAS'} data={TasksListMock}/>
-                        <Gap height={40}/>
-                        <BottomSheetListWidget label={'OUTRAS'} data={TasksListMock}/>
-                        <Gap height={40}/>
+                        <Gap height={20} />
+                        <BottomSheetListWidget label={'SEMANAIS'} data={weeklyTasks} />
+                        <Gap height={40} />
+                        <BottomSheetListWidget label={'MENSAIS'} data={monthlyTasks} />
+                        <Gap height={40} />
                     </BottomSheetScrollView>
                 </BottomSheetModal>
 
@@ -145,7 +179,7 @@ export default function MyDayScreen() {
                     </FixedButtonShadow>
                 </View>
             </ButtonBox>
-            <NewTaskDialog visible={isNewTaskDialogVisible} onClose={() => { setIsNewTaskDialogVisible(false) }} />
+            <NewTaskDialog visible={isNewTaskDialogVisible} onClose={() => { setIsNewTaskDialogVisible(false) }} navigation={navigation} />
         </AppContainer>
     )
 }

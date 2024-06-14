@@ -12,7 +12,7 @@ import ToastMessage from '../../components/AppToastMessage'
 
 export default function RecoveryPasswordInsertEmailScreen({ navigation }) {
 
-  const [mail, setMail] = useState('enzo.quarelo@gmail.com')
+  const [mail, setMail] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
   const [typeToast, setTypeToast] = useState('success');

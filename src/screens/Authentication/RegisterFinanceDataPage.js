@@ -17,10 +17,10 @@ import { AppRoutesKeys } from '../../utils/AppRoutes/AppRoutesUtils'
 import ToastMessage from '../../components/AppToastMessage'
 
 export default function RegisterFinanceDataScreen({ navigation, route }) {
-  const [income, setIncome] = React.useState(2999);
-  const [accounts, setAccounts] = useState('60');
-  const [wishes, setWishes] = useState('90');
-  const [savings, setSavings] = useState('10');
+  const [income, setIncome] = React.useState();
+  const [accounts, setAccounts] = useState('');
+  const [wishes, setWishes] = useState('');
+  const [savings, setSavings] = useState('');
 
   const { name, mail, password } = route.params;
 
