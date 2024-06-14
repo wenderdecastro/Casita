@@ -14,6 +14,8 @@ import { useRoute } from "@react-navigation/native";
 import CurrencyInput from "react-native-currency-input";
 import AppInput from "../../../../components/AppInput";
 import AppButton from "../../../../components/AppButton";
+import api, { PostGoalPath } from "../../../../services/ApiService";
+import { AppNavigation, AppRoutesKeys } from "../../../../utils/AppRoutes/AppRoutesUtils";
 
 const Input = styled.TextInput`
   font-family: ${({ fontFamily }) => fontFamily};
@@ -38,12 +40,11 @@ const BoxView = styled.View`
   width: 79%;
 `;
 
-export default function AddGoalModal({ visible, onClose, userId }) {
+export default function AddGoalModal({ visible, onClose, userId, navigation }) {
   const [image, setImage] = useState(null);
   const [value, setValue] = useState();
-
   const [name, setName] = useState()
-  const [goalQuantity, setGoalQuantity] = useState()
+
 
 
   const pickImage = async () => {
@@ -61,6 +62,34 @@ export default function AddGoalModal({ visible, onClose, userId }) {
       setImage(result.assets[0].uri);
     }
   };
+
+
+  const postGoal = async () => {
+    const form = new FormData()
+
+    form.append("Photo", {
+      uri: image, name: 'image.jpeg', type: 'image/jpeg'
+    })
+
+    form.append("Name", name)
+    form.append("TotalAmount", value)
+    form.append("FinantialId", userId)
+
+    await api.post(PostGoalPath, form, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }).then(response => {
+      console.log('====================================');
+      console.log(response);
+      console.log('====================================');
+      AppNavigation.popWithData(navigation, AppRoutesKeys.goalsScreen, { refresh: true })
+    }).catch(error => {
+      console.log(error.request);
+
+    })
+  }
+
   return (
     <AppDialog
       paddingInside={16}
@@ -137,17 +166,17 @@ export default function AddGoalModal({ visible, onClose, userId }) {
                 <CurrencyInput
                   value={value}
                   onChangeValue={setValue}
-                  renderTextInput={textInputProps => 
-                  <AppInput 
-                  isTransparent
-                  fontFamily={FontFamily.archivoMedium} 
-                  borderRadius={8} 
-                  backgroundColor={AppColors.white} 
-                  inputWidth={'140px'} 
-                  textInputProps={textInputProps}
-                  placeholder={'0,00'} 
-                  
-                   />}
+                  renderTextInput={textInputProps =>
+                    <AppInput
+                      isTransparent
+                      fontFamily={FontFamily.archivoMedium}
+                      borderRadius={8}
+                      backgroundColor={AppColors.white}
+                      inputWidth={'140px'}
+                      textInputProps={textInputProps}
+                      placeholder={'0,00'}
+
+                    />}
                   renderText
                   prefix=""
                   delimiter="."
@@ -164,9 +193,7 @@ export default function AddGoalModal({ visible, onClose, userId }) {
       <AppButton
         label={'CRIAR META'}
 
-        onTap={() => {
-
-        }}
+        onTap={postGoal}
       />
     </AppDialog>
   );

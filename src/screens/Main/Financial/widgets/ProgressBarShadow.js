@@ -56,15 +56,15 @@ export default function ProgressBarShadow({
       ) : (
         <>
           <BodyLarge color={AppColors.altBlack}>{`${progressPercentage.toFixed(
-            0
+            1
           )}%`}</BodyLarge>
           <Gap width={5} />
           <Row width={BarWidth} alignItems={Flex.center}>
             <GoalBar />
-            <ProgressBar
+            {progressPercentage > 0 ? <ProgressBar
               progress={progressPercentage}
               progressBarColor={actualProgressColor}
-            />
+            /> : null}
             <BoxShadow />
           </Row>
         </>

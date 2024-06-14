@@ -24,12 +24,12 @@ const ButtonAddFunds = styled.TouchableOpacity`
 `;
 
 export default function GoalCard({
-  moneyLeftToGoal = 1000,
-  progressPercentage,
-  total = 5000,
-  progressMoney = 4000,
+  item,
   onPress,
 }) {
+  if (!item) {
+    return null
+  }
   return (
     <ContainerShadow
       backgroundColor={AppColors.background}
@@ -48,7 +48,7 @@ export default function GoalCard({
               left={2}
               Content={
                 <Image
-                  source={AppAssets.steamDeckImage}
+                  source={{uri: item.photoUrl}}
                   style={{
                     flex: 1,
                     height: 55,
@@ -60,30 +60,30 @@ export default function GoalCard({
             />
             <Gap width={13} />
             <ViewInfo>
-              <TitleBlack>STEAM DECK</TitleBlack>
+              <TitleBlack>{item.name}</TitleBlack>
               <Row width={"100%"} justifyContent={"space-between"}>
                 <BodyMedium color={AppColors.black}>FALTAM:</BodyMedium>
                 <BodyMedium color={AppColors.black}>
-                  R$ {moneyLeftToGoal}
+                  R$ {item.totalAmount - item.amountSpent}
                 </BodyMedium>
               </Row>
               <Row>
                 <ProgressBarShadow
                   ProgressText={"Yes"}
-                  BarWidth="83%"
                   actualProgressColor={AppColors.blue}
-                  actualProgress={75}
+                  actualProgress={item.amountSpent}
+                  total={item.totalAmount}
                 />
               </Row>
               <Row width={"100%"} justifyContent={"space-between"}>
                 <AppTextWithStroke
-                  text={`R$ ${progressMoney},00`}
+                  text={`R$ ${item.amountSpent},00`}
                   fontSize={14}
                   shadowTop={5}
                   shadowLeft={1.5}
                 />
                 <AppTextWithStroke
-                  text={`R$ ${total},00`}
+                  text={`R$ ${item.totalAmount},00`}
                   fontSize={14}
                   shadowTop={5}
                   shadowLeft={1.5}
@@ -91,7 +91,7 @@ export default function GoalCard({
               </Row>
             </ViewInfo>
           </Row>
-
+          <Gap height={5}/>
           <ContainerShadow
             width={"88%"}
             height={35}
@@ -102,9 +102,9 @@ export default function GoalCard({
             Content={
               <ButtonAddFunds onPress={onPress}>
                 <Row width={'100%'} justifyContent={'space-between'} alignItems={'center'}>
-                    
+
                   <AppTextWithStroke
-                    
+
                     text={`$`}
                     textColor={AppColors.green}
                     fontSize={25}
@@ -118,7 +118,7 @@ export default function GoalCard({
                   <BodyMedium color={AppColors.black} size={14}>
                     Modificar fundos
                   </BodyMedium>
-                  <Gap width={10}/>
+                  <Gap width={10} />
                 </Row>
               </ButtonAddFunds>
             }
