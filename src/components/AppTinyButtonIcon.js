@@ -4,7 +4,7 @@ import { AppColors } from "../utils/Pallete";
 import { AppAssets } from "../../assets/AppAssets";
 import { Image } from "react-native";
 
-const Input = styled.TouchableOpacity`
+const TinyButton = styled.TouchableOpacity`
 
 `
 
@@ -17,7 +17,7 @@ export default function AppTinyButtonIcon({
     onPress,
 }) {
     return (
-        <Input onPress={onPress}>
+        <TinyButton onPress={onPress}>
             <ContainerShadow  width={'28px'} backgroundColor={backgroundColor} height={28} Content={
                 <Image
                 source={icon}
@@ -31,6 +31,6 @@ export default function AppTinyButtonIcon({
                 />
 
             } />
-        </Input>
+        </TinyButton>
     )
 }

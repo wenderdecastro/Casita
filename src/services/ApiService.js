@@ -6,6 +6,9 @@ const apiPort = '5282';
 
 const BASE_URL_LOCAL = `http://${ip}:${apiPort}/api`;
 
+export const TransactionPath = '/Transaction';
+export const GetHistoryPath = '/'
+
 export const DeleteTaskPath = '/Task'
 export const PostTaskPath = '/Task'
 export const EditTaskPath = '/Task'
