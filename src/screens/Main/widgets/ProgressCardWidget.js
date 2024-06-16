@@ -12,7 +12,7 @@ const CardBox = styled.View`
     padding: 21px 34px 20px 32px;
     border-color: ${AppColors.altBlack};
     border-width: 2px;
-    background-color: ${AppColors.secondary};
+    background-color: ${AppColors.background};
 `
 
 const GoalBar = styled.View`

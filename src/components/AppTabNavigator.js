@@ -1,15 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { AppRoutesKeys } from '../utils/AppRoutes/AppRoutesUtils';
-import HomeScreen from '../screens/Main/Home';
-import ProfileScreen from '../screens/Main/Profile';
-import FinancialScreen from '../screens/Main/Financial';
-import ManagementScreen from '../screens/Main/Management';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import styled from 'styled-components/native';
 import AppSvgIcon, { AppIconName } from '../../assets/Icons';
 import { AppColors } from '../utils/Pallete';
 import { BodyMedium } from './AppFonts';
 import { AppAssets } from '../../assets/AppAssets';
+import HomeScreen from '../screens/Main/Home/HomeScreen';
+import ManagementScreen from '../screens/Main/Management/ManagementScreen';
+import FinancialScreen from '../screens/Main/Financial/FinancialScreen';
+import ProfileScreen from '../screens/Main/Profile/ProfileScreen';
+import { useRoute } from '@react-navigation/native';
 
 
 const Tab = createBottomTabNavigator();
@@ -35,12 +36,13 @@ const ProfileImage = styled.Image`
 `
 
 export default function AppTabNavigator() {
+  const { params } = useRoute();
 
 
   return (
     <Tab.Navigator
     
-      initialRouteName={AppRoutesKeys.homeScreen}
+      initialRouteName={AppRoutesKeys.managementScreen}
 
       screenOptions={({ route }) => ({
         headerShown: false,
@@ -59,7 +61,8 @@ export default function AppTabNavigator() {
           elevation: 0,
           backgroundColor: AppColors.white,
           position: 'absolute',
-          height: 60
+          height: 60,
+          zIndex: 0
         },
 
         tabBarActiveBackgroundColor: "transparent",
@@ -92,21 +95,20 @@ export default function AppTabNavigator() {
       })}
     >
       <Tab.Screen
-        name={AppRoutesKeys.homeScreen}
-        component={HomeScreen}
-      />
-      <Tab.Screen
         name={AppRoutesKeys.managementScreen}
         component={ManagementScreen}
+        initialParams={{userData : params.userData}}
         
       />
       <Tab.Screen
         name={AppRoutesKeys.financialScreen}
         component={FinancialScreen}
+        initialParams={{userData : params.userData}}
       />
       <Tab.Screen
         name={AppRoutesKeys.profileScreen}
         component={ProfileScreen}
+        initialParams={{userData : params.userData}}
       />
 
     </Tab.Navigator>

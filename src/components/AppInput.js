@@ -1,43 +1,47 @@
 import React, { useState } from 'react'
 import styled from 'styled-components/native'
-import { FontFamily, H2 } from './AppFonts'
+import { BodyLarge, FontFamily, H2 } from './AppFonts'
 import { AppColors } from '../utils/Pallete'
 import AppSvgIcon, { AppIconName } from '../../assets/Icons'
+import { CodeField, Cursor, useBlurOnFulfill, useClearByFocusCell } from 'react-native-confirmation-code-field'
 import { Gap } from './AppSpecialComponents'
-import { TouchableOpacity } from 'react-native'
+import { TouchableOpacity, View } from 'react-native'
 import { KeyboardType } from '../utils/AppEnums'
 
 const Input = styled.TextInput`
-    height: ${({ isTextArea = false }) => isTextArea ? '120px' : '60px'};
+    height: ${({ isTextArea = false }) => isTextArea ? '80px' : '40px'};
     z-index: 9999;
-    border-radius: 5px;
-    border-width: 2px;
-    padding: 16px;
-    font-family: ${FontFamily.archivoBold};
+    border-radius: ${({ borderRadius }) => `${borderRadius}px`};
+    border-width: 1px;
+    padding: 8px;
     border-color: ${({ borderColor = AppColors.black }) => borderColor};
-    background-color: ${({ isEditable = true }) => isEditable ? AppColors.white : AppColors.gray20};
+    background-color: ${({ backgroundColor = AppColors.background }) => backgroundColor};
+    font-family: ${({fontFamily}) => fontFamily};
+    font-size: ${({ fontSize }) => fontSize || '16px'};
+    display: flex;
+    align-items: center;
+    text-align: ${({ textAlign }) => textAlign || 'start'};
 `
 
 const InputBox = styled.View`
-    width: 100%;
-    gap: 5px;
-`
+    width: ${({ inputWidth }) => inputWidth || '100%'};
+`;
 
 const BoxShadow = styled.View`
     background-color: ${AppColors.black};
     width: 100%;
-    height: ${({ isTextArea = false }) => isTextArea ? '120px' : '60px'};
-    border-radius: 5px;
+    height: ${({ isTextArea = false }) => isTextArea ? '80px' : '40px'};
+    border-radius: ${({ borderRadius }) => `${borderRadius}px`};;
     position: absolute;
-    bottom: -4px;
-    left: 1.25%;
+    bottom: -2px;
+    left: 0.6%;
 `
 
 const IconBox = styled.View`
     position: absolute;
     z-index: 10000;
     right: 5%;
-    top: ${({ label }) => label ? '55%' : '30%'};
+    top: ${({ label }) => label ? '50%' : '25%'};
 `
 
 export default function AppInput({
@@ -49,7 +53,15 @@ export default function AppInput({
     onChangeText = null,
     textValue,
     SuffixIcon,
-    keyboardType = KeyboardType.default
+    keyboardType = KeyboardType.default,
+    backgroundColor = AppColors.background,
+    borderRadius = 0,
+    inputWidth,
+    fontSize,
+    textAlign,
+    maxLength,
+    fontFamily = FontFamily.archivoBlack,
+    textInputProps,
 }) {
     const handleInputChange = (value) => {
         onChangeText === null ? null : onChangeText(value);
@@ -57,11 +69,11 @@ export default function AppInput({
 
     const [newIsObscure, setNewIsObscure] = useState(isObscureText)
     return (
-        <InputBox>
-            {label ? (<H2 size={16}>{label}</H2>) : null}
+        <InputBox inputWidth={inputWidth}>
+            {label ? (<BodyLarge color={AppColors.black}>{label}</BodyLarge>) : null}
 
             <Input
-            placeholder={placeholder}
+                placeholder={placeholder}
                 isEditable={isEditable}
                 editable={isEditable}
                 isTextArea={isTextArea}
@@ -72,9 +84,18 @@ export default function AppInput({
                 value={textValue}
                 secureTextEntry={newIsObscure}
                 keyboardType={keyboardType}
+                borderRadius={borderRadius}
+                backgroundColor={backgroundColor}
+                cursorColor={AppColors.black}
+                placeholderTextColor={AppColors.black}
+                fontSize={fontSize}
+                textAlign={textAlign}
+                fontFamily={fontFamily}
+                maxLength={maxLength}
+                {...textInputProps}
             />
-            <BoxShadow isTextArea={isTextArea} />
-            <IconBox  label={label}>
+            <BoxShadow isTextArea={isTextArea} borderRadius={borderRadius} />
+            <IconBox label={label}>
                 {isObscureText ?
                     <TouchableOpacity onPress={() => { setNewIsObscure(!newIsObscure) }}>
                         <AppSvgIcon name={newIsObscure ? AppIconName.eye : AppIconName.eyeOff} color={AppColors.black} />
@@ -86,4 +107,82 @@ export default function AppInput({
         </InputBox>
 
     )
+}
+
+const CELL_COUNT = 5;
+
+const Cell = styled.Text`
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+    border-width: 1px;
+    border-color: ${({ isFocused }) => isFocused ? AppColors.blue : AppColors.black};
+    text-align: center;
+    padding-top: 7px;
+    color: ${AppColors.black};
+    margin: 0 11px;
+    background-color: ${AppColors.background};
+    font-family: ${FontFamily.archivoBlack};
+`
+const CellShadow = styled.View`
+    background-color: ${({ isFocused }) => isFocused ? AppColors.blue : AppColors.black};
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    bottom: -2px;
+    left: 13px;
+    z-index: -99999;
+`
+
+const CodeBox = styled.View`
+    gap: 10px;
+    align-items: center;
+`
+
+export function AppCodeInput({ onValueChange = null, label }) {
+    const [value, setValue] = useState('');
+
+    const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
+    const [props, getCellOnLayoutHandler] = useClearByFocusCell({
+        value,
+        setValue,
+    });
+
+
+    const handleValueChange = (newValue) => {
+        setValue(newValue);
+        setTimeout(() => {
+            onValueChange(newValue);
+        }, 0);
+    };
+
+
+    return (
+        <CodeBox>
+            {label ? <BodyLarge color={AppColors.black}>{label}</BodyLarge> : null}
+            <CodeField
+                ref={ref}
+                value={value}
+                onChangeText={handleValueChange}
+                cellCount={CELL_COUNT}
+                keyboardType="number-pad"
+                textContentType="oneTimeCode"
+                renderCell={({ index, symbol, isFocused }) => {
+                    return (
+                        <View key={index}>
+                            <CellShadow isFocused={isFocused} />
+                            <Cell
+
+                                isFocused={isFocused}
+                                onLayout={getCellOnLayoutHandler(index)}
+                            >
+                                {symbol || (isFocused ? <Cursor /> : null)}
+                            </Cell>
+                        </View>
+                    );
+                }}
+            />
+        </CodeBox>
+
+    );
 }

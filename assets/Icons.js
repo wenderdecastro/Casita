@@ -60,6 +60,26 @@ export const AppIconName = {
     arrowDown : {
         name: 'keyboard-arrow-down',
         family: IconFamily.materialIcons
+    },
+    shoppingCart: {
+        name: 'shopping-cart',
+        family: IconFamily.entypo
+    },
+    asterisk: {
+        name: 'star-of-life',
+        family: IconFamily.fontAwesome5
+    },
+    clock: {
+        name: 'clock',
+        family: IconFamily.materialCommunityIcons
+    },
+    add: {
+        name: 'add',
+        family: IconFamily.materialIcons,
+    },
+    send: {
+        name: 'send-sharp',
+        family: IconFamily.ionIcons
     }
 };
 
@@ -70,6 +90,6 @@ export default function AppSvgIcon({ name = AppIconName.default, size = 24, colo
     const iconName = name.name;
     const IconComponent = name.family;
 
-    return <IconComponent name={iconName} size={size} color={color} />;
+    return <IconComponent  name={iconName} size={size} color={color} />;
 
 }
