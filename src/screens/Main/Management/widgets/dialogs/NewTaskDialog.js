@@ -55,7 +55,7 @@ const CheckBox = styled.TouchableOpacity`
     justify-content: center;
 `
 
-export default function NewTaskDialog({ visible, onClose, userId, navigation }) {
+export default function NewTaskDialog({ visible, onClose, userId, navigation, listTypeId}) {
 
 
     const data = [
@@ -121,10 +121,8 @@ export default function NewTaskDialog({ visible, onClose, userId, navigation }) 
             isConcluded: false,
         }, {
             params: {
-                userId: userId, 
-                if(isMyDay) {
-                    listType: 2
-                }
+                userId: userId,
+                listType: listTypeId
             }
         })
             .then((response) => {

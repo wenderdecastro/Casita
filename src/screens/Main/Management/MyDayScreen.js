@@ -127,35 +127,6 @@ export default function MyDayScreen({ navigation }) {
                 tapAction={() => { }}
                 flex={0.88}
             />
-
-            <BottomSheetModalProvider>
-                <BottomSheetModal
-                    ref={bottomSheetModalRef}
-                    index={1}
-                    snapPoints={snapPoints}
-                    onChange={handleSheetChanges}
-                    style={{
-                        zIndex: 99999
-                    }}
-
-                >
-                    <BottomSheetScrollView
-                        style={{
-                            flex: 1,
-                            padding: 20,
-                        }}
-
-                    >
-                        <TitleBlack size={20}>O QUE PARA HOJE?</TitleBlack>
-                        <Gap height={20} />
-                        <BottomSheetListWidget label={'SEMANAIS'} data={weeklyTasks} />
-                        <Gap height={40} />
-                        <BottomSheetListWidget label={'MENSAIS'} data={monthlyTasks} />
-                        <Gap height={40} />
-                    </BottomSheetScrollView>
-                </BottomSheetModal>
-
-            </BottomSheetModalProvider>
             <ButtonBox>
                 <View style={{ flex: 7 }}>
                     <AppButton
@@ -170,16 +141,9 @@ export default function MyDayScreen({ navigation }) {
 
                 </View>
                 <Gap width={10} />
-                <View style={{ flex: 1 }}>
-                    <FixedButton activeOpacity={0.9} onPress={handlePresentModalPress}>
-                        <AppSvgIcon name={AppIconName.add} />
-                    </FixedButton>
-                    <FixedButtonShadow>
-                        <AppSvgIcon name={AppIconName.add} />
-                    </FixedButtonShadow>
-                </View>
+
             </ButtonBox>
-            <NewTaskDialog visible={isNewTaskDialogVisible} onClose={() => { setIsNewTaskDialogVisible(false) }} navigation={navigation} />
+            <NewTaskDialog listTypeId={2} visible={isNewTaskDialogVisible} onClose={() => { setIsNewTaskDialogVisible(false) }} navigation={navigation} />
         </AppContainer>
     )
 }
