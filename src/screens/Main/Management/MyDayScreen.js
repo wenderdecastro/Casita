@@ -126,6 +126,7 @@ export default function MyDayScreen({ navigation }) {
                 DATA={tasks}
                 tapAction={() => { }}
                 flex={0.88}
+                background={AppColors.yellow}
             />
             <ButtonBox>
                 <View style={{ flex: 7 }}>

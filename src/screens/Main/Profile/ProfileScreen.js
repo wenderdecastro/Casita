@@ -27,7 +27,7 @@ import api, { UserPath } from "../../../services/ApiService";
 export default function ProfileScreen({ navigation }) {
   const { params } = useRoute();
   const [mail, setMail] = useState();
-  const [income, setIncome] = useState();
+  const [income, setIncome] = useState(parseFloat(params.userData.monthlyIcome));
 
   function GoToNewPassword() {
     AppNavigation.push(
@@ -120,17 +120,17 @@ export default function ProfileScreen({ navigation }) {
           <CurrencyInput
             value={income}
             onChangeValue={setIncome}
+
             renderTextInput={(textInputProps) => (
               <AppInput
               backgroundColor={AppColors.white}
               inputWidth={"120px"}
               borderRadius={10}
-              placeholder={params.userData.monthlyIcome}
               textInputProps={textInputProps}
             />
             )}
             renderText
-            prefix=""
+            prefix="R$"
             delimiter="."
             separator=","
             precision={2}
