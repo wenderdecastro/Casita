@@ -21,8 +21,9 @@ export async function tokenDecode() {
 
     const decoded = jwtDecode(token)
 
-    
+
     return {
+        balance: decoded.Balance,
         monthlyIcome: decoded.MonthlyIncome,
         necessities: decoded.Necessities,
         savings: decoded.Savings,

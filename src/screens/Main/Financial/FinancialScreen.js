@@ -1,4 +1,4 @@
-import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { AppContainer, Row } from "../../../components/AppContainers";
 import { AppColors } from "../../../utils/Pallete";
@@ -70,12 +70,30 @@ export default function FinancialScreen({ navigation }) {
   const [spentModalIsVisible, setSpentModalIsVisible] = useState(false);
   const { params } = useRoute()
 
-  const [data, setData] = useState()
-  const [isLoading, setIsLoading] = useState()
+  const [data, setData] = useState([])
+
+  const [Necessities, setNecessities] = useState({})
+  const [Wishes, setWishes] = useState({})
+  const [Economies, setEconomies] = useState({})
+
+
+
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     getFinancial()
   }, [])
+
+  useEffect(() => {
+    if (data != null && data != undefined) {
+      console.log("data");
+      console.log(data);
+      setIsLoading(false)
+      console.log(params.userData);
+    }
+
+  }, [data])
+
 
   async function getFinancial() {
     setIsLoading(true)
@@ -85,72 +103,75 @@ export default function FinancialScreen({ navigation }) {
       }
     })
       .then(response => {
+        console.log(response.data);
         setData(response.data)
-        setIsLoading(false)
+
+        console.log(data);
       })
       .catch(error => {
         console.log(error)
-        setIsLoading(false)
       })
-      setIsLoading(false)
   }
 
   return (
     <>
-      <ScrollContainer>
-        <AppContainer
-          justifyContent={Flex.auto}
-          backgroundColor={AppColors.background}
-        >
-          <TitleBlack size={20}>SALDO ATUAL</TitleBlack>
-          <TitleBlack size={32}>R$ 3380,00</TitleBlack>
+      {isLoading == true ? <ActivityIndicator color={AppColors.black} size={60} /> :
+        <>
+          <ScrollContainer>
+            <AppContainer
+              justifyContent={isLoading ? Flex.auto : Flex.flexStart}
+              // justifyContent={Flex.auto}
+              backgroundColor={AppColors.background}
+            >
+              <TitleBlack size={20}>SALDO ATUAL</TitleBlack>
+              <TitleBlack size={32}>R$ {params.userData.Balance}</TitleBlack>
 
-          <Row width={"100%"} justifyContent={Flex.center}>
-            <View>
-              <TouchableOpacity
-                onPress={() => AppNavigation.push(navigation, AppRoutesKeys.historyScreen, { userData: params.userData })}
-              >
-                <AppTextWithStroke
-                  text={"Ver histórico"}
-                  shadowTop={10}
-                  shadowLeft={5}
-                />
-              </TouchableOpacity>
-            </View>
-            <View>
-              <Image
-                source={AppAssets.arrowRight}
-                style={{
-                  flex: 1,
-                  height: 19,
-                  width: 22,
-                  resizeMode: "contain",
-                }}
+              <Row width={"100%"} justifyContent={Flex.center}>
+                <View>
+                  <TouchableOpacity
+                    onPress={() => AppNavigation.push(navigation, AppRoutesKeys.historyScreen, { userData: params.userData })}
+                  >
+                    <AppTextWithStroke
+                      text={"Ver histórico"}
+                      shadowTop={10}
+                      shadowLeft={5}
+                    />
+                  </TouchableOpacity>
+                </View>
+                <View>
+                  <Image
+                    source={AppAssets.arrowRight}
+                    style={{
+                      flex: 1,
+                      height: 19,
+                      width: 22,
+                      resizeMode: "contain",
+                    }}
+                  />
+                </View>
+              </Row>
+
+              <Gap height={12} />
+
+              <ContainerShadow
+                width={"100%"}
+                height={51}
+                marginTop={20}
+                bottom={-8}
+                left={1.2}
+                Content={
+                  <InputContainer
+                    onPress={() => navigation.replace(AppRoutesKeys.goalsScreen)}
+                  >
+                    <TitleBlack size={20}>MINHAS METAS</TitleBlack>
+                  </InputContainer>
+                }
               />
-            </View>
-          </Row>
 
-          <Gap height={12} />
+              <Gap height={25} />
 
-          <ContainerShadow
-            width={"100%"}
-            height={51}
-            marginTop={20}
-            bottom={-8}
-            left={1.2}
-            Content={
-              <InputContainer
-                onPress={() => navigation.replace(AppRoutesKeys.goalsScreen)}
-              >
-                <TitleBlack size={20}>MINHAS METAS</TitleBlack>
-              </InputContainer>
-            }
-          />
-
-          <Gap height={25} />
-
-          <ViewCards>
-            {/* <TitleBlack textAlign={"start"} size={20}>
+              <ViewCards>
+                {/* <TitleBlack textAlign={"start"} size={20}>
               CARTÕES
             </TitleBlack>
             <ContainerShadow
@@ -204,85 +225,93 @@ export default function FinancialScreen({ navigation }) {
 
             <Gap height={40} /> */}
 
-            <TitleBlack textAlign={"start"} size={20}>
-              QUANTO POSSO GASTAR?
-            </TitleBlack>
+                <TitleBlack textAlign={"start"} size={20}>
+                  QUANTO POSSO GASTAR?
+                </TitleBlack>
 
-            <Row width={"100%"} justifyContent={"space-between"}>
-              <SpentBox
-                Limit={40}
-                width={165}
-                leftText={"10%"}
-                textSize={40}
-                Shadow={true}
-                textShadowLeft={3}
-                star={"red"}
-                actualProgressColor={AppColors.red}
-                actualProgress={80}
+                <Row width={"100%"} justifyContent={"space-between"}>
+                  <SpentBox
+                    Limit={data ? 0 : data[0].totalAmount - data[0].amountSpent
+                    }
+                    width={165}
+                    leftText={"10%"}
+                    textSize={40}
+                    Shadow={true}
+                    textShadowLeft={3}
+                    star={"red"}
+                    actualProgressColor={AppColors.red}
+                    actualProgress={
+                      data ? 0 :
+                        data[0].amountSpent == 0 ? 0 :
+                          ((data[0].totalAmount / data[0].amountSpent) * 100).toFixed()
+                    }
+                  />
+                  <SpentBox
+                    Limit={data ? 0 : data[1].totalAmount - data[1].amountSpent}
+                    width={165}
+                    leftText={"10%"}
+                    textSize={40}
+                    Shadow={true}
+                    textShadowLeft={3}
+                    star={"yellow"}
+                    actualProgressColor={AppColors.yellow}
+                    actualProgress={data ? 0 :
+                      data[1].amountSpent == 0 ? 0 :
+                        ((data[1].totalAmount / data[1].amountSpent) * 100).toFixed()}
+                  />
+                </Row>
+              </ViewCards>
+              <Gap height={15} />
+
+              <ContainerShadow
+                width={"100%"}
+                height={"132"}
+                justifyContent={"start"}
+                alignItens={"center"}
+                Content={
+                  <>
+                    <ContainerShadow
+                      height={"47"}
+                      width={"100%"}
+                      bottom={-9}
+                      backgroundColor={AppColors.white}
+                      Content={
+                        <TitleBlack size={20}>DINHEIRO ECONOMIZADO</TitleBlack>
+                      }
+                    />
+
+                    <AppTextWithStroke
+                      text={data ? 0 : data[2].amountSpent}
+                      fontSize={64}
+                      shadowTop={3}
+                      shadowLeft={0.4}
+                    />
+                  </>
+                }
               />
-              <SpentBox
-                Limit={90}
-                width={165}
-                leftText={"10%"}
-                textSize={40}
-                Shadow={true}
-                textShadowLeft={3}
-                star={"yellow"}
-                actualProgressColor={AppColors.yellow}
-                actualProgress={60}
-              />
-            </Row>
-          </ViewCards>
-          <Gap height={15} />
 
-          <ContainerShadow
-            width={"100%"}
-            height={"132"}
-            justifyContent={"start"}
-            alignItens={"center"}
-            Content={
-              <>
-                <ContainerShadow
-                  height={"47"}
-                  width={"100%"}
-                  bottom={-9}
-                  backgroundColor={AppColors.white}
-                  Content={
-                    <TitleBlack size={20}>DINHEIRO ECONOMIZADO</TitleBlack>
-                  }
-                />
-
-                <AppTextWithStroke
-                  text={`R$ 1800`}
-                  fontSize={64}
-                  shadowTop={3}
-                  shadowLeft={0.4}
-                />
-              </>
-            }
+              <Gap height={200} />
+            </AppContainer>
+          </ScrollContainer>
+          <SpentModal
+            onClose={() => {
+              setSpentModalIsVisible(false);
+            }}
+            visible={spentModalIsVisible}
           />
 
-          <Gap height={200} />
-        </AppContainer>
-      </ScrollContainer>
-      <SpentModal
-        onClose={() => {
-          setSpentModalIsVisible(false);
-        }}
-        visible={spentModalIsVisible}
-      />
-
-      <FixedButton
-        activeOpacity={0.9}
-        onPress={() => {
-          setSpentModalIsVisible(true);
-        }}
-      >
-        <AppSvgIcon name={AppIconName.add} />
-      </FixedButton>
-      <FixedButtonShadow>
-        <AppSvgIcon name={AppIconName.add} />
-      </FixedButtonShadow>
+          <FixedButton
+            activeOpacity={0.9}
+            onPress={() => {
+              setSpentModalIsVisible(true);
+            }}
+          >
+            <AppSvgIcon name={AppIconName.add} />
+          </FixedButton>
+          <FixedButtonShadow>
+            <AppSvgIcon name={AppIconName.add} />
+          </FixedButtonShadow>
+        </>}
     </>
   );
 }
