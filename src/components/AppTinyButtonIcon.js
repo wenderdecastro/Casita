@@ -4,6 +4,9 @@ import { AppColors } from "../utils/Pallete";
 import { AppAssets } from "../../assets/AppAssets";
 import { Image, TouchableOpacity } from "react-native";
 
+const TinyButton = styled.TouchableOpacity`
+
+`
 
 export default function AppTinyButtonIcon({
     backgroundColor = AppColors.red,

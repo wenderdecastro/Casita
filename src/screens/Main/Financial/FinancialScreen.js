@@ -67,9 +67,7 @@ const InputContainer = styled.TouchableOpacity`
 
 export default function FinancialScreen({ navigation }) {
   const [spentModalIsVisible, setSpentModalIsVisible] = useState(false);
-
   const {params} = useRoute()
-
   return (
     <>
       <ScrollContainer>
@@ -83,7 +81,7 @@ export default function FinancialScreen({ navigation }) {
           <Row width={"100%"} justifyContent={Flex.center}>
             <View>
               <TouchableOpacity
-                onPress={() => navigation.replace(AppRoutesKeys.historyScreen)}
+                onPress={() => AppNavigation.push(navigation,AppRoutesKeys.historyScreen, {userData: params.userData})}
               >
                 <AppTextWithStroke
                   text={"Ver histórico"}
