@@ -42,7 +42,7 @@ export default function ProfileScreen({ navigation }) {
     console.log(params.userData.id);
     try {
       await api.patch(`${UserPath}?userId=${params.userData.id}`, {
-        monthlyIncome: income
+        monthlyIncome: income,
       }).then(response => {
         console.log(response);
       })
@@ -152,6 +152,7 @@ export default function ProfileScreen({ navigation }) {
           <AppInput
             inputWidth={"120px"}
             placeholder={params.userData.necessities}
+            isEditable={false}
             SuffixIcon={
               <PositionedImage
                 position={"relative"}
@@ -181,6 +182,7 @@ export default function ProfileScreen({ navigation }) {
           <AppInput
             inputWidth={"120px"}
             placeholder={params.userData.wants}
+            isEditable={false}
             SuffixIcon={
               <PositionedImage
                 position={"relative"}
@@ -210,6 +212,7 @@ export default function ProfileScreen({ navigation }) {
           <AppInput
             inputWidth={"120px"}
             placeholder={params.userData.savings}
+            isEditable={false}
             SuffixIcon={
               <PositionedImage
                 position={"relative"}
