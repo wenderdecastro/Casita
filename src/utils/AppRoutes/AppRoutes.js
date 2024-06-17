@@ -1,5 +1,8 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { AppRoutesKeys } from "./AppRoutesUtils";
+import Navigation from "../../screens/Authentication/LandingPage";
+import LoginScreen from "../../screens/Authentication/LoginPage";
+import RegisterScreen from "../../screens/Authentication/RegisterPage";
 import RegisterUserDataScreen from "../../screens/Authentication/RegisterUserDataPage";
 import RegisterFinanceDataScreen from "../../screens/Authentication/RegisterFinanceDataPage";
 import AppTabNavigator from "../../components/AppTabNavigator";
@@ -24,14 +27,18 @@ export default function AppRoutes() {
     return (
         <NavigationContainer>
             <Stack.Navigator
-                initialRouteName={AppRoutesKeys.loginScreen}
+                initialRouteName={AppRoutesKeys.historyScreen}
                 screenOptions={{ headerShown: false }}>
+
                 <Stack.Screen
                     name={AppRoutesKeys.navigator}
                     component={Navigation} />
                 <Stack.Screen
                     name={AppRoutesKeys.loginScreen}
                     component={LoginScreen} />
+                <Stack.Screen
+                    name={AppRoutesKeys.registerScreen}
+                    component={RegisterScreen} />
                 <Stack.Screen
                     name={AppRoutesKeys.tabNavigator}
                     component={AppTabNavigator} />

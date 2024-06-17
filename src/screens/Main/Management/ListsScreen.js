@@ -1,5 +1,5 @@
 import { View,  Image } from 'react-native'
-import React, { useCallback, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { AppContainer, Row } from '../../../components/AppContainers'
 import { AppColors } from '../../../utils/Pallete'
 import { BuyListMock, Flex } from '../../../utils/AppEnums'
@@ -15,6 +15,9 @@ import styled from 'styled-components/native'
 import ListCardWidget from './widgets/ListCardWidget'
 import NewListDialog from './widgets/dialogs/NewListDialog'
 import { AppNavigation, AppRoutesKeys } from '../../../utils/AppRoutes/AppRoutesUtils'
+import api from '../../../services/ApiService'
+import {List} from '../Financial/HistoryScreen'
+import { FlatList } from 'react-native-gesture-handler'
 
 const FixedButton = styled.TouchableOpacity`
   padding: 15px;
@@ -58,8 +61,18 @@ const TotalBox = styled.View`
   bottom: 20px;
 `
 
-export default function ListsScreen({navigation}) {
+export default function ListsScreen({navigation, route}) {
 
+    //Listas API
+    const [customList, setCustomList] = useState([]);
+    const [cartList, setCartList] = useState([]);
+    const [otherList, setOtherList] = useState([]);
+
+    const [typeList, setTypeList] = useState({typeList: 4,
+    typeList: 6,
+typeList:7});
+
+    
     const [bottomSheetType, setBottomSheetType] = useState()
     const [isChecked, setIsChecked] = useState(false)
 
@@ -80,6 +93,39 @@ export default function ListsScreen({navigation}) {
     const handleSheetChanges = useCallback((index) => {
         console.log("handleSheetChanges", index);
     }, []);
+
+
+    //API Call CustomList
+    async function ListApiCustom() {
+     
+        const resApi = await api.get(`/TaskList?id=${route.params.userId}`)
+        setCustomList(resApi.data)
+      
+        console.log("CUSTOM", resApi.data);
+    }
+
+    //API Call ShopList
+    async function ListApiCart() {
+     
+        const resApi = await api.get(`/TaskList/cart?userId=${route.params.userId}`)
+        setCartList(resApi.data)
+      
+        console.log("CART", resApi.data);
+    }
+
+    //API Call TaskList
+    async function ListApiOther() {
+     
+        const resApi = await api.get(`/TaskList/custom?otherListsId=${route.params.userId}`)
+        setOtherList(resApi.data)
+    
+        console.log("OTHER", resApi.data);
+    }
+
+    //API Call useEffect
+    useEffect(() => {ListApiCustom()}, [])
+    useEffect(() => {ListApiCart()}, [bottomSheetType])
+    useEffect(() => {ListApiOther()}, [bottomSheetType])
     return (
         <AppContainer alignItems={Flex.flexStart} justifyContent={Flex.flexStart} backgroundColor={AppColors.background}>
             <Row alignItems={Flex.center}>
@@ -97,9 +143,14 @@ export default function ListsScreen({navigation}) {
                 <TitleBlack size={20}>MINHAS LISTAS</TitleBlack>
                 <Gap height={10} />
                 <Row>
-                    <MyListCardWidget
+                {/* <FlatList
+            data={cartList}
+                keyExtractor={(item) => item.id}
+                renderItem={({ item }) =>
+                     (<>
+                        <MyListCardWidget
                         appIconName={AppIconName.shoppingCart}
-                        label={'Lista de compras'}
+                        label={'L'}
                         tagText={5}
                         tagColor={AppColors.white}
                         tagTextColor={AppColors.black}
@@ -115,18 +166,31 @@ export default function ListsScreen({navigation}) {
                         tagColor={AppColors.white}
                         onTap={() => { handlePresentModalPress('OBJETIVOS') }}
                     />
+                    </>
+                    )
+                }/> */}
+                   
                 </Row>
             </ListBox>
             <Gap height={47} />
             <TitleBlack size={20}>LISTAS PERSONALIZADAS</TitleBlack>
             <Gap height={10} />
-            <ListCardWidget
-                tagText={'5'}
-                title={'Lista de numero 1'}
-                actualProgress={8}
-                total={10}
-                onTap={() => {AppNavigation.push(navigation, AppRoutesKeys.listDetailScreen)}}
-            />
+            <FlatList
+                data={customList}
+                keyExtractor={(item) => item.id}
+                renderItem={({ item }) =>
+                     ( 
+
+                        <ListCardWidget
+                        title={item.name}
+                        total={15}
+                        actualProgress={10}
+                        tagText={customList.description}
+                        onTap={""}/>
+                    )
+                }/>
+  
+            
             <BottomSheetModal
                 ref={bottomSheetModalRef}
                 index={0}
