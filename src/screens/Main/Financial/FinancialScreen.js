@@ -19,7 +19,8 @@ import ProgressBarShadow from "./widgets/ProgressBarShadow";
 import SpentBox from "./widgets/SpentBox";
 import AppSvgIcon, { AppIconName } from "../../../../assets/Icons";
 import SpentModal from "./dialogs/SpentModal";
-import { AppRoutesKeys } from "../../../utils/AppRoutes/AppRoutesUtils";
+import { AppNavigation, AppRoutesKeys } from "../../../utils/AppRoutes/AppRoutesUtils";
+import { useRoute } from "@react-navigation/native";
 
 const ViewCards = styled.View`
   width: 100%;
@@ -66,6 +67,9 @@ const InputContainer = styled.TouchableOpacity`
 
 export default function FinancialScreen({ navigation }) {
   const [spentModalIsVisible, setSpentModalIsVisible] = useState(false);
+
+  const {params} = useRoute()
+
   return (
     <>
       <ScrollContainer>

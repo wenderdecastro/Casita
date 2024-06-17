@@ -2,11 +2,8 @@ import styled from "styled-components";
 import ContainerShadow from "../screens/Main/Financial/widgets/ContainerShadow";
 import { AppColors } from "../utils/Pallete";
 import { AppAssets } from "../../assets/AppAssets";
-import { Image } from "react-native";
+import { Image, TouchableOpacity } from "react-native";
 
-const Input = styled.TouchableOpacity`
-
-`
 
 export default function AppTinyButtonIcon({
     backgroundColor = AppColors.red,
@@ -17,7 +14,7 @@ export default function AppTinyButtonIcon({
     onPress,
 }) {
     return (
-        <Input onPress={onPress}>
+        <TouchableOpacity activeOpacity={.9} onPress={onPress}>
             <ContainerShadow  width={'28px'} backgroundColor={backgroundColor} height={28} Content={
                 <Image
                 source={icon}
@@ -31,6 +28,6 @@ export default function AppTinyButtonIcon({
                 />
 
             } />
-        </Input>
+        </TouchableOpacity>
     )
 }

@@ -14,8 +14,8 @@ const Input = styled.TextInput`
     border-radius: ${({ borderRadius }) => `${borderRadius}px`};
     border-width: 1px;
     padding: 8px;
-    border-color: ${({ borderColor = AppColors.black }) => borderColor};
-    background-color: ${({ backgroundColor = AppColors.background }) => backgroundColor};
+    border-color: ${({ borderColor = AppColors.black, isTransparent }) => isTransparent ? AppColors.transparent : borderColor};
+    background-color: ${({ backgroundColor = AppColors.background , isTransparent}) => isTransparent ? AppColors.transparent : backgroundColor};
     font-family: ${({fontFamily}) => fontFamily};
     font-size: ${({ fontSize }) => fontSize || '16px'};
     display: flex;
@@ -28,7 +28,7 @@ const InputBox = styled.View`
 `;
 
 const BoxShadow = styled.View`
-    background-color: ${AppColors.black};
+    background-color: ${({isTransparent}) => isTransparent ? AppColors.transparent : AppColors.black};
     width: 100%;
     height: ${({ isTextArea = false }) => isTextArea ? '80px' : '40px'};
     border-radius: ${({ borderRadius }) => `${borderRadius}px`};;
@@ -62,6 +62,7 @@ export default function AppInput({
     maxLength,
     fontFamily = FontFamily.archivoBlack,
     textInputProps,
+    isTransparent = false,
 }) {
     const handleInputChange = (value) => {
         onChangeText === null ? null : onChangeText(value);
@@ -92,9 +93,10 @@ export default function AppInput({
                 textAlign={textAlign}
                 fontFamily={fontFamily}
                 maxLength={maxLength}
+                isTransparent={isTransparent}
                 {...textInputProps}
             />
-            <BoxShadow isTextArea={isTextArea} borderRadius={borderRadius} />
+            <BoxShadow isTransparent={isTransparent} isTextArea={isTextArea} borderRadius={borderRadius} />
             <IconBox label={label}>
                 {isObscureText ?
                     <TouchableOpacity onPress={() => { setNewIsObscure(!newIsObscure) }}>

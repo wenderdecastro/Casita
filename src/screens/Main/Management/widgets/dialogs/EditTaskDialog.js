@@ -15,7 +15,7 @@ import AppButton from '../../../../../components/AppButton'
 import styled from 'styled-components/native'
 import AppDatePicker from '../../../../../components/AppDatePicker'
 import AppTimePicker from '../../../../../components/AppTimePicker'
-import api, { ConcludeTaskPath } from '../../../../../services/ApiService'
+import api, { ConcludeTaskPath, DeleteTaskPath, MyDayTaskPath } from '../../../../../services/ApiService'
 import ToastMessage from '../../../../../components/AppToastMessage'
 import { AppNavigation, AppRoutesKeys } from '../../../../../utils/AppRoutes/AppRoutesUtils'
 
@@ -91,16 +91,30 @@ export default function EditTaskDialog({ visible, onClose, item, navigation }) {
 
     async function concludeTask() {
         api.patch(`${ConcludeTaskPath}/${item.id}`).then(response => {
-            AppNavigation.popWithData(navigation, AppRoutesKeys.managementScreen, {refresh: true})
+            AppNavigation.popWithData(navigation, AppRoutesKeys.managementScreen, { refresh: true })
             showToast()
+        }).catch(error => {
+            console.log(error.request);
+        })
+    }
+
+    async function sendToMyDay() {
+        api.patch(`${MyDayTaskPath}/${item.id}`).then(response => {
+            AppNavigation.popWithData(navigation, AppRoutesKeys.managementScreen, { refresh: true })
+        }).catch(error => {
+            console.log(error.request);
+        })
+    }
+    async function deleteTask() {
+        api.delete(`${DeleteTaskPath}/${item.id}`).then(response => {
+            AppNavigation.popWithData(navigation, AppRoutesKeys.managementScreen, { refresh: true })
         }).catch(error => {
             console.log(error.request);
         })
     }
     return (
         <>
-        
-        <ToastMessage ref={toastRef} title={'Tarefa concluida com sucesso'} />
+
             <AppDialog
                 visible={visible}
                 paddingInside={15}
@@ -111,7 +125,7 @@ export default function EditTaskDialog({ visible, onClose, item, navigation }) {
                 onClose={onClose}
                 isAvoiding={true}
             >
-             
+
                 <ButtonSelector
                     selected={selected}
                     isCompact={true}
@@ -199,6 +213,7 @@ export default function EditTaskDialog({ visible, onClose, item, navigation }) {
                     }} source={AppAssets.check} />} FontStyle={BodyMedium} mainColor={AppColors.white} label={'Marcar como concluída'} />
                 <Gap height={13} />
                 <AppButton
+                    onTap={async () => { await sendToMyDay() }}
                     justifyContent={Flex.flexStart}
                     AppSvgIcon={<Image style={{
                         width: 35,
@@ -207,6 +222,7 @@ export default function EditTaskDialog({ visible, onClose, item, navigation }) {
                     }} source={AppAssets.eightPointYellowStarSmall} />} FontStyle={BodyMedium} mainColor={AppColors.white} label={'Adicionar ao Meu Dia'} />
                 <Gap height={13} />
                 <AppButton
+                    onTap={async () => { await deleteTask() }}
                     justifyContent={Flex.flexStart}
                     AppSvgIcon={<Image style={{
                         width: 35,

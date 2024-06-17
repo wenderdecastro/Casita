@@ -97,7 +97,7 @@ export default function LoginScreen({ navigation }) {
         const data = response.data;
         await AppStorage.write(AppStorageKeys.token, data.token);
         const userData = await tokenDecode();
-        AppNavigation.push(navigation, AppRoutesKeys.tabNavigator, { userData: userData });
+        AppNavigation.push(navigation, AppRoutesKeys.tabNavigator, { userData: userData }, true);
       }
       setIsLoading(false);
     } catch(error) {
