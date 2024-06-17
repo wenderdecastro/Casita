@@ -300,7 +300,9 @@ console.log("ruiebfiurenb", route.params.userData.id);
 
         <NewTaskDialog navigation={navigation} userId={params.userData.id} visible={isNewTaskDialogVisible} onClose={() => { setIsNewTaskDialogVisible(false) }} />
         <EditTaskDialog navigation={navigation} visible={isEditTaskDialogVisible} onClose={() => { setIsEditTaskDialogVisible(false) }} item={taskSelected} />
-        <NewItemDialog visible={isNewItemDialogVisible} onClose={() => { setIsNewItemDialogVisible(false) }} /></> : <></>}
+        <NewItemDialog visible={isNewTaskDialogVisible}
+          onClose={() => { setIsNewTaskDialogVisible(false) }}
+          navigation={navigation} /></> : <></>}
     </AppContainer>
   )
 }
