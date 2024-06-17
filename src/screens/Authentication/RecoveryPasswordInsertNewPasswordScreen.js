@@ -28,7 +28,6 @@ export default function RecoveryPasswordInsertNewPasswordScreen({ navigation, ro
   const toastRef = useRef(null);
 
   const showToast = () => {
-    console.log(toastRef)
     if (toastRef.current) {
       toastRef.current.show();
     }

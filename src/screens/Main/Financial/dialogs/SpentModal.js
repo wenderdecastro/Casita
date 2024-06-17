@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { ToastAndroid } from "react-native";
 import AppDialog from "../../../../components/AppDialog";
 import { KeyboardType, NewTaskButtons, SpentTypeButtons } from "../../../../utils/AppEnums";
 import ButtonSelector from "../../../../components/ButtonSelector";
@@ -15,6 +16,8 @@ import AppTinyButtonIcon from "../../../../components/AppTinyButtonIcon";
 import { Row } from "../../../../components/AppContainers";
 import styled from "styled-components";
 import { AppAssets } from "../../../../../assets/AppAssets";
+import api, { TransactionPath } from "../../../../services/ApiService";
+import ToastMessage from "../../../../components/AppToastMessage";
 
 const Input = styled.TextInput`
   font-family: ${({fontFamily}) => fontFamily};
@@ -27,8 +30,46 @@ const Input = styled.TextInput`
 export default function SpentModal({ visible, onClose }) {
   const [selected, setSelected] = useState(0);
   const [selectedPeriod, setSelectedPeriod] = useState(0);
+
   const [date, setDate] = useState(new Date());
   const [time, setTime] = useState(new Date());
+
+  const [transactionValue, setTransactionValue] = useState(0)
+  const [description, setDescription] = useState('');
+
+
+ async function AddTransaction(  ) {
+
+      console.log(transactionValue);
+      console.log(description);
+
+      if (description == ''){
+        ToastAndroid.show('Sua transação precisa de uma descrição!', ToastAndroid.SHORT);        
+        return;
+
+      }
+
+      if (transactionValue == 0) {
+        ToastAndroid.show('Insira um valor válido!', ToastAndroid.SHORT);        
+        return;
+      }
+      
+
+      await api.post(TransactionPath, {
+          name: description,
+          frequencyId: selectedPeriod + 1,
+          transactionTypeId: 2,
+          value: transactionValue,
+          transactionTypeId: selected + 1
+      })
+          .then((response) => { 
+              console.log(response)
+          })
+          .catch(error => {
+              console.log(error.request)
+          })
+  }
+  
 
   return (
     <AppDialog
@@ -37,6 +78,7 @@ export default function SpentModal({ visible, onClose }) {
       visible={visible}
       onClose={onClose}
     >
+
       <ButtonSelector
         selectedColor={AppColors.green}
         selected={selected}
@@ -78,6 +120,8 @@ export default function SpentModal({ visible, onClose }) {
         backgroundColor={AppColors.white}
         placeholder={"Descrição do pagamento"}
         fontFamily={FontFamily.archivoBold}
+        onChangeText={(txt) => setDescription(txt)}
+        textValue={description}
       />
 
       <Gap height={12} />
@@ -93,11 +137,11 @@ export default function SpentModal({ visible, onClose }) {
             
             <BodyLarge style={{height: 38}} size={24} color={AppColors.black}>R$</BodyLarge>
             
-            <Input  keyboardType={KeyboardType.numeric} fontFamily={FontFamily.archivoMedium} >380,00</Input>
+            <Input onChangeText={(txt) => setTransactionValue(txt)} textValue={transactionValue} keyboardType={KeyboardType.numeric} fontFamily={FontFamily.archivoMedium} >0</Input>
             
             
             
-            <AppTinyButtonIcon marginLeft={3} iconWidth={17} icon={AppAssets.paperPlaneIcon} backgroundColor={AppColors.yellow}/>
+            <AppTinyButtonIcon onPress={() => AddTransaction()} marginLeft={3} iconWidth={17} icon={AppAssets.paperPlaneIcon} backgroundColor={AppColors.yellow}/>
             
           </Row>
           

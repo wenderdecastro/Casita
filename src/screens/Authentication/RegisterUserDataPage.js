@@ -16,10 +16,10 @@ import { AppRoutesKeys } from '../../utils/AppRoutes/AppRoutesUtils'
 
 
 export default function RegisterUserDataScreen({navigation}) {
-  const [name, setName] = useState('seu ernesto');
-  const [mail, setMail] = useState('ernestao@gmail.com');
-  const [password, setPassword] = useState('123');
-  const [confirmyPassword, setConfirmyPassword] = useState('123');
+  const [name, setName] = useState('');
+  const [mail, setMail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmyPassword, setConfirmyPassword] = useState('');
 
   const [typeToast, setTypeToast] = useState('success');
   const [titleToast, setTitleToast] = useState('');

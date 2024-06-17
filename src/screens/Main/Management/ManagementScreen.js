@@ -78,7 +78,8 @@ const TotalBox = styled.View`
   bottom: 20px;
 `
 
-export default function ManagementScreen({ navigation }) {
+export default function ManagementScreen({ navigation, route }) {
+  
 
   const [selected, setSelected] = useState(0)
   const { params } = useRoute();
@@ -107,7 +108,7 @@ export default function ManagementScreen({ navigation }) {
   }
 
   useEffect(() => {
-
+console.log("ruiebfiurenb", route.params.userData.id);
     getHomeData()
   }, [])
 
@@ -155,6 +156,8 @@ export default function ManagementScreen({ navigation }) {
     console.log("handleSheetChanges", index);
   }, []);
 
+ 
+
   return (
     <AppContainer justifyContent={isLoading ? Flex.center : Flex.flexStart} backgroundColor={AppColors.background}>
       {isLoading ? <ActivityIndicator color={AppColors.black} size={60} /> : data ? <><MyDayWidget onTap={() => { AppNavigation.push(navigation, AppRoutesKeys.myDayScreen) }} />
@@ -183,7 +186,7 @@ export default function ManagementScreen({ navigation }) {
             />
           </Row>
           <Gap height={15} />
-          <TouchableOpacity activeOpacity={0.9} onPress={() => { AppNavigation.push(navigation, AppRoutesKeys.listsScreen) }}>
+          <TouchableOpacity activeOpacity={0.9} onPress={() => { AppNavigation.push(navigation, AppRoutesKeys.listsScreen, {userId: route.params.userData.id}) }}>
             <Row width={'100%'} justifyContent={Flex.flexEnd}>
               <View>
                 <AppTextWithStroke
@@ -297,7 +300,9 @@ export default function ManagementScreen({ navigation }) {
 
         <NewTaskDialog navigation={navigation} userId={params.userData.id} visible={isNewTaskDialogVisible} onClose={() => { setIsNewTaskDialogVisible(false) }} />
         <EditTaskDialog navigation={navigation} visible={isEditTaskDialogVisible} onClose={() => { setIsEditTaskDialogVisible(false) }} item={taskSelected} />
-        <NewItemDialog visible={isNewItemDialogVisible} onClose={() => { setIsNewItemDialogVisible(false) }} /></> : <></>}
+        <NewItemDialog visible={isNewTaskDialogVisible}
+          onClose={() => { setIsNewTaskDialogVisible(false) }}
+          navigation={navigation} /></> : <></>}
     </AppContainer>
   )
 }

@@ -10,7 +10,11 @@ padding: ${({
     paddingLeft = 20 }) => `${paddingTop}px ${paddingRight}px ${paddingBottom}px ${paddingLeft}px `};
 align-items: ${({ alignItems = Flex.center }) => alignItems};
 justify-content: ${({ justifyContent = Flex.center }) => justifyContent};
+<<<<<<< HEAD
+background-color: ${({backgroundColor = AppColors.red}) => backgroundColor};
+=======
 background-color: ${({ backgroundColor = AppColors.red }) => backgroundColor};
+>>>>>>> 7db73e9fd61b5d4ce2d22e1b5b7b226f637a0c58
 flex: ${({ flex = 1 }) => flex};
 width: ${({ width = '100%' }) => `${width}`};
 height: ${({ height = '100%' }) => `${height}`};
