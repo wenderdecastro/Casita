@@ -11,10 +11,14 @@ import AppDropdown from '../../../../../components/AppDropdown'
 import { Gap } from '../../../../../components/AppSpecialComponents'
 import CurrencyInput from 'react-native-currency-input'
 import AppButton from '../../../../../components/AppButton'
+import { tokenDecode } from '../../../../../services/TokenService'
+import { PostItem } from '../../../../../services/ApiService'
 
 export default function NewItemDialog({ visible, onClose, }) {
-    const [priority, setPriority] = useState()
+    const [priority, setPriority] = useState();
     const [value, setValue] = React.useState();
+    const [nameItem, setNameItem] = useState();
+
     const data = [
         {
             value: 'Alta',
@@ -29,6 +33,15 @@ export default function NewItemDialog({ visible, onClose, }) {
             key: 3,
         },
     ]
+
+    async function postItem() {
+        const token = await tokenDecode()
+        const userId = token.id
+
+        await api.post(PostItem, {
+            
+        })
+    }
     return (
         <AppDialog
             visible={visible}
@@ -41,7 +54,10 @@ export default function NewItemDialog({ visible, onClose, }) {
             <AppInput
                 placeholder={'Nome do item'}
                 fontFamily={FontFamily.archivoBold}
-                backgroundColor={AppColors.white} />
+                backgroundColor={AppColors.white}
+                textValue={nameItem}
+                onChangeText={(val) => setNameItem(val)}
+                />
 
             <Gap height={15} />
 
@@ -77,7 +93,7 @@ export default function NewItemDialog({ visible, onClose, }) {
 
             </Row>
             <Gap height={15} />
-            <AppButton label={'Adicionar'} mainColor={AppColors.white} />
+            <AppButton onTap={() => postItem()} label={'Adicionar'} mainColor={AppColors.white} />
 
         </AppDialog>
     )

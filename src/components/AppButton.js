@@ -8,7 +8,7 @@ import { Flex } from '../utils/AppEnums'
 
 export const Button = styled.TouchableOpacity`
     width: ${({ width }) => width || '100%'};
-    padding-left: ${({ justifyContent }) => justifyContent != Flex.center ? '5px' : '0px'};
+    padding-left: ${({ justifyContent }) => justifyContent != Flex.center ? '15px' : '0px'};
     height: 45px;
     z-index: 9999;
     background-color: ${({ isOutlined = false, isDisabled = false, mainColor }) => isDisabled ? AppColors.gray20 : isOutlined ? AppColors.white : mainColor};

@@ -11,11 +11,11 @@ const List = styled.View`
     width: 100%;
 `
 
-export default function TasksListWidget({ DATA, tapAction, flex = 1 }) {
+export default function TasksListWidget({ DATA, tapAction, flex = 1, background = AppColors.background }) {
     return (
         <List flex={flex}>
             <FlatList
-                endFillColor={AppColors.background}
+                endFillColor={background}
                 data={DATA}
                 
                 renderItem={({ item }) =>

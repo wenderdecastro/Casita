@@ -101,7 +101,7 @@ const ToastMessage = forwardRef(({ type = 'success', description = 'descrição'
     return (
         <>
             {isVisible && (
-                <Animated.View style={{ width: '100%', position: 'absolute', top: topProp, alignItems: 'center' }}>
+                <Animated.View style={{ width: '100%', position: 'absolute', top: topProp, alignItems: 'center', zIndex: 99 }}>
                     <Toast>
                         <IconBox>
                             <Icon color={colorIcon}>

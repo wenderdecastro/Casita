@@ -50,8 +50,8 @@ gap: 25px;
 `
 
 export default function LoginScreen({ navigation }) {
-  const [mail, setMail] = useState('henrique@gmail.com');
-  const [password, setPassword] = useState('123');
+  const [mail, setMail] = useState('guilherme@email.com');
+  const [password, setPassword] = useState('123456');
   const [isLoading, setIsLoading] = useState(false)
 
   const [typeToast, setTypeToast] = useState('error');
@@ -97,10 +97,13 @@ export default function LoginScreen({ navigation }) {
         const data = response.data;
         await AppStorage.write(AppStorageKeys.token, data.token);
         const userData = await tokenDecode();
-        AppNavigation.push(navigation, AppRoutesKeys.tabNavigator, { userData: userData });
+        AppNavigation.push(navigation, AppRoutesKeys.tabNavigator, { userData: userData }, true);
       }
       setIsLoading(false);
     } catch(error) {
+      console.log('====================================');
+      console.log(error.request);
+      console.log('====================================');
       setIsLoading(false);
       showToast();
     }

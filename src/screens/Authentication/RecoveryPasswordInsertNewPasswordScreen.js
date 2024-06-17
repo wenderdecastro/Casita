@@ -1,5 +1,5 @@
 import { View, Text } from 'react-native'
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import RecoveryPasswordContainer from './widgets/RecoveryPasswordContainer'
 import { AppColors } from '../../utils/Pallete'
 import { BodyMedium, TitleBlack } from '../../components/AppFonts'
@@ -13,9 +13,10 @@ import ToastMessage from '../../components/AppToastMessage'
 import { UserPath } from '../../services/ApiService'
 
 export default function RecoveryPasswordInsertNewPasswordScreen({ navigation, route }) {
-  const { mail } = route.params
-  const [newPaswsword, setNewPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
+  const { mail } = route.params;
+  const { screenType } = route.params;
+  const [newPaswsword, setNewPassword] = useState('123456')
+  const [confirmPassword, setConfirmPassword] = useState('123456')
 
   const [typeToast, setTypeToast] = useState('success');
   const [titleToast, setTitleToast] = useState('');
@@ -27,7 +28,6 @@ export default function RecoveryPasswordInsertNewPasswordScreen({ navigation, ro
   const toastRef = useRef(null);
 
   const showToast = () => {
-    console.log(toastRef)
     if (toastRef.current) {
       toastRef.current.show();
     }
@@ -55,11 +55,15 @@ export default function RecoveryPasswordInsertNewPasswordScreen({ navigation, ro
     }
 
     try {
-      await api.put(`${UserPath}/ChangePassword?email=${mail}`, {
-        senhaNova: newPaswsword,
-      });
+      await api.patch(`${UserPath}/ChangePassword?email=${mail}&senha=${newPaswsword}`);
 
-      navigation.replace(AppRoutesKeys.loginScreen);
+      if (screenType == 'Profile') {
+        AppNavigation.pop(navigation);
+      }
+      else{
+        navigation.replace(AppRoutesKeys.loginScreen);
+      }
+
     } catch (error) {
       setTypeToast('error');
       setTitleToast('Algo deu errado');
@@ -69,6 +73,7 @@ export default function RecoveryPasswordInsertNewPasswordScreen({ navigation, ro
       setIsLoading(false);
     }
   }
+  
 
   return (
     <>

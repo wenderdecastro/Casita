@@ -9,7 +9,7 @@ import { BodyMedium, TitleExtraLarge } from '../../../../components/AppFonts'
 import moment from 'moment'
 import AppSvgIcon, { AppIconName } from '../../../../../assets/Icons'
 import { TextDecoration } from '../../../../utils/AppEnums'
-import api, { ConcludeTaskPath } from '../../../../services/ApiService'
+import api, { ConcludeTaskPath, MyDayTaskPath } from '../../../../services/ApiService'
 
 const CardBox = styled.View`
     padding: 10px;
@@ -71,6 +71,8 @@ export default function TaskCardWidget({ item, onTap }) {
         })
     }
 
+
+
     function hasPassedDueDate(dueDate) {
         if (!dueDate) {
             return false;
@@ -110,7 +112,7 @@ export default function TaskCardWidget({ item, onTap }) {
     }
 
     return (
-        <TouchableOpacity activeOpacity={0.9} onPress={ isChecked ? null : onTap}>
+        <TouchableOpacity activeOpacity={0.9} onPress={isChecked ? null : onTap}>
             <CardBox>
                 <Row style={{ flex: 1 }}>
                     <View>

@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react'
+import React, { useState, useRef } from 'react'
 import { PositionedImage, AppContainer, Row } from '../../components/AppContainers'
 import { AppAssets } from '../../../assets/AppAssets'
 import { AppColors } from '../../utils/Pallete'
@@ -15,11 +15,11 @@ import ToastMessage from '../../components/AppToastMessage'
 import { AppRoutesKeys } from '../../utils/AppRoutes/AppRoutesUtils'
 
 
-export default function RegisterUserDataScreen({navigation}) {
-  const [name, setName] = useState('seu ernesto');
-  const [mail, setMail] = useState('ernestao@gmail.com');
-  const [password, setPassword] = useState('123');
-  const [confirmyPassword, setConfirmyPassword] = useState('123');
+export default function RegisterUserDataScreen({ navigation }) {
+  const [name, setName] = useState('');
+  const [mail, setMail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmyPassword, setConfirmyPassword] = useState('');
 
   const [typeToast, setTypeToast] = useState('success');
   const [titleToast, setTitleToast] = useState('');
@@ -37,7 +37,7 @@ export default function RegisterUserDataScreen({navigation}) {
   const validatedInputs = () => {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-    if (name === '' || mail === '' || password === '' || confirmyPassword === '') {
+    if (name === '' || mail === '' || password === '' || confirmyPassword === '' || password.length < 8) {
       setTypeToast('warning');
       setTitleToast('Preencha os Campos');
       setDescriptionToast('Esqueceu de algo ai meu chapa!');
@@ -59,10 +59,10 @@ export default function RegisterUserDataScreen({navigation}) {
       return false;
     }
     navigation.replace(AppRoutesKeys.registerFinanceDataPage, {
-    name,
-    mail,
-    password,
-  });
+      name,
+      mail,
+      password,
+    });
   }
 
   return (
@@ -79,7 +79,7 @@ export default function RegisterUserDataScreen({navigation}) {
         left={65}
       />
       <LeadingBox>
-        <LeadingButtonWidget navigation={navigation}/>
+        <LeadingButtonWidget navigation={navigation} />
       </LeadingBox>
 
       <ToastMessage
@@ -91,39 +91,39 @@ export default function RegisterUserDataScreen({navigation}) {
 
       <Row width={"100%"} alignItems={'center'} >
         <PositionedImage source={AppAssets.eightPointBlueStarSmall} />
-        <TitleBlack style={{marginLeft: 20}} size={36}>CADASTRO</TitleBlack>
+        <TitleBlack style={{ marginLeft: 20 }} size={36}>CADASTRO</TitleBlack>
       </Row>
-      <Gap height={20}/>
+      <Gap height={20} />
       <BodyMedium color={AppColors.black}>Que bom que você deseja usar o Casita! Insira seus dados para continuarmos com seu cadastro.</BodyMedium>
-      <Gap height={15}/>
-      <AppInput 
+      <Gap height={15} />
+      <AppInput
         label={'Nome'}
         textValue={name}
         onChangeText={(txt) => setName(txt)}
       />
-      <Gap height={15}/>
-      <AppInput 
+      <Gap height={15} />
+      <AppInput
         label={'Email'}
         textValue={mail}
         onChangeText={(txt) => setMail(txt)}
       />
-      <Gap height={15}/>
-      <AppInput 
+      <Gap height={15} />
+      <AppInput
         label={'Senha'}
         textValue={password}
         onChangeText={(txt) => setPassword(txt)}
         isObscureText
       />
-      <Gap height={15}/>
-      <AppInput 
+      <Gap height={15} />
+      <AppInput
         label={'Confirmar Senha'}
         textValue={confirmyPassword}
         onChangeText={(txt) => setConfirmyPassword(txt)}
         isObscureText
       />
-      <Gap height={40}/>
-      <AppButton 
-        mainColor={AppColors.white} 
+      <Gap height={40} />
+      <AppButton
+        mainColor={AppColors.white}
         label={'CONTINUAR'}
         onTap={() => validatedInputs()}
       />
@@ -131,7 +131,7 @@ export default function RegisterUserDataScreen({navigation}) {
   )
 }
 
-        // onTap={() => {
-        //   const pushAction = StackActions.push(AppRoutesKeys.registerFinanceDataPage);
-        //   navigation.dispatch(pushAction);
-        // }}
+// onTap={() => {
+//   const pushAction = StackActions.push(AppRoutesKeys.registerFinanceDataPage);
+//   navigation.dispatch(pushAction);
+// }}
