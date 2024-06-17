@@ -11,13 +11,13 @@ import AppDropdown from '../../../../../components/AppDropdown'
 import { Gap } from '../../../../../components/AppSpecialComponents'
 import CurrencyInput from 'react-native-currency-input'
 import AppButton from '../../../../../components/AppButton'
+import { tokenDecode } from '../../../../../services/TokenService'
+import { PostItem } from '../../../../../services/ApiService'
 
 export default function NewItemDialog({ visible, onClose, }) {
     const [priority, setPriority] = useState();
     const [value, setValue] = React.useState();
     const [nameItem, setNameItem] = useState();
-    const [priorityItem, setPriorityItem] = useState();
-    const [moneyItem, setMoneyItem] = useState();
 
     const data = [
         {
@@ -34,8 +34,13 @@ export default function NewItemDialog({ visible, onClose, }) {
         },
     ]
 
-    function postItem() {
-        console.log(nameItem);
+    async function postItem() {
+        const token = await tokenDecode()
+        const userId = token.id
+
+        await api.post(PostItem, {
+            
+        })
     }
     return (
         <AppDialog
@@ -50,8 +55,8 @@ export default function NewItemDialog({ visible, onClose, }) {
                 placeholder={'Nome do item'}
                 fontFamily={FontFamily.archivoBold}
                 backgroundColor={AppColors.white}
-                value={nameItem}
-                
+                textValue={nameItem}
+                onChangeText={(val) => setNameItem(val)}
                 />
 
             <Gap height={15} />

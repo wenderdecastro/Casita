@@ -162,7 +162,8 @@ console.log("ruiebfiurenb", route.params.userData.id);
     <AppContainer justifyContent={isLoading ? Flex.center : Flex.flexStart} backgroundColor={AppColors.background}>
       {isLoading ? <ActivityIndicator color={AppColors.black} size={60} /> : data ? <><MyDayWidget onTap={() => { AppNavigation.push(navigation, AppRoutesKeys.myDayScreen) }} />
         <Gap height={30} />
-        <ListBox>
+        {/* Lista de compras e objetivos foi tirado do escopo */}
+        {/* <ListBox>
           <TitleBlack size={20}>MINHAS LISTAS</TitleBlack>
           <Gap height={10} />
           <Row>
@@ -204,8 +205,9 @@ console.log("ruiebfiurenb", route.params.userData.id);
               </View>
             </Row>
           </TouchableOpacity>
-        </ListBox>
+        </ListBox> 
         <Gap height={15} />
+        */}
 
         <TaskBox>
           <TitleBlack size={20}>TAREFAS</TitleBlack>
@@ -300,8 +302,8 @@ console.log("ruiebfiurenb", route.params.userData.id);
 
         <NewTaskDialog navigation={navigation} userId={params.userData.id} visible={isNewTaskDialogVisible} onClose={() => { setIsNewTaskDialogVisible(false) }} />
         <EditTaskDialog navigation={navigation} visible={isEditTaskDialogVisible} onClose={() => { setIsEditTaskDialogVisible(false) }} item={taskSelected} />
-        <NewItemDialog visible={isNewTaskDialogVisible}
-          onClose={() => { setIsNewTaskDialogVisible(false) }}
+        <NewItemDialog visible={isNewItemDialogVisible}
+          onClose={() => { setIsNewItemDialogVisible(false) }}
           navigation={navigation} /></> : <></>}
     </AppContainer>
   )
