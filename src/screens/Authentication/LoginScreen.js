@@ -101,6 +101,9 @@ export default function LoginScreen({ navigation }) {
       }
       setIsLoading(false);
     } catch(error) {
+      console.log('====================================');
+      console.log(error.request);
+      console.log('====================================');
       setIsLoading(false);
       showToast();
     }

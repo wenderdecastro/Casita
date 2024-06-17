@@ -154,11 +154,7 @@ export default function ProfileScreen({ navigation }) {
             placeholder={params.userData.necessities}
             isEditable={false}
             SuffixIcon={
-              <PositionedImage
-                position={"relative"}
-                top={-18}
-                source={AppAssets.percentage}
-              />
+<AppTextWithStroke text={" % "} textColor={AppColors.background} fontSize={34} top={-20} left={10}/>
             }
           />
         </Row>
@@ -184,11 +180,7 @@ export default function ProfileScreen({ navigation }) {
             placeholder={params.userData.wants}
             isEditable={false}
             SuffixIcon={
-              <PositionedImage
-                position={"relative"}
-                top={-18}
-                source={AppAssets.percentage}
-              />
+<AppTextWithStroke text={" % "} textColor={AppColors.background} fontSize={34} top={-20} left={10}/>
             }
           />
         </Row>
@@ -214,11 +206,7 @@ export default function ProfileScreen({ navigation }) {
             placeholder={params.userData.savings}
             isEditable={false}
             SuffixIcon={
-              <PositionedImage
-                position={"relative"}
-                top={-18}
-                source={AppAssets.percentage}
-              />
+<AppTextWithStroke text={" % "} textColor={AppColors.background} fontSize={34} top={-20} left={10}/>
             }
           />
         </Row>
