@@ -101,13 +101,13 @@ typeList:7});
         const resApi = await api.get(`/TaskList?id=${route.params.userId}`)
         setCustomList(resApi.data)
       
-        console.log("CUSTOM", resApi.data);
+        // console.log("CUSTOM", resApi.data);
     }
 
     //API Call ShopList
     async function ListApiCart() {
      
-        const resApi = await api.get(`/TaskList/cart?userId=${route.params.userId}`)
+        const resApi = await api.get(`/TaskList/cart?id=${route.params.userId}`)
         setCartList(resApi.data)
       
         console.log("CART", resApi.data);
@@ -116,16 +116,22 @@ typeList:7});
     //API Call TaskList
     async function ListApiOther() {
      
-        const resApi = await api.get(`/TaskList/custom?otherListsId=${route.params.userId}`)
-        setOtherList(resApi.data)
+        const resApi = await api.get(`/TaskList/otherLists?id=${route.params.userId}`)
+        setOtherList([resApi.data])
     
         console.log("OTHER", resApi.data);
+     
     }
 
     //API Call useEffect
     useEffect(() => {ListApiCustom()}, [])
-    useEffect(() => {ListApiCart()}, [bottomSheetType])
-    useEffect(() => {ListApiOther()}, [bottomSheetType])
+    
+    useEffect(() => {ListApiCart()
+    console.log(cartList);
+    }, [bottomSheetType])
+    useEffect(() => {ListApiOther()
+    console.log(otherList);
+    }, [bottomSheetType])
     return (
         <AppContainer alignItems={Flex.flexStart} justifyContent={Flex.flexStart} backgroundColor={AppColors.background}>
             <Row alignItems={Flex.center}>
@@ -143,32 +149,45 @@ typeList:7});
                 <TitleBlack size={20}>MINHAS LISTAS</TitleBlack>
                 <Gap height={10} />
                 <Row>
-                {/* <FlatList
-            data={cartList}
+                <FlatList
+                data={cartList}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) =>
                      (<>
                         <MyListCardWidget
                         appIconName={AppIconName.shoppingCart}
-                        label={'L'}
+                        label={item.name}
                         tagText={5}
                         tagColor={AppColors.white}
                         tagTextColor={AppColors.black}
                         onTap={() => { handlePresentModalPress('LISTA DE COMPRAS') }}
                     />
                     <Gap width={10} />
+                    
+                    </>
+                    )
+                }/>
+
+                <FlatList
+                    data={otherList}
+                keyExtractor={(item) => item.id}
+                renderItem={({ item }) =>
+                     (<>
+                        
+                    
                     <MyListCardWidget
                         appIconName={AppIconName.asterisk}
-                        label={'Objetivos'}
+                        label={item.name}
                         cardColor={AppColors.yellow}
                         tagText={5}
                         tagTextColor={AppColors.black}
                         tagColor={AppColors.white}
                         onTap={() => { handlePresentModalPress('OBJETIVOS') }}
                     />
+                    <Gap width={10} />
                     </>
                     )
-                }/> */}
+                }/>
                    
                 </Row>
             </ListBox>
@@ -180,13 +199,16 @@ typeList:7});
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) =>
                      ( 
-
+                        <>
+                       
                         <ListCardWidget
                         title={item.name}
                         total={15}
                         actualProgress={10}
-                        tagText={customList.description}
+                        tagText={item.description}
                         onTap={""}/>
+                        
+                        </>
                     )
                 }/>
   

@@ -161,7 +161,7 @@ console.log("ruiebfiurenb", route.params.userData.id);
   return (
     <AppContainer justifyContent={isLoading ? Flex.center : Flex.flexStart} backgroundColor={AppColors.background}>
       {isLoading ? <ActivityIndicator color={AppColors.black} size={60} /> : data ? <><MyDayWidget onTap={() => { AppNavigation.push(navigation, AppRoutesKeys.myDayScreen) }} />
-        <Gap height={30} />
+        {/* <Gap height={30} />
         <ListBox>
           <TitleBlack size={20}>MINHAS LISTAS</TitleBlack>
           <Gap height={10} />
@@ -205,7 +205,7 @@ console.log("ruiebfiurenb", route.params.userData.id);
             </Row>
           </TouchableOpacity>
         </ListBox>
-        <Gap height={15} />
+        <Gap height={15} /> */}
 
         <TaskBox>
           <TitleBlack size={20}>TAREFAS</TitleBlack>

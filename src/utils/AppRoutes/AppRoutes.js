@@ -1,13 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { AppRoutesKeys } from "./AppRoutesUtils";
-<<<<<<< HEAD
-import Navigation from "../../screens/Authentication/LandingPage";
-import LoginScreen from "../../screens/Authentication/LoginPage";
-import RegisterScreen from "../../screens/Authentication/RegisterPage";
-=======
 import RegisterUserDataScreen from "../../screens/Authentication/RegisterUserDataPage";
 import RegisterFinanceDataScreen from "../../screens/Authentication/RegisterFinanceDataPage";
->>>>>>> 7db73e9fd61b5d4ce2d22e1b5b7b226f637a0c58
 import AppTabNavigator from "../../components/AppTabNavigator";
 import Navigation from "../../screens/Authentication/Navigation";
 import LandingPage from "../../screens/Authentication/LandingPage";
@@ -21,6 +15,7 @@ import ListDetailScreen from "../../screens/Main/Management/ListDetailScreen";
 import FinancialScreen from "../../screens/Main/Financial/FinancialScreen";
 import GoalsScreen from "../../screens/Main/Financial/GoalsScreen";
 import HistoryScreen from "../../screens/Main/Financial/HistoryScreen";
+import RegisterScreen from "../../screens/Authentication/RegisterPage";
 
 const { createNativeStackNavigator } = require("@react-navigation/native-stack");
 
@@ -29,22 +24,16 @@ const Stack = createNativeStackNavigator();
 export default function AppRoutes() {
     return (
         <NavigationContainer>
-<<<<<<< HEAD
-            <Stack.Navigator screenOptions={{ headerShown: false }}>
-=======
             <Stack.Navigator
                 initialRouteName={AppRoutesKeys.landingPage}
                 screenOptions={{ headerShown: false }}>
->>>>>>> 7db73e9fd61b5d4ce2d22e1b5b7b226f637a0c58
                 <Stack.Screen
                     name={AppRoutesKeys.navigator}
                     component={Navigation} />
                 <Stack.Screen
                     name={AppRoutesKeys.loginScreen}
                     component={LoginScreen} />
-                <Stack.Screen
-                    name={AppRoutesKeys.registerScreen}
-                    component={RegisterScreen} />
+               
                 <Stack.Screen
                     name={AppRoutesKeys.tabNavigator}
                     component={AppTabNavigator} />
