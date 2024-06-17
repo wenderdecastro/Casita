@@ -20,6 +20,7 @@ export const UserPath = '/User'
 export const GetGoalsPath = '/TransactionList/List'
 export const PostGoalPath = '/TransactionList'
 export const EditSpentPath = '/Transaction/spentOnGoal'
+export const GetFinancial = '/TransactionList/limits'
 
 export async function postUser(userDetails) {
   try {

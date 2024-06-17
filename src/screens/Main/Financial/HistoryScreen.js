@@ -203,6 +203,7 @@ export default function HistoryScreen({ navigation }) {
 			<BoxWhite
 				justifyContent={Flex.auto}
 				backgroundColor={AppColors.white}
+				flex={1.5}
 			>
 				<List
 					data={DATA}

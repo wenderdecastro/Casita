@@ -1,5 +1,5 @@
 import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AppContainer, Row } from "../../../components/AppContainers";
 import { AppColors } from "../../../utils/Pallete";
 import {
@@ -21,6 +21,7 @@ import AppSvgIcon, { AppIconName } from "../../../../assets/Icons";
 import SpentModal from "./dialogs/SpentModal";
 import { AppNavigation, AppRoutesKeys } from "../../../utils/AppRoutes/AppRoutesUtils";
 import { useRoute } from "@react-navigation/native";
+import api, { GetFinancial } from "../../../services/ApiService";
 
 const ViewCards = styled.View`
   width: 100%;
@@ -67,7 +68,33 @@ const InputContainer = styled.TouchableOpacity`
 
 export default function FinancialScreen({ navigation }) {
   const [spentModalIsVisible, setSpentModalIsVisible] = useState(false);
-  const {params} = useRoute()
+  const { params } = useRoute()
+
+  const [data, setData] = useState()
+  const [isLoading, setIsLoading] = useState()
+
+  useEffect(() => {
+    getFinancial()
+  }, [])
+
+  async function getFinancial() {
+    setIsLoading(true)
+    await api.get(GetFinancial, {
+      params: {
+        idUser: params.userData.id
+      }
+    })
+      .then(response => {
+        setData(response.data)
+        setIsLoading(false)
+      })
+      .catch(error => {
+        console.log(error)
+        setIsLoading(false)
+      })
+      setIsLoading(false)
+  }
+
   return (
     <>
       <ScrollContainer>
@@ -81,7 +108,7 @@ export default function FinancialScreen({ navigation }) {
           <Row width={"100%"} justifyContent={Flex.center}>
             <View>
               <TouchableOpacity
-                onPress={() => AppNavigation.push(navigation,AppRoutesKeys.historyScreen, {userData: params.userData})}
+                onPress={() => AppNavigation.push(navigation, AppRoutesKeys.historyScreen, { userData: params.userData })}
               >
                 <AppTextWithStroke
                   text={"Ver histórico"}
@@ -105,16 +132,6 @@ export default function FinancialScreen({ navigation }) {
 
           <Gap height={12} />
 
-          <Row width={"100%"} justifyContent={"space-between"}>
-            <Income MoneyValue="330,00" />
-
-            <Income
-              MoneyValue="330,00"
-              Title="Despesas"
-              IconPath={AppAssets.redArrowDown}
-            />
-          </Row>
-
           <ContainerShadow
             width={"100%"}
             height={51}
@@ -133,7 +150,7 @@ export default function FinancialScreen({ navigation }) {
           <Gap height={25} />
 
           <ViewCards>
-            <TitleBlack textAlign={"start"} size={20}>
+            {/* <TitleBlack textAlign={"start"} size={20}>
               CARTÕES
             </TitleBlack>
             <ContainerShadow
@@ -185,7 +202,7 @@ export default function FinancialScreen({ navigation }) {
               }
             />
 
-            <Gap height={40} />
+            <Gap height={40} /> */}
 
             <TitleBlack textAlign={"start"} size={20}>
               QUANTO POSSO GASTAR?
@@ -245,7 +262,7 @@ export default function FinancialScreen({ navigation }) {
             }
           />
 
-          <Gap height={150} />
+          <Gap height={200} />
         </AppContainer>
       </ScrollContainer>
       <SpentModal
