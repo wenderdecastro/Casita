@@ -15,7 +15,7 @@ export default function TasksListWidget({ DATA, tapAction, flex = 1 }) {
     return (
         <List flex={flex}>
             <FlatList
-                endFillColor={AppColors.background}
+                endFillColor={AppColors.yellow}
                 data={DATA}
                 
                 renderItem={({ item }) =>

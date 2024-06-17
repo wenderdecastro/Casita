@@ -18,6 +18,7 @@ import AppTimePicker from '../../../../../components/AppTimePicker'
 import api, { ConcludeTaskPath, DeleteTaskPath, MyDayTaskPath } from '../../../../../services/ApiService'
 import ToastMessage from '../../../../../components/AppToastMessage'
 import { AppNavigation, AppRoutesKeys } from '../../../../../utils/AppRoutes/AppRoutesUtils'
+import moment from 'moment'
 
 const CheckBox = styled.TouchableOpacity`
     width: 25px;
@@ -40,6 +41,7 @@ export default function EditTaskDialog({ visible, onClose, item, navigation }) {
     const toastRef = useRef()
 
     const [selected, setSelected] = useState(item.frequencyId);
+    const [isLoading, setIsLoading] = useState(false)
     const [priority, setPriority] = useState(item.priorityId);
 
     const [description, setDescription] = useState(item.description);
@@ -73,6 +75,9 @@ export default function EditTaskDialog({ visible, onClose, item, navigation }) {
         setDateIsEnabled(item.dueDate == null)
         setTime(item.dueTime != null ? new Date(`2000-01-01T${item.dueTime}`) : new Date())
         setTimeIsEnabled(item.dueTime == null)
+        setSelected(item.frequencyId)
+        setPriority(item.priorityId)
+        setDescription(item.description)
     }, [item])
 
     const showDatePicker = () => {
@@ -88,6 +93,17 @@ export default function EditTaskDialog({ visible, onClose, item, navigation }) {
             toastRef.current.show();
         }
     }
+
+    const formatDate = (date) => {
+
+        return moment(date).format('YYYY-MM-DD');
+    }
+
+    const formatTime = (time) => {
+
+        return moment(time).format('HH:mm:ss');
+    }
+
 
     async function concludeTask() {
         api.patch(`${ConcludeTaskPath}/${item.id}`).then(response => {
@@ -111,6 +127,26 @@ export default function EditTaskDialog({ visible, onClose, item, navigation }) {
         }).catch(error => {
             console.log(error.request);
         })
+    }
+
+    async function editTask() {
+        setIsLoading(true)
+        api.patch(`${DeleteTaskPath}/${item.id}`, {
+            name: item.name,
+            priorityId: priority,
+            description: description,
+            frequencyId: selected,
+            dueDate: dateIsEnabled ? null : formatDate(date),
+            dueTime: timeIsEnabled ? null : `${formatTime(time)}.0000000`,
+        }).then(response => {
+            AppNavigation.popWithData(navigation, AppRoutesKeys.managementScreen, { refresh: true })
+            setIsLoading(false)
+        }).catch(error => {
+            console.log(error.request);
+            setIsLoading(false)
+        })
+
+        setIsLoading(false)
     }
     return (
         <>
@@ -230,6 +266,11 @@ export default function EditTaskDialog({ visible, onClose, item, navigation }) {
                         resizeMode: 'contain'
                     }} source={AppAssets.close} />} FontStyle={BodyMedium} mainColor={AppColors.white} label={'Excluir tarefa'} />
                 <Gap height={13} />
+                <AppButton
+                    label={"Concluir"}
+                    onTap={() => {editTask()}}
+                    isLoading={isLoading}
+                />
             </AppDialog>
 
         </>
