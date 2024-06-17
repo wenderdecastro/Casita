@@ -13,8 +13,12 @@ import CurrencyInput from 'react-native-currency-input'
 import AppButton from '../../../../../components/AppButton'
 
 export default function NewItemDialog({ visible, onClose, }) {
-    const [priority, setPriority] = useState()
+    const [priority, setPriority] = useState();
     const [value, setValue] = React.useState();
+    const [nameItem, setNameItem] = useState();
+    const [priorityItem, setPriorityItem] = useState();
+    const [moneyItem, setMoneyItem] = useState();
+
     const data = [
         {
             value: 'Alta',
@@ -29,6 +33,10 @@ export default function NewItemDialog({ visible, onClose, }) {
             key: 3,
         },
     ]
+
+    function postItem() {
+        console.log(nameItem);
+    }
     return (
         <AppDialog
             visible={visible}
@@ -41,7 +49,10 @@ export default function NewItemDialog({ visible, onClose, }) {
             <AppInput
                 placeholder={'Nome do item'}
                 fontFamily={FontFamily.archivoBold}
-                backgroundColor={AppColors.white} />
+                backgroundColor={AppColors.white}
+                value={nameItem}
+                
+                />
 
             <Gap height={15} />
 
@@ -77,7 +88,7 @@ export default function NewItemDialog({ visible, onClose, }) {
 
             </Row>
             <Gap height={15} />
-            <AppButton label={'Adicionar'} mainColor={AppColors.white} />
+            <AppButton onTap={() => postItem()} label={'Adicionar'} mainColor={AppColors.white} />
 
         </AppDialog>
     )

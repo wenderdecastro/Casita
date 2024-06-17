@@ -86,6 +86,7 @@ export default function ProfileScreen({ navigation }) {
             fontSize={"16px"}
             fontFamily={FontFamily.archivoMedium}
             label={"Email"}
+            isEditable={false}
             placeholder={params.userData.email}
             backgroundColor={AppColors.white}
           />
