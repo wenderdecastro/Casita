@@ -5,6 +5,7 @@ import { BodyLarge } from "../../../../components/AppFonts";
 import { Image, View } from "react-native";
 import { Row } from "../../../../components/AppContainers";
 import { AppAssets } from "../../../../../assets/AppAssets";
+import { AppUtils } from "../../../../utils/AppUtils";
 
 const ViewIncome = styled.View`
   background-color: ${({ backgroundColor = AppColors.white }) =>
@@ -76,19 +77,20 @@ export default function SpentBox({
   title = "Contas",
   star = 'red',
 }) {
-  const progressPercentage = (actualProgress / total) * 100;
+
+
   return (
     <View>
       <BoxIncome width={width} height={height} marginTop={marginTop}>
         <ViewIncome backgroundColor={backgroundColor}></ViewIncome>
 
         <ProgressBar
-          progress={progressPercentage}
+          progress={actualProgress > 100 ? 100 : actualProgress}
           progressBarColor={actualProgressColor}
         />
         <ViewNumber bottom={bottomText} left={leftText}>
           <AppTextWithStroke
-            text={`R$ ${Limit}`}
+            text={`${AppUtils.formatNumToCurrency(Limit)}`}
             fontSize={textSize}
             shadowTop={textShadowTop}
             shadowLeft={textShadowLeft}

@@ -162,52 +162,6 @@ console.log("ruiebfiurenb", route.params.userData.id);
     <AppContainer justifyContent={isLoading ? Flex.center : Flex.flexStart} backgroundColor={AppColors.background}>
       {isLoading ? <ActivityIndicator color={AppColors.black} size={60} /> : data ? <><MyDayWidget onTap={() => { AppNavigation.push(navigation, AppRoutesKeys.myDayScreen) }} />
         <Gap height={30} />
-        {/* Lista de compras e objetivos foi tirado do escopo */}
-        {/* <ListBox>
-          <TitleBlack size={20}>MINHAS LISTAS</TitleBlack>
-          <Gap height={10} />
-          <Row>
-            <MyListCardWidget
-              appIconName={AppIconName.shoppingCart}
-              label={data[0].name}
-              tagText={data[0].itemsCount}
-              tagColor={AppColors.white}
-              tagTextColor={AppColors.black}
-              onTap={() => { handlePresentModalPress('LISTA DE COMPRAS') }}
-            />
-            <Gap width={10} />
-            <MyListCardWidget
-              appIconName={AppIconName.asterisk}
-              label={data[1].name}
-              cardColor={AppColors.yellow}
-              tagText={data[1].itemsCount}
-              tagTextColor={AppColors.black}
-              tagColor={AppColors.white}
-              onTap={() => { handlePresentModalPress('OBJETIVOS') }}
-            />
-          </Row>
-          <Gap height={15} />
-          <TouchableOpacity activeOpacity={0.9} onPress={() => { AppNavigation.push(navigation, AppRoutesKeys.listsScreen, {userId: route.params.userData.id}) }}>
-            <Row width={'100%'} justifyContent={Flex.flexEnd}>
-              <View>
-                <AppTextWithStroke
-                  text={'Ver todas'}
-                  shadowTop={10}
-                  shadowLeft={5} />
-              </View>
-              <View>
-                <Image source={AppAssets.arrowRight} style={{
-                  flex: 1,
-                  height: 19,
-                  width: 22,
-                  resizeMode: 'contain'
-                }} />
-              </View>
-            </Row>
-          </TouchableOpacity>
-        </ListBox> 
-        <Gap height={15} />
-        */}
 
         <TaskBox>
           <TitleBlack size={20}>TAREFAS</TitleBlack>
@@ -226,7 +180,8 @@ console.log("ruiebfiurenb", route.params.userData.id);
         <TasksListWidget
           DATA={selected == 0 ? data[2].appTasks : selected == 1 ? data[3].appTasks : data[4].appTasks}
           tapAction={handleOpenEditModal}
-          flex={0.85} />
+          flex={0.85}
+          emptyMessage='Ta desocupado ai amigão? Que tal clicar no "+" ali em baixo e criar uma tarefa?' />
 
 
         <FixedButton activeOpacity={0.9} onPress={() => { setIsNewTaskDialogVisible(true) }}>
@@ -301,7 +256,8 @@ console.log("ruiebfiurenb", route.params.userData.id);
 
 
         <NewTaskDialog 
-        listTypeId={1}
+        
+        
         navigation={navigation} 
         userId={params.userData.id} 
         visible={isNewTaskDialogVisible} 

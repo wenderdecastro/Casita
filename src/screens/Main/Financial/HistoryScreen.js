@@ -16,6 +16,7 @@ import SpentBoxHistory from './widgets/SpentBoxHistory';
 import SpentMonth from './widgets/SpentMonth';
 import api, { TransactionPath } from '../../../services/ApiService';
 import { useRoute } from '@react-navigation/native';
+import { AppMonths } from '../../../utils/AppUtils';
 
 const ViewBox = styled.View`
 	width: 100%;
@@ -27,11 +28,11 @@ const List = styled.FlatList`
 
 export const BoxWhite = styled.SafeAreaView`
 	padding: ${({
-		paddingTop = 20,
-		paddingRight = 20,
-		paddingBottom = 20,
-		paddingLeft = 20,
-	}) =>
+	paddingTop = 20,
+	paddingRight = 20,
+	paddingBottom = 20,
+	paddingLeft = 20,
+}) =>
 		`${paddingTop}px ${paddingRight}px ${paddingBottom}px ${paddingLeft}px `};
 	align-items: ${({ alignItems = Flex.center }) => alignItems};
 	justify-content: ${({ justifyContent = Flex.center }) =>
@@ -113,26 +114,14 @@ const DATA = [
 export default function HistoryScreen({ navigation }) {
 
 	const [selected, setSelected] = useState(0);
-	const {params} = useRoute()
-
-	async function getHistory(){
+	const { params } = useRoute()
 
 
-		await api.get(TransactionPath,  { idUser: params.id}
-		)
-			.then((response) => { 
-				console.log(response)
-			})
-			.catch(error => {
-				console.log(error.request)
-			})
+	const getMonthName = (value) => {
+		return Object.keys(AppMonths).find(key => AppMonths[key] === value);
 	}
-	
 
 
-	useEffect(() => {
-		getHistory()
-	}, []);
 	return (
 		<>
 			<AppContainer
@@ -184,7 +173,12 @@ export default function HistoryScreen({ navigation }) {
 
 				<ViewBox>
 					<SpentBoxHistory
-						height={131}
+						spent={params.data[0].amountSpent}
+						limit={params.data[0].totalAmount}
+						actualProgress={
+							params.data[0].totalAmount === 0 ? 0 :
+								((params.data[0].amountSpent / params.data[0].totalAmount) * 100).toFixed()
+						}
 						shadow={true}
 						bottom={-3}
 						left={3}
@@ -195,7 +189,8 @@ export default function HistoryScreen({ navigation }) {
 					textAlign={'center'}
 					color={AppColors.black}
 				>
-					Você já gastou 90% da sua cota de
+					Você já gastou {`${params.data[0].totalAmount === 0 ? 0 :
+								((params.data[0].amountSpent / params.data[0].totalAmount) * 100).toFixed()}`}% da sua cota de
 					Contas, tome cuidado com os próximos
 					gastos!
 				</BodyMedium>
@@ -206,12 +201,12 @@ export default function HistoryScreen({ navigation }) {
 				flex={1.5}
 			>
 				<List
-					data={DATA}
+					data={selected == 0 ? params.data[0].transactions : selected == 1 ? params.data[1].transactions : params.data[2].transactions}
 					keyExtractor={(item) => item.id}
 					renderItem={({ item }) => (
 						<SpentMonth
-							month={item.month}
-							itens={item.itens}
+							month={getMonthName(item.month)}
+							itens={item.items}
 						/>
 					)}
 				/>

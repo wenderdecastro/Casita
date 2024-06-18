@@ -23,10 +23,9 @@ export default function SpentMonth({
             <>
           <SpentItem
             icon={item.icon}
-            title={item.title}
-            date={item.date}
-            time={item.time}
-            money={item.money}
+            title={item.name}
+            date={item.createdAt}
+            money={item.value}
           />
           <Gap height={10}/>
             </>

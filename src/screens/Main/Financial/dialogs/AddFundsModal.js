@@ -36,7 +36,7 @@ export default function AddFundsModal({ visible, onClose, navigation, goal }) {
     if (newSpent <= goal.totalAmount) {
       await api.post(EditSpentPath, {}, {
         params: {
-          goalId: goal.goalId,
+          goalId: goal.id,
           amount: value
         }
       }).then(response => {

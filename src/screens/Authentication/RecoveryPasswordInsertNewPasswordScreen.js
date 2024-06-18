@@ -15,8 +15,8 @@ import { UserPath } from '../../services/ApiService'
 export default function RecoveryPasswordInsertNewPasswordScreen({ navigation, route }) {
   const { mail } = route.params;
   const { screenType } = route.params;
-  const [newPaswsword, setNewPassword] = useState('123456')
-  const [confirmPassword, setConfirmPassword] = useState('123456')
+  const [newPaswsword, setNewPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
 
   const [typeToast, setTypeToast] = useState('success');
   const [titleToast, setTitleToast] = useState('');

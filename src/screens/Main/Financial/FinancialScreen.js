@@ -22,6 +22,7 @@ import SpentModal from "./dialogs/SpentModal";
 import { AppNavigation, AppRoutesKeys } from "../../../utils/AppRoutes/AppRoutesUtils";
 import { useRoute } from "@react-navigation/native";
 import api, { GetFinancial } from "../../../services/ApiService";
+import { AppUtils } from "../../../utils/AppUtils";
 
 const ViewCards = styled.View`
   width: 100%;
@@ -70,12 +71,7 @@ export default function FinancialScreen({ navigation }) {
   const [spentModalIsVisible, setSpentModalIsVisible] = useState(false);
   const { params } = useRoute()
 
-  const [data, setData] = useState([])
-
-  const [Necessities, setNecessities] = useState({})
-  const [Wishes, setWishes] = useState({})
-  const [Economies, setEconomies] = useState({})
-
+  const [data, setData] = useState()
 
 
   const [isLoading, setIsLoading] = useState(true)
@@ -85,14 +81,12 @@ export default function FinancialScreen({ navigation }) {
   }, [])
 
   useEffect(() => {
-    if (data != null && data != undefined) {
-      console.log("data");
-      console.log(data);
-      setIsLoading(false)
-      console.log(params.userData);
+    if (params.refresh) {
+      getFinancial()
+      setSpentModalIsVisible(false)
     }
+  }, [params])
 
-  }, [data])
 
 
   async function getFinancial() {
@@ -103,33 +97,32 @@ export default function FinancialScreen({ navigation }) {
       }
     })
       .then(response => {
-        console.log(response.data);
         setData(response.data)
-
-        console.log(data);
+        setIsLoading(false)
       })
       .catch(error => {
         console.log(error)
+        setIsLoading(false)
       })
+    setIsLoading(false)
   }
 
   return (
     <>
-      {isLoading == true ? <ActivityIndicator color={AppColors.black} size={60} /> :
+      {isLoading ? <ActivityIndicator color={AppColors.black} size={60} /> : !data ? <></> :
         <>
           <ScrollContainer>
             <AppContainer
               justifyContent={isLoading ? Flex.auto : Flex.flexStart}
-              // justifyContent={Flex.auto}
               backgroundColor={AppColors.background}
             >
               <TitleBlack size={20}>SALDO ATUAL</TitleBlack>
-              <TitleBlack size={32}>R$ {params.userData.Balance}</TitleBlack>
+              <TitleBlack size={32}>{AppUtils.formatNumToCurrency(params.userData.balance)}</TitleBlack>
 
               <Row width={"100%"} justifyContent={Flex.center}>
                 <View>
                   <TouchableOpacity
-                    onPress={() => AppNavigation.push(navigation, AppRoutesKeys.historyScreen, { userData: params.userData })}
+                    onPress={() => AppNavigation.push(navigation, AppRoutesKeys.historyScreen, { userData: params.userData, data: data })}
                   >
                     <AppTextWithStroke
                       text={"Ver histórico"}
@@ -161,7 +154,7 @@ export default function FinancialScreen({ navigation }) {
                 left={1.2}
                 Content={
                   <InputContainer
-                    onPress={() => navigation.replace(AppRoutesKeys.goalsScreen)}
+                    onPress={() => AppNavigation.push(navigation, AppRoutesKeys.goalsScreen, { userData: params.userData })}
                   >
                     <TitleBlack size={20}>MINHAS METAS</TitleBlack>
                   </InputContainer>
@@ -231,31 +224,31 @@ export default function FinancialScreen({ navigation }) {
 
                 <Row width={"100%"} justifyContent={"space-between"}>
                   <SpentBox
-                    Limit={data ? 0 : data[0].totalAmount - data[0].amountSpent
+                    Limit={!data ? 0 : data[0].totalAmount - data[0].amountSpent
                     }
                     width={165}
                     leftText={"10%"}
-                    textSize={40}
+                    textSize={30}
                     Shadow={true}
                     textShadowLeft={3}
                     star={"red"}
                     actualProgressColor={AppColors.red}
                     actualProgress={
-                      data ? 0 :
-                        data[0].amountSpent == 0 ? 0 :
-                          ((data[0].totalAmount / data[0].amountSpent) * 100).toFixed()
+                      !data ? 0 :
+                        data[0].amountSpent === 0 ? 0 :
+                          ((data[0].amountSpent / data[0].totalAmount) * 100).toFixed()
                     }
                   />
                   <SpentBox
-                    Limit={data ? 0 : data[1].totalAmount - data[1].amountSpent}
+                    Limit={!data ? 0 : data[1].totalAmount - data[1].amountSpent}
                     width={165}
                     leftText={"10%"}
-                    textSize={40}
+                    textSize={30}
                     Shadow={true}
                     textShadowLeft={3}
                     star={"yellow"}
                     actualProgressColor={AppColors.yellow}
-                    actualProgress={data ? 0 :
+                    actualProgress={!data ? 0 :
                       data[1].amountSpent == 0 ? 0 :
                         ((data[1].totalAmount / data[1].amountSpent) * 100).toFixed()}
                   />
@@ -281,7 +274,7 @@ export default function FinancialScreen({ navigation }) {
                     />
 
                     <AppTextWithStroke
-                      text={data ? 0 : data[2].amountSpent}
+                      text={!data ? 0 : AppUtils.formatNumToCurrency(data[2].amountSpent)}
                       fontSize={64}
                       shadowTop={3}
                       shadowLeft={0.4}
@@ -294,6 +287,7 @@ export default function FinancialScreen({ navigation }) {
             </AppContainer>
           </ScrollContainer>
           <SpentModal
+          navigation={navigation}
             onClose={() => {
               setSpentModalIsVisible(false);
             }}

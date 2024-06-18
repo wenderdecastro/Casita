@@ -36,6 +36,7 @@ const BoxIncome = styled.View`
   height: ${({ height }) => `${height}px`};
   margin-top: ${({ marginTop }) => `${marginTop}px`};
   flex-direction: column-reverse;
+  
 `;
 
 const ProgressBar = styled.View`
@@ -50,6 +51,8 @@ const ProgressBar = styled.View`
 
 const ViewBox = styled.View`
   width: 100%;
+  align-items: center;
+  justify-content: center;
 `;
 
 const ViewInfo = styled.View`
@@ -57,6 +60,8 @@ const ViewInfo = styled.View`
   height: 100%;
   left: 3%;
   position: absolute;
+  align-items: center;
+  justify-content: center;
   z-index: 1;
 `;
 
@@ -115,14 +120,14 @@ export default function SpentBoxHistory({
             {actualProgress == 100 ? (
               <AppTextWithStroke
                 text={`${progressPercentage}%`}
-                fontSize={80}
+                fontSize={70}
                 shadowTop={4}
                 shadowLeft={0}
               />
             ) : (
               <AppTextWithStroke
                 text={`${progressPercentage}%`}
-                fontSize={96}
+                fontSize={70}
                 shadowTop={4}
                 shadowLeft={2}
               />

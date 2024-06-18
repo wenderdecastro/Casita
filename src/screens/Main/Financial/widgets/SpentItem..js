@@ -6,10 +6,10 @@ import { Row } from "../../../../components/AppContainers";
 import { BodyMedium, TitleExtraLarge } from "../../../../components/AppFonts";
 import { Gap } from "../../../../components/AppSpecialComponents";
 import AppSvgIcon, { AppIconName } from "../../../../../assets/Icons";
+import moment from "moment";
 
 const ViewBox = styled.View`
   width: 100%;
-  height: 53px;
   padding-left: 10px;
   background-color: ${({ backgroundColor = AppColors.background }) =>
     backgroundColor};
@@ -21,19 +21,27 @@ const ViewBox = styled.View`
 `;
 
 const ViewFlex = styled.View`
-width: 130px;
+
 `;
 
 export default function SpentItem({
   icon = "red",
   title = "Conta de luz",
   date = "10/06/2024",
-  time = "17:00",
   money = 100,
 }) {
+  const formatDate = (date) => {
+
+    return moment(date).format('DD/MM/YYYY');
+  }
+
+  const formatTime = (date) => {
+
+    return moment(date).format('HH:mm');
+  }
   return (
     <ViewBox>
-      <View>
+      <View >
         {icon == "red" ? (
           <Image
             source={AppAssets.redPointStar}
@@ -67,18 +75,19 @@ export default function SpentItem({
         )}
       </View>
       <Gap width={12} />
-      <View>
+      <View style={{width: '65%'}}>
         <BodyMedium color={AppColors.black}>{title}</BodyMedium>
         <Row alignItems={'center'}>
-          <BodyMedium color={AppColors.black}>{date}</BodyMedium>
-          <Gap width={6}/>
+          <BodyMedium color={AppColors.black}>{formatDate(date)}</BodyMedium>
+          <Gap width={6} />
           <AppSvgIcon name={AppIconName.clock} size={17} />
-          <TitleExtraLarge size={14}>{time}</TitleExtraLarge>
+          <TitleExtraLarge size={14}>{formatTime(date)}</TitleExtraLarge>
         </Row>
       </View>
+      <Gap width={5}/>
       <ViewFlex>
-      <BodyMedium textAlign={'right'} size={14} color={AppColors.black}>R${money}</BodyMedium>
-      </ViewFlex> 
+        <BodyMedium textAlign={'right'} size={14} color={AppColors.black}>R${money}</BodyMedium>
+      </ViewFlex>
     </ViewBox>
   );
 }
