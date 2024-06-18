@@ -74,9 +74,9 @@ export default function SpentBoxHistory({
   left = 2,
   shadow = false,
   total = 100,
-  actualProgress = 80,
-  spent = 270,
-  limit = 300,
+  actualProgress = spent - limit,
+  spent,
+  limit,
   actualProgressColor = AppColors.red,
 }) {
   const progressPercentage = (actualProgress / total) * 100;

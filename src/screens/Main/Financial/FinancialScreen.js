@@ -66,7 +66,7 @@ const InputContainer = styled.TouchableOpacity`
   align-items: center;
 `;
 
-export default function FinancialScreen({ navigation }) {
+export default function FinancialScreen({ navigation, route }) {
   const [spentModalIsVisible, setSpentModalIsVisible] = useState(false);
   const { params } = useRoute()
 
@@ -79,21 +79,6 @@ export default function FinancialScreen({ navigation }) {
 
 
   const [isLoading, setIsLoading] = useState(true)
-
-  useEffect(() => {
-    getFinancial()
-  }, [])
-
-  useEffect(() => {
-    if (data != null && data != undefined) {
-      console.log("data");
-      console.log(data);
-      setIsLoading(false)
-      console.log(params.userData);
-    }
-
-  }, [data])
-
 
   async function getFinancial() {
     setIsLoading(true)
@@ -113,6 +98,26 @@ export default function FinancialScreen({ navigation }) {
       })
   }
 
+  useEffect(() => {
+   
+      getFinancial()
+    
+   
+  }, [])
+
+  useEffect(() => {
+    if (data != null && data != undefined) {
+      console.log("data");
+      console.log(data);
+      setIsLoading(false)
+      console.log(params.userData);
+    }
+
+  }, [data])
+
+
+  
+
   return (
     <>
       {isLoading == true ? <ActivityIndicator color={AppColors.black} size={60} /> :
@@ -124,7 +129,7 @@ export default function FinancialScreen({ navigation }) {
               backgroundColor={AppColors.background}
             >
               <TitleBlack size={20}>SALDO ATUAL</TitleBlack>
-              <TitleBlack size={32}>R$ {params.userData.Balance}</TitleBlack>
+              <TitleBlack size={32}>R$ {route.params.userData.balance}</TitleBlack>
 
               <Row width={"100%"} justifyContent={Flex.center}>
                 <View>
@@ -227,11 +232,13 @@ export default function FinancialScreen({ navigation }) {
 
                 <TitleBlack textAlign={"start"} size={20}>
                   QUANTO POSSO GASTAR?
+                
                 </TitleBlack>
+                
 
                 <Row width={"100%"} justifyContent={"space-between"}>
                   <SpentBox
-                    Limit={data ? 0 : data[0].totalAmount - data[0].amountSpent
+                    Limit={data ?  0 : data[0].totalAmount - data[0].amountSpent
                     }
                     width={165}
                     leftText={"10%"}

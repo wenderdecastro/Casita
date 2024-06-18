@@ -14,7 +14,7 @@ import SpentBox from './widgets/SpentBox';
 import styled from 'styled-components';
 import SpentBoxHistory from './widgets/SpentBoxHistory';
 import SpentMonth from './widgets/SpentMonth';
-import api, { TransactionPath } from '../../../services/ApiService';
+import api, { GetFinancial, TransactionPath } from '../../../services/ApiService';
 import { useRoute } from '@react-navigation/native';
 
 const ViewBox = styled.View`
@@ -42,7 +42,6 @@ export const BoxWhite = styled.SafeAreaView`
 	width: 100%;
 	border: 1px solid black;
 `;
-
 
 
 
@@ -113,26 +112,72 @@ const DATA = [
 export default function HistoryScreen({ navigation }) {
 
 	const [selected, setSelected] = useState(0);
+	const [dataM, setDataM] = useState([])
+	const [isLoading, setIsLoading] = useState(true)
 	const {params} = useRoute()
 
-	async function getHistory(){
+	async function getFinancial() {
+		setIsLoading(true)
+	const resApi	= await api.get(GetFinancial, {
+			params: {
+			  idUser: params.userData.id
+			}
+		  })
+
+		  setDataM(resApi.data)
+		// await api.get(GetFinancial, {
+		//   params: {
+		// 	idUser: params.userData.id
+		//   }
+		// })
+		//   .then(response => {
+		// 	console.log(response.data);
+		// 	setData(response.data)
+	
+		// 	console.log("UBFVER8UUUUUUUI",data);
+		//   })
+		//   .catch(error => {
+		// 	console.log(error)
+		//   })
+	  }
+	// async function getHistory(){
 
 
-		await api.get(TransactionPath,  { idUser: params.id}
-		)
-			.then((response) => { 
-				console.log(response)
-			})
-			.catch(error => {
-				console.log(error.request)
-			})
-	}
+	// 	await api.get(TransactionPath,  { idUser: params.id}
+	// 	)
+	// 		.then((response) => { 
+	// 			console.log(response)
+	// 		})
+	// 		.catch(error => {
+	// 			console.log(error.request)
+	// 		})
+	// }
+	
+	useEffect(() => {
+   
+	 getFinancial()
+
+	  
+	 
+	}, [])
+  
+	// useEffect(() => {
+	//   if (data != null && data != undefined) {
+	// 	console.log("data");
+	// 	console.log(data);
+	// 	setIsLoading(false)
+	// 	console.log(params.userData);
+	//   }
+  
+	// }, [data])
+  
+	// useEffect(() => {
+	// 	getHistory()
+	// }, []);
+  
 	
 
 
-	useEffect(() => {
-		getHistory()
-	}, []);
 	return (
 		<>
 			<AppContainer
@@ -183,18 +228,23 @@ export default function HistoryScreen({ navigation }) {
 				<Gap height={12} />
 
 				<ViewBox>
+					
 					<SpentBoxHistory
 						height={131}
 						shadow={true}
 						bottom={-3}
 						left={3}
+						limit={dataM != undefined ? 0 : dataM[0].totalAmount}
+						spent={dataM ? 0 : dataM[0].amountSpent}
 					/>
+					{console.log(dataM)}
 				</ViewBox>
 				<Gap height={21} />
 				<BodyMedium
 					textAlign={'center'}
 					color={AppColors.black}
 				>
+					{console.log("SSSSSSSSSSSSSSSSSSSSSSSSSSSS", dataM)}
 					Você já gastou 90% da sua cota de
 					Contas, tome cuidado com os próximos
 					gastos!
@@ -206,7 +256,7 @@ export default function HistoryScreen({ navigation }) {
 				flex={1.5}
 			>
 				<List
-					data={DATA}
+					data={dataM}
 					keyExtractor={(item) => item.id}
 					renderItem={({ item }) => (
 						<SpentMonth
